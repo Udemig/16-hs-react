@@ -3,6 +3,9 @@ import Lamp from "./components/Lamp";
 import BuyList from "./components/BuyList";
 import FunctionComponent from "./diffrence/FunctionComponent";
 import ClassComponent from "./diffrence/ClassComponent";
+import UserList from "./components/UserList";
+import RecipePicker from "./components/RecipePicker";
+import Countdown from "./components/Countdown";
 import { useState } from "react";
 
 // src içerisindeki fotoyu import ederiz
@@ -15,7 +18,7 @@ function App() {
     <div>
       <button onClick={() => setIsVisible(!isVisible)}>Gizle / Göster</button>
 
-      {isVisible && <FunctionComponent title="Fonksiyon Bileşen" />}
+      {isVisible && <Countdown />}
       <hr />
 
       {/* <ClassComponent title="Sınıf Bileşeni" /> */}
