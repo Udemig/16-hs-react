@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const Form = () => {
-  // 3) bütün form verilerini tutuan state
+  // 3) bütün form verilerini tutuan state "controlled component"
   const [formState, setFormState] = useState({
     email: "",
     password: "",
@@ -21,15 +21,15 @@ const Form = () => {
     e.preventDefault();
 
     // formdaki verilere eriş
-    // 1.yol)
+    // 1.yol) "uncontrolled"
     console.log(e.target[0].value);
     console.log(e.target[1].value);
 
-    // 2.yol)
+    // 2.yol) "uncontrolled"
     const formData = new FormData(e.target);
     console.log(Object.fromEntries(formData.entries()));
 
-    // 3.yol)
+    // 3.yol) "controlled"
     console.log(formState);
   };
 

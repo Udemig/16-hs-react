@@ -1,0 +1,92 @@
+{
+  "todos": [
+    {
+      "title": "50 dakika yürüyüş yap",
+      "id": 2
+    },
+    {
+      "id": 3,
+      "title": "Kitap oku",
+      "category": "kişisel gelişim",
+      "date": 1736035200000
+    },
+    {
+      "id": 4,
+      "title": "Yeni bir konu araştır",
+      "category": "kişisel gelişim",
+      "date": 1736121600000
+    },
+    {
+      "id": 5,
+      "title": "Aylık bütçeyi kontrol et",
+      "category": "finans",
+      "date": 1736208000000
+    },
+    {
+      "id": 6,
+      "title": "Gereksiz harcamaları listele",
+      "category": "finans",
+      "date": 1736294400000
+    },
+    {
+      "id": 7,
+      "title": "Arkadaşlarınla buluş",
+      "category": "sosyal",
+      "date": 1736380800000
+    },
+    {
+      "id": 8,
+      "title": "Aileni ara",
+      "category": "sosyal",
+      "date": 1736467200000
+    },
+    {
+      "id": 9,
+      "title": "Haftalık iş planını hazırla",
+      "category": "iş",
+      "date": 1736553600000
+    },
+    {
+      "id": 10,
+      "title": "Toplantı notlarını düzenle",
+      "category": "iş",
+      "date": 1736640000000
+    },
+    {
+      "id": 11,
+      "title": "Esneme hareketleri yap",
+      "category": "spor",
+      "date": 1736726400000
+    },
+    {
+      "id": 12,
+      "title": "Meditasyon yap",
+      "category": "kişisel gelişim",
+      "date": 1736812800000
+    },
+    {
+      "id": 13,
+      "title": "Birikim hedefini güncelle",
+      "category": "finans",
+      "date": 1736899200000
+    },
+    {
+      "id": 14,
+      "title": "Eski bir arkadaşına mesaj at",
+      "category": "sosyal",
+      "date": 1736985600000
+    },
+    {
+      "id": 15,
+      "title": "Öncelikli işleri tamamla",
+      "category": "iş",
+      "date": 1737072000000
+    },
+    {
+      "title": "Bugün api çalış",
+      "category": "kişisel gelişim",
+      "date": 1736035200000,
+      "id": 16
+    }
+  ]
+}
