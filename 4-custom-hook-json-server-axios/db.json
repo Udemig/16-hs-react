@@ -1,10 +1,6 @@
 {
   "todos": [
     {
-      "title": "50 dakika yürüyüş yap",
-      "id": 2
-    },
-    {
       "id": 3,
       "title": "Kitap oku",
       "category": "kişisel gelişim",
@@ -87,6 +83,18 @@
       "category": "kişisel gelişim",
       "date": 1736035200000,
       "id": 16
+    },
+    {
+      "title": "yeni",
+      "category": "finans",
+      "date": 1782592797861,
+      "id": 17
+    },
+    {
+      "title": "eski",
+      "category": "finans",
+      "date": 1782592852940,
+      "id": 18
     }
   ]
 }

@@ -1,28 +1,54 @@
-import UserListOne from "./components/UserListOne";
-import UserListTwo from "./components/UserListTwo";
-import Button from "./components/Button";
+import { use, useEffect, useState } from "react";
+import TodoForm from "./todo-components/TodoForm";
+import ListItem from "./todo-components/ListItem";
+import api from "./api";
 
 const App = () => {
+  // api yanıtının state'i
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [todos, setTodos] = useState(null);
+
+  // bileşen ekrana basılınca api'dan todo verilerini al
+  useEffect(() => {
+    // api parametrelerini tanımla
+    const params = { _sort: "date", _order: "desc" };
+
+    api
+      .get("/todos", { params })
+      .then((res) => setTodos(res.data))
+      .catch((err) => setError(err.message))
+      .finally(() => setIsLoading(false));
+  }, []);
+
+  // yeniTodo'yu state'e ekleyen fonksiyon
+  const addTodo = (newTodo) => {
+    setTodos([newTodo, ...todos]);
+  };
+
+  // id'si bilinen todo'yu state'den kaldıran fonksiyon
+  const deleteTodo = (deleteId) => {
+    setTodos(todos.filter((todo) => todo.id !== deleteId));
+  };
+
   return (
-    <div>
-      <h1>Custom Hooks</h1>
-      <p>
-        Şimdiye kadar useState,useEffect gibi hazır hooklar kullandık. Ama bir uygulamada aynı mantığı birden fazla yerde kullanıyorsak o mantığı
-        kendi oluşturduğumuz ayrı bir hook içerisine taşıyabiliriz. <br />
-        <br />
-        Örneğin, bir projede kullanıcıları çekiyoruz, ürünleri çekiyoruz, kategorileri çekiyoruz bu durumda her componentta aynı useState ve useEffect
-        kodlarını yazmak zorundayız ama custom hook ile kod tekrarını önleyebiliriz
-      </p>
+    <div className="container">
+      <header>
+        <h1>TODO APP</h1>
+        <p>Pratik için basit CRUD uygulaması</p>
+      </header>
 
-      <Button yazi="Kayıt Ol" renk="red" />
+      <TodoForm addTodo={addTodo} />
 
-      <Button yazi="Gönder" renk="yellow" />
-
-      <Button yazi="Kullanıcıyı Sil" renk="orange" />
-
-      <UserListOne />
-
-      <UserListTwo />
+      <div className="list">
+        {isLoading ? (
+          <h1>Yükleniyor..</h1>
+        ) : error ? (
+          <h1>Hata!</h1>
+        ) : (
+          todos.map((todo) => <ListItem key={todo.id} todo={todo} deleteTodo={deleteTodo} />)
+        )}
+      </div>
     </div>
   );
 };
