@@ -1,0 +1,125 @@
+{
+  "books": [
+    {
+      "id": "1",
+      "title": "Kayıp Zamanın İzinde",
+      "author": "Ahmet Turgut",
+      "image": "https://picsum.photos/seed/1/900",
+      "year": 2018,
+      "page": 432,
+      "description": "Bir adamın geçmişe yolculuğu ve hatıralarını yeniden keşfetme çabası.",
+      "price": 245.2,
+      "category": "roman"
+    },
+    {
+      "id": "2",
+      "title": "Sessiz Şehir",
+      "author": "Elif Karaca",
+      "image": "https://picsum.photos/seed/2/900",
+      "year": 2020,
+      "page": 310,
+      "description": "Issız bir şehirde geçen gizemli olayların hikayesi.",
+      "price": 180.5,
+      "category": "roman"
+    },
+    {
+      "id": "3",
+      "title": "Gölgelerin Ardında",
+      "author": "Murat Yıldız",
+      "image": "https://picsum.photos/seed/3/900",
+      "year": 2019,
+      "page": 280,
+      "description": "Geçmişin karanlık sırlarıyla yüzleşen bir adamın öyküsü.",
+      "price": 150.0,
+      "category": "gerilim"
+    },
+    {
+      "id": "4",
+      "title": "Bir Yaz Gecesi",
+      "author": "Ayşe Demir",
+      "image": "https://picsum.photos/seed/4/900",
+      "year": 2021,
+      "page": 350,
+      "description": "Yaz gecesinde başlayan bir aşk hikayesi.",
+      "price": 210.75,
+      "category": "romantik"
+    },
+    {
+      "id": "5",
+      "title": "Kırık Saat",
+      "author": "Emre Kaya",
+      "image": "https://picsum.photos/seed/5/900",
+      "year": 2017,
+      "page": 295,
+      "description": "Zamanın durduğu bir anda hayatın değişimini anlatır.",
+      "price": 130.4,
+      "category": "dram"
+    },
+    {
+      "id": "6",
+      "title": "Yitik Rüyalar",
+      "author": "Zeynep Arslan",
+      "image": "https://picsum.photos/seed/6/900",
+      "year": 2022,
+      "page": 410,
+      "description": "Kaybolmuş hayallerin peşinden giden bir kadının hikayesi.",
+      "price": 260.0,
+      "category": "roman"
+    },
+    {
+      "id": "7",
+      "title": "Derin Sular",
+      "author": "Can Aydın",
+      "image": "https://picsum.photos/seed/7/900",
+      "year": 2016,
+      "page": 360,
+      "description": "Deniz altındaki gizemli keşifler ve sırlar.",
+      "price": 175.3,
+      "category": "macera"
+    },
+    {
+      "id": "8",
+      "title": "Son Işık",
+      "author": "Burak Şahin",
+      "image": "https://picsum.photos/seed/8/900",
+      "year": 2023,
+      "page": 390,
+      "description": "Dünyanın sonuna yaklaşırken verilen hayatta kalma mücadelesi.",
+      "price": 300.0,
+      "category": "bilim kurgu"
+    },
+    {
+      "id": "9",
+      "title": "Gizli Bahçe",
+      "author": "Selin Öz",
+      "image": "https://picsum.photos/seed/9/900",
+      "year": 2015,
+      "page": 270,
+      "description": "Eski bir bahçede keşfedilen sırların hikayesi.",
+      "price": 120.9,
+      "category": "roman"
+    },
+    {
+      "id": "10",
+      "title": "Karanlık Yol",
+      "author": "Onur Çelik",
+      "image": "https://picsum.photos/seed/10/900",
+      "year": 2021,
+      "page": 330,
+      "description": "Zorlu bir yolculukta karşılaşılan tehlikeler ve seçimler.",
+      "price": 195.6,
+      "category": "gerilim"
+    },
+    {
+      "id": "11",
+      "title": "Yıldızların Altında",
+      "author": "Derya Koç",
+      "image": "https://picsum.photos/seed/11/900",
+      "year": 2024,
+      "page": 420,
+      "description": "Yıldızların altında geçen umut dolu bir yaşam öyküsü.",
+      "price": 275.0,
+      "category": "romantik"
+    }
+  ]
+}
