@@ -43,3 +43,31 @@
 - Api' isteğinden gelen nesnedeki bir alan direkt erişiceksek api'dan yanıt gelene kadar beklememiz gerekir.
 - Beklemeden erişiyorsak (data.title) bu yöntem direk title'a eriş anlamına gelir ve hata verir
 - Optional chainin kullanırsak (data?.title) bu yöntem data varsa title'a eriş anlamına gelir ve hatadan kaçınmamızı sağlar
+
+- **Nested Routes**
+- İç içe yollar
+- Birden fazla sayfanın ortak olarak kullanıcağı arayüz elementleri tanımlamak için veya birden fazla sayfanın ortak yetkilendirme süreçlerini yönetmek için kullanırır
+
+- **NotFound Route**
+- 404 sayfası
+- diğer route'ların en sonuna tanımlanır ve path değeri \* olur
+
+- **useNavigate**
+- link elementinin fonksiyon versiyonudu yönlendirme yapmak için kullanılır
+
+- **useSearchParams**
+- url'deki (?) den sonra gelen arama parametreline erişmek ev yönetmek için kullanılır
+- ?key=value
+
+- **useParams**
+- route tanımlarken `:parametre` formatında tanımlanan parametrelere erişmek için kullanılır
+
+- **Outlet**
+- Kapsayıcı route içerisinde child route'un bileşeninin yerleşeceği konumu belirler
+
+- **createBrowserRouter**
+- Sayfaları <BrowserRouter> yöntemine göre daha okunakli bir veri formatında tanımlamamızı sağlar.
+
+- **useLocation**
+- kullanıcın bulunduğu url ile alakalı bilgileri getirir
+- farklı bir sayfadan yönlendirme anın `state` ile veri aktarılıysa bu veriye useLocation ile erişiriz
