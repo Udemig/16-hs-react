@@ -43,3 +43,5 @@
 - Api' isteğinden gelen nesnedeki bir alan direkt erişiceksek api'dan yanıt gelene kadar beklememiz gerekir.
 - Beklemeden erişiyorsak (data.title) bu yöntem direk title'a eriş anlamına gelir ve hata verir
 - Optional chainin kullanırsak (data?.title) bu yöntem data varsa title'a eriş anlamına gelir ve hatadan kaçınmamızı sağlar
+
+Yeni Bişey
