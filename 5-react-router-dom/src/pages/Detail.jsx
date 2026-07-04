@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import api from "../api";
 
 const Detail = () => {
+  // useNavigate kurulum
+  const navigate = useNavigate();
+
   // url'deki id parametresine eriş
   const { id } = useParams();
   const [book, setBook] = useState(null);
@@ -16,6 +19,7 @@ const Detail = () => {
     api
       .get(`/books/${id}`)
       .then((res) => setBook(res.data))
+      .catch((err) => navigate("/404", { state: err.message }))
       .finally(() => setIsLoading(false));
   }, []);
 

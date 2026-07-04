@@ -9,7 +9,8 @@ const Header = () => {
         <nav className="d-flex gap-4">
           <NavLink to="/">Anasayfa</NavLink>
           <NavLink to="/ürünler">Ürünler</NavLink>
-          <NavLink to="/hakkımızda">Hakkımızda</NavLink>
+          <NavLink to="/kategori/hikaye">Hikaye</NavLink>
+          <NavLink to="/kategori/roman">Roman</NavLink>
         </nav>
       </div>
     </header>
