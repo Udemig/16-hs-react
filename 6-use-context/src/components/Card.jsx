@@ -3,7 +3,10 @@ import { BasketContext } from "../context/basket-context";
 
 const Card = ({ product }) => {
   // BasketContext yapısındaki sepeteEkle fonksiyonuna eriş
-  const { addToBasket } = useContext(BasketContext);
+  const { addToBasket, basket } = useContext(BasketContext);
+
+  // ekrana basılan ürün sepet dizisinde varsa bul
+  const found = basket.find((i) => i.id === product.id);
 
   return (
     <div className="card py-2">
@@ -30,7 +33,7 @@ const Card = ({ product }) => {
         </div>
 
         <button className="rounded btn btn-dark" onClick={() => addToBasket(product)}>
-          Sepete Ekle
+          Sepete Ekle {found && `(${found.amount})`}
         </button>
       </div>
     </div>

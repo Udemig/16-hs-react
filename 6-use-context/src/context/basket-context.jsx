@@ -24,9 +24,23 @@ export const BasketProvider = ({ children }) => {
     }
   };
 
-  const removeFromBasket = () => {};
+  const removeFromBasket = (deleteId) => {
+    // ürünü sepet dizisinde bul
+    const found = basket.find((i) => i.id === deleteId);
 
-  const clearBasket = () => {};
+    if (found.amount > 1) {
+      // ürünün miktarı 1'den büyükse: miktarını azalt
+      const updated = { ...found, amount: found.amount - 1 };
+      setBasket(basket.map((i) => (i.id === updated.id ? updated : i)));
+    } else {
+      // ürün miktarı 1 ise: ürünü kaldır
+      setBasket(basket.filter((i) => i.id !== deleteId));
+    }
+  };
+
+  const clearBasket = () => {
+    setBasket([]);
+  };
 
   return (
     <BasketContext.Provider value={{ basket, addToBasket, removeFromBasket, clearBasket }}>

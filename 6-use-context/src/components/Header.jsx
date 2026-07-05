@@ -7,8 +7,8 @@ const Header = () => {
   const { products } = useContext(ProductContext);
   const { basket } = useContext(BasketContext);
 
-  // todo: amount toplamlarını hesapla - reduce
-  console.log(basket);
+  // amount toplamlarını hesapla
+  const total = basket.reduce((total, item) => total + item.amount, 0);
 
   return (
     <nav className="navbar navbar-expand-md bg-dark navbar-dark ">
@@ -34,7 +34,7 @@ const Header = () => {
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/sepet">
-                Sepet ({basket?.length})
+                Sepet ({total})
               </NavLink>
             </li>
           </ul>
