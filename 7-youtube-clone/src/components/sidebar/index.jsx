@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { collapsedSidebarItems, expandedSidebarItems } from "../../utils/constants";
 
 const Sidebar = ({ isSidebarOpen }) => {
   // küçük sidebar
   if (!isSidebarOpen) {
     return (
-      <aside className="w-20">
+      <aside className="w-20 max-sm:hidden">
         <div className="py-3">
           {collapsedSidebarItems.map((item, key) => (
             <Link
@@ -25,7 +25,7 @@ const Sidebar = ({ isSidebarOpen }) => {
   // büyük sidebar
   return (
     <>
-      <div className="w-20" />
+      <div className="w-20 max-sm:hidden" />
 
       <aside className="w-60 fixed z-20 bg-black overflow-y-auto h-[calc(100vh-56px)] shadow-xl slide-in">
         <div className="py-3">
@@ -35,10 +35,13 @@ const Sidebar = ({ isSidebarOpen }) => {
 
               <div>
                 {category.items.map((item, key) => (
-                  <Link to={item.path} className="flex gap-4 items-center p-2 rounded-lg">
+                  <NavLink
+                    to={item.path}
+                    className="flex gap-4 items-center p-2 rounded-lg hover:bg-[#363636]"
+                  >
                     <span className="text-xl">{item.icon}</span>
                     <span className="whitespace-nowrap">{item.name}</span>
-                  </Link>
+                  </NavLink>
                 ))}
               </div>
             </div>

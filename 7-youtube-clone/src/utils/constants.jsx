@@ -28,17 +28,17 @@ export const expandedSidebarItems = [
     title: null,
     items: [
       { icon: <AiFillHome />, name: "Ana Sayfa", path: "/" },
-      { icon: <BsLightningCharge />, name: "Shorts", path: "/" },
-      { icon: <BiSolidVideos />, name: "Abonelikler", path: "/" },
+      { icon: <BsLightningCharge />, name: "Shorts", path: "/shorts" },
+      { icon: <BiSolidVideos />, name: "Abonelikler", path: "/subscribes" },
     ],
   },
   {
     title: "Siz",
     items: [
-      { icon: <MdHistory />, name: "Geçmiş", path: "/" },
-      { icon: <RiPlayListLine />, name: "Oynatma Listeleri", path: "/" },
-      { icon: <MdWatchLater />, name: "Daha sonra izle", path: "/" },
-      { icon: <FaThumbsUp />, name: "Beğendiğim videolar", path: "/" },
+      { icon: <MdHistory />, name: "Geçmiş", path: "/history" },
+      { icon: <RiPlayListLine />, name: "Oynatma Listeleri", path: "/play-list" },
+      { icon: <MdWatchLater />, name: "Daha sonra izle", path: "/watch-later" },
+      { icon: <FaThumbsUp />, name: "Beğendiğim videolar", path: "/likes" },
     ],
   },
   {
@@ -54,18 +54,22 @@ export const expandedSidebarItems = [
   {
     title: "YouTube'dan daha fazla",
     items: [
-      { icon: <BiSolidVideos className="text-red-500" />, name: "YouTube Premium", path: "/" },
-      { icon: <FaMusic className="text-red-500" />, name: "YouTube Music", path: "/" },
-      { icon: <BiSolidVideos className="text-red-500" />, name: "YouTube Kids", path: "/" },
+      {
+        icon: <BiSolidVideos className="text-red-500" />,
+        name: "YouTube Premium",
+        path: "/premium",
+      },
+      { icon: <FaMusic className="text-red-500" />, name: "YouTube Music", path: "/music" },
+      { icon: <BiSolidVideos className="text-red-500" />, name: "YouTube Kids", path: "/kids" },
     ],
   },
   {
     title: null,
     items: [
-      { icon: <MdOutlineSettings />, name: "Ayarlar", path: "/" },
-      { icon: <MdOutlineFlag />, name: "İçerik bildirme geç...", path: "/" },
-      { icon: <MdHelpOutline />, name: "Yardım", path: "/" },
-      { icon: <MdOutlineFeedback />, name: "Geri bildirim gönder", path: "/" },
+      { icon: <MdOutlineSettings />, name: "Ayarlar", path: "/settings" },
+      { icon: <MdOutlineFlag />, name: "İçerik bildirme geç...", path: "/content" },
+      { icon: <MdHelpOutline />, name: "Yardım", path: "/help" },
+      { icon: <MdOutlineFeedback />, name: "Geri bildirim gönder", path: "/feedback" },
     ],
   },
 ];
