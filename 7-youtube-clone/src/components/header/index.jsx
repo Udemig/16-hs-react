@@ -1,10 +1,23 @@
 import { MdMenu, MdMic, MdApps, MdOutlineAccountCircle } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosVideocam } from "react-icons/io";
 import { FaBell } from "react-icons/fa";
 
 const Header = ({ toggleSidebar }) => {
+  const navigate = useNavigate();
+
+  // form gönderilince kullanıcıyı arama sayfasına yönlendir
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // inputun içine yazılan yazıya eriş
+    const text = e.target[0].value;
+
+    // results sayfasına yönlendir
+    navigate(`/results?search_query=${text}`);
+  };
+
   return (
     <div className="flex justify-between gap-6 md:gap-8 px-4 h-14">
       {/* Sol */}
@@ -21,19 +34,25 @@ const Header = ({ toggleSidebar }) => {
 
       {/* Orta */}
       <div className="flex-1 max-w-182 flex-center">
-        <form className="flex w-full max-w-160 items-center">
+        <form onSubmit={handleSubmit} className="flex w-full max-w-160 items-center">
           <div className="flex flex-1">
             <input
               type="text"
               placeholder="Ara"
               className="w-full bg-[#121212] border border-gray h-10 px-4 text-white focus:border-blue-500 outline-none rounded-l-full"
             />
-            <button className="w-16 h-10 bg-[#222222] border border-gray rounded-r-full flex-center hover:bg-gray">
+            <button
+              type="submit"
+              className="w-16 h-10 bg-[#222222] border border-gray rounded-r-full flex-center hover:bg-gray"
+            >
               <CiSearch className="text-xl" />
             </button>
           </div>
 
-          <button className="ml-2 p-2 bg-[#181818] hover:bg-gray rounded-full max-sm:hidden">
+          <button
+            type="button"
+            className="ml-2 p-2 bg-[#181818] hover:bg-gray rounded-full max-sm:hidden"
+          >
             <MdMic />
           </button>
         </form>

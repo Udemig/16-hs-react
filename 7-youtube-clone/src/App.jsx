@@ -6,6 +6,7 @@ import Category from "./pages/Category";
 import Search from "./pages/Search";
 import Sidebar from "./components/sidebar";
 import { useState } from "react";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const [isSidebarOpen, setIsSiderbarOpen] = useState(false);
@@ -25,6 +26,7 @@ function App() {
               <Route path="/category/:category_name" element={<Category />} />
               <Route path="/watch" element={<Detail />} />
               <Route path="/results" element={<Search />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
         </div>

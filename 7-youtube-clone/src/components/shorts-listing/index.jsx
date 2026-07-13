@@ -11,7 +11,7 @@ const ShortsListing = ({ data }) => {
 
       <div className="flex gap-4 pb-4 overflow-x-auto">
         {data.map((short, key) => (
-          <Link to={`/watch?v=${short.videoId}`} className="group">
+          <Link key={key} to={`/watch?v=${short.videoId}`} className="group">
             <div className="w-48 h-80 relative rounded-lg overflow-hidden">
               <img
                 src={short.thumbnail[0].url}
