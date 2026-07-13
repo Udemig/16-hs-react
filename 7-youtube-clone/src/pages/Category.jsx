@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../utils/api";
-import CategoryLoader from "../components/loader/category-loader";
+import CategoryLoader from "../components/loader/CategoryLoader";
 import Error from "../components/error";
 import ShortsListing from "../components/shorts-listing";
 import Card from "../components/card";

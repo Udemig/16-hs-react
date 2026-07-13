@@ -5,7 +5,7 @@ const Sidebar = ({ isSidebarOpen }) => {
   // küçük sidebar
   if (!isSidebarOpen) {
     return (
-      <aside className="w-20 max-sm:hidden">
+      <aside className="w-20 max-md:hidden">
         <div className="py-3">
           {collapsedSidebarItems.map((item, key) => (
             <Link
@@ -25,7 +25,7 @@ const Sidebar = ({ isSidebarOpen }) => {
   // büyük sidebar
   return (
     <>
-      <div className="w-20 max-sm:hidden" />
+      <div className="w-20 max-md:hidden" />
 
       <aside className="w-60 fixed z-20 bg-black overflow-y-auto h-[calc(100vh-56px)] shadow-xl slide-in">
         <div className="py-3">

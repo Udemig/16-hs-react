@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import formatNumber from "../../utils/formatNumber";
+import { Link } from "react-router-dom";
 
 const Card = ({ video }) => {
   console.log(video);
@@ -36,7 +36,7 @@ const Card = ({ video }) => {
       {/* Video Bilgileri */}
       <div className="flex gap-3">
         <img
-          src={video.channelThumbnail?.[0]?.url}
+          src={video.channelThumbnail?.[0]?.url || "/avatar.jpg"}
           alt={video.channelTitle}
           className="size-14 rounded-full"
         />

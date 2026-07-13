@@ -49,6 +49,10 @@
   .page {
     @apply py-6 px-4;
   }
+
+  .comment-btn {
+    @apply px-2 py-1 rounded hover:bg-zinc-800 transition duration-300;
+  }
 }
 
 /* Yardımcı sınıflar */
