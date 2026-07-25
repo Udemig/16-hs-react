@@ -15,8 +15,6 @@ const Detail = () => {
   // coin detaylarını api'dan al
   const { isLoading, isRefreshing, error, coin, refetch, refreshData } = useCoinDetail(id);
 
-  console.log(coin);
-
   if (isLoading) return <Loader />;
 
   if (error) return <Error message={error} refetch={refetch} />;
@@ -27,7 +25,7 @@ const Detail = () => {
 
       <CoinPrice coin={coin} />
 
-      <CoinChart />
+      <CoinChart id={coin.id} />
 
       <CoinStats coin={coin} />
 
