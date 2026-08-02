@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Sriracha&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  --font-sr: "Sriracha", cursive;
+}
+
+@layer base {
+  body {
+    @apply bg-[#fff83] text-slate-800 min-h-screen;
+  }
+
+  button {
+    @apply cursor-pointer hover:opacity-90 transition duration-300;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-360 mx-auto p-5 lg:px-8;
+  }
+
+  .box {
+    @apply bg-white/90 border border-white/80 shadow-[0_20px_60px_rgba(248,113,113,0.15)] rounded-2xl backdrop-blur;
+  }
+
+  .muted {
+    @apply text-sm text-zinc-500;
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-1 text-sm font-semibold tracking-wide bg-red-50 text-red-500 px-3 py-1 rounded-full shadow-inner;
+  }
+}

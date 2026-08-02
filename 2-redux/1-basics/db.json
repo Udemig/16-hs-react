@@ -1,0 +1,29 @@
+{
+  "todos": [
+    {
+      "id": "1785606655670",
+      "text": "Market alışverişi yap",
+      "isDone": true,
+      "createdAt": 1785606655670
+    },
+    {
+      "id": "1785606658688",
+      "text": "Spor yap",
+      "isDone": false,
+      "createdAt": 1785606658688
+    },
+    {
+      "id": "1785606664265",
+      "text": "Kitap oku",
+      "isDone": true,
+      "createdAt": 1785606664265
+    },
+    {
+      "id": "2FDfTwRl0RU",
+      "text": "Dizi izle",
+      "isDone": true,
+      "createdAt": 1785609607142
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

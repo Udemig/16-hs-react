@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import { deleteTodo, toggleTodo } from "../redux/actions/todo-actions";
 
 const Card = ({ todo }) => {
   const dispatch = useDispatch();
@@ -14,12 +15,13 @@ const Card = ({ todo }) => {
       </div>
 
       <div className="flex gap-4 mt-4">
-        {/* TODO: */}
-        <button className="btn bg-yellow-500">Tamamla</button>
         <button
-          className="btn bg-red-500"
-          onClick={() => dispatch({ type: "DELETE", payload: todo.id })}
+          className="btn bg-yellow-500"
+          onClick={() => dispatch(toggleTodo({ id: todo.id, isDone: !todo.isDone }))}
         >
+          {todo.isDone ? "Geri Al" : "Tamamla"}
+        </button>
+        <button className="btn bg-red-500" onClick={() => dispatch(deleteTodo(todo.id))}>
           Sil
         </button>
       </div>
