@@ -2,6 +2,12 @@
 
 @import "tailwindcss";
 
+/* 
+ * Yapılan api isteklerinde db.json dosyası güncelleniyor ve hemen ardından tailwind db.json dosyasının içerisinde bunu bir bileşen zannedip tailwind sınıflarını arıyor ve bu dosya bir bileşen olmadığı için hata verip sayfanın yenilenmesini sebep oluyor.
+ * Bu durumunun önüne geçmek için tailwind'in db.json dosyasını incelemesini engelle
+*/
+@source not "../db.json";
+
 @theme {
   --font-sr: "Sriracha", cursive;
 }
@@ -31,5 +37,9 @@
 
   .pill {
     @apply inline-flex items-center gap-1 text-sm font-semibold tracking-wide bg-red-50 text-red-500 px-3 py-1 rounded-full shadow-inner;
+  }
+
+  .card-button {
+    @apply p-2 text-red-500 transition hover:text-red-700 disabled:cursor-not-allowed disabled:opacity-40;
   }
 }

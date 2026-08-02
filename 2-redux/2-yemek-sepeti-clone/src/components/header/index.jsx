@@ -1,7 +1,13 @@
 import { ShoppingBasket, UtensilsCrossed } from "lucide-react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Header = () => {
+  const { restaurants } = useSelector((store) => store.restaurant);
+  const { cart } = useSelector((store) => store.cart);
+
+  const totalAmount = cart.reduce((total, item) => total + item.amount, 0);
+
   return (
     <header className="sticky top-0 z-20 pb-3 pt-4 backdrop-blur">
       <div className="container">
@@ -15,7 +21,8 @@ const Header = () => {
 
           <div className="flex flex-wrap items-center gap-4 text-sm">
             <button className="pill">
-              Yakınınızda 10 <UtensilsCrossed /> <span className="max-sm:hidden">restoran</span>
+              Yakınınızda {restaurants.length} <UtensilsCrossed />{" "}
+              <span className="max-sm:hidden">restoran</span>
             </button>
 
             <Link
@@ -23,7 +30,7 @@ const Header = () => {
               className="flex items-center gap-2 rounded-full bg-red-500/90 px-4 py-2 text-white shadow-lg transition hover:bg-red-600"
             >
               <ShoppingBasket />
-              <span className="font-semibold">4</span>
+              <span className="font-semibold">{totalAmount}</span>
             </Link>
           </div>
         </div>

@@ -451,7 +451,7 @@
       "price": 16.99,
       "photo": "https://i.nefisyemektarifleri.com/2023/03/13/cok-lezzetli-korili-kremali-tavuk-tarifi-baska-tarif-aramayin-videolu-6.jpg",
       "restaurantId": "1",
-      "amount": 6
+      "amount": 4
     },
     {
       "id": "1",
@@ -459,7 +459,7 @@
       "price": 45.99,
       "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9ttdQRLrjvoQteH2-Wlzj4f87DUmTVuEJmQ&s",
       "restaurantId": "1",
-      "amount": 4
+      "amount": 2
     }
   ]
 }

@@ -7,12 +7,14 @@ import Footer from "./components/footer";
 import { useDispatch } from "react-redux";
 import { getRestaurants } from "./redux/actions/restaurantActions";
 import { useEffect } from "react";
+import { getCart } from "./redux/actions/cartActions";
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getRestaurants());
+    dispatch(getCart());
   }, []);
 
   return (
