@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+@layer base {
+  button {
+    @apply py-2 px-4 rounded-md bg-blue-500 text-white text-shadow-lg hover:shadow transition duration-300 cursor-pointer;
+  }
+
+  input {
+    @apply py-2 px-4 rounded-md border border-zinc-200 shadow;
+  }
+
+  th {
+    @apply px-5 py-3 font-medium;
+  }
+
+  tr {
+    @apply bg-white border-b border-zinc-200;
+  }
+
+  td {
+    @apply px-5 py-3;
+  }
+}

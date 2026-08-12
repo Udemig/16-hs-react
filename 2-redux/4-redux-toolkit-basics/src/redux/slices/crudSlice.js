@@ -1,17 +1,36 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { MOCK_TASKS } from "../../utils/constants";
 
 const crudSlice = createSlice({
   name: "crud",
-  initialState: { todos: [] },
+  initialState: { tasks: MOCK_TASKS },
   reducers: {
-    x: (state, action) => {},
+    createTask: (state, action) => {
+      // kaydedilecek task'e id ekle
+      action.payload.id = new Date().getTime();
 
-    y: (state, action) => {},
+      // task'i diziye ekle
+      state.tasks.push(action.payload);
+    },
 
-    z: (state, action) => {},
+    deleteTask: (state, action) => {
+      // silinecek elemanın dizideki sırasını bul
+      const index = state.tasks.findIndex((task) => task.id === action.payload);
+
+      // taski'i diziden kaldır
+      state.tasks.splice(index, 1);
+    },
+
+    updateTask: (state, action) => {
+      // güncellenicek elemanın dizideki sırasını bul
+      const index = state.tasks.findIndex((task) => task.id === action.payload.id);
+
+      // task'i dizide güncelle
+      state.tasks.splice(index, 1, action.payload);
+    },
   },
 });
 
-export const { x, y, z } = crudSlice.actions;
+export const { createTask, updateTask, deleteTask } = crudSlice.actions;
 
 export default crudSlice.reducer;
