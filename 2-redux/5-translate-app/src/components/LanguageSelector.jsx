@@ -3,7 +3,8 @@ import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ReactSelect from "react-select";
 import { SELECT_STYLES } from "../utils/constants";
-import { setSourceLang, setTargetLang } from "../redux/slices/translateSlice";
+import { setSourceLang, setTargetLang, swap } from "../redux/slices/translateSlice";
+import { translateText } from "../redux/actions";
 
 const LanguageSelector = () => {
   const { loading, error, languages } = useSelector((store) => store.languageReducer);
@@ -31,6 +32,7 @@ const LanguageSelector = () => {
     <div className="space-y-4">
       <div className="flex items-center gap-3 flex-col lg:flex-row">
         {/* Kaynak Dil */}
+
         <div className="flex-1 w-full">
           <label className="text-sm text-zinc-300 mb-2 block">Kaynak Dil</label>
 
@@ -42,14 +44,26 @@ const LanguageSelector = () => {
             value={sourceLang}
             className="text-black"
             onChange={(selected) => {
-              dispatch(setSourceLang(selected));
+              // eğer seçilen dil karşıdaki dilin aynısı ise
+              if (selected.value === targetLang.value) {
+                // dillerin yerinid değiştir
+                dispatch(swap());
+              } else {
+                dispatch(setSourceLang(selected));
+              }
+
+              dispatch(translateText());
             }}
           />
         </div>
 
         {/* Değiştirme Butonu */}
         <div className="grid place-items-center">
-          <button className="size-10 lg:size-12 bg-zinc-700 rounded-full grid place-items-center disabled:opacity-50">
+          <button
+            disabled={!sourceLang.value}
+            onClick={() => dispatch(swap())}
+            className="size-10 lg:size-12 bg-zinc-700 rounded-full grid place-items-center disabled:opacity-50"
+          >
             <ArrowLeftRight className="size-4 lg:size-5 max-lg:rotate-90" />
           </button>
         </div>
@@ -66,7 +80,12 @@ const LanguageSelector = () => {
             value={targetLang}
             className="text-black"
             onChange={(selected) => {
-              dispatch(setTargetLang(selected));
+              if (selected.value === sourceLang.value) {
+                dispatch(swap());
+              } else {
+                dispatch(setTargetLang(selected));
+              }
+              dispatch(translateText());
             }}
           />
         </div>

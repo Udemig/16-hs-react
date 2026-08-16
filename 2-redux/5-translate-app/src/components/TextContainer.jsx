@@ -1,12 +1,15 @@
 import { ArrowRight, Volume2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { setText } from "../redux/slices/translateSlice";
+import { clear, setText } from "../redux/slices/translateSlice";
 import { translateText } from "../redux/actions";
 import { useRef } from "react";
+import Loader from "./Loader";
 
 const TextContainer = () => {
   const dispatch = useDispatch();
-  const { textToTranslate, translatedText } = useSelector((store) => store.translateReducer);
+  const { textToTranslate, translatedText, sourceLang, targetLang, loading } = useSelector(
+    (store) => store.translateReducer,
+  );
   const debounceRef = useRef();
 
   // Debounce
@@ -22,6 +25,46 @@ const TextContainer = () => {
     }, 500);
   };
 
+  // temizle
+  const handleClear = () => {
+    dispatch(clear());
+  };
+
+  // kopyala
+  const handleCopy = () => {
+    window.navigator.clipboard.writeText(translatedText);
+  };
+
+  // kaynak metni seslendir;
+  const handleSpeakSource = () => {
+    window.speechSynthesis.cancel();
+
+    if (!sourceLang.value) return;
+
+    // SpeechSynthesisUtterance: seslendirilecek metni ve ayarlarını tutan bir nesne oluşturur
+    const utterance = new SpeechSynthesisUtterance(textToTranslate);
+
+    // utterance.lang: hangi dilde / aksanda seslendirileceğini belirle
+    utterance.lang = sourceLang.value;
+
+    // speak: oluşturulan utterance nesnesini seslendirmeyi başlatır
+    window.speechSynthesis.speak(utterance);
+  };
+
+  // çeviri sonucunu seslendir;
+  const handleSpeakTarget = () => {
+    window.speechSynthesis.cancel();
+
+    // SpeechSynthesisUtterance: seslendirilecek metni ve ayarlarını tutan bir nesne oluşturur
+    const utterance = new SpeechSynthesisUtterance(translatedText);
+
+    // utterance.lang: hangi dilde / aksanda seslendirileceğini belirle
+    utterance.lang = targetLang.value;
+
+    // speak: oluşturulan utterance nesnesini seslendirmeyi başlatır
+    window.speechSynthesis.speak(utterance);
+  };
+
   return (
     <div className="flex gap-4 mt-6 lg:gap-8 flex-col lg:flex-row">
       {/* Çevrilecek Metin */}
@@ -32,10 +75,12 @@ const TextContainer = () => {
           </label>
 
           <div className="flex items-center gap-3">
-            <button className="btn">
+            <button className="btn" onClick={handleSpeakSource} disabled={!sourceLang.value}>
               <Volume2 className="size-4" /> Seslendir
             </button>
-            <button className="btn">Temizle</button>
+            <button className="btn" onClick={handleClear}>
+              Temizle
+            </button>
           </div>
         </div>
 
@@ -64,15 +109,18 @@ const TextContainer = () => {
           </label>
 
           <div className="flex items-center gap-3">
-            <button className="btn">
+            <button className="btn" onClick={handleSpeakTarget}>
               <Volume2 className="size-4" /> Seslendir
             </button>
-            <button className="btn">Kopyala</button>
+            <button className="btn" onClick={handleCopy}>
+              Kopyala
+            </button>
           </div>
         </div>
 
-        <div>
+        <div className="relative">
           <textarea disabled value={translatedText} />
+          {loading && <Loader />}
         </div>
       </div>
     </div>
