@@ -1,7 +1,10 @@
 import { Plane, Search, Wifi, WifiOff, X } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchTerm } from "../../redux/slices/flightSlice";
 
 const Header = () => {
-  const error = false;
+  const dispatch = useDispatch();
+  const { loading, error, flights, searchTerm } = useSelector((store) => store.flightReducer);
 
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-primary/10 shadow-[0_4px_30px_rgba(108,99,221,0.88)]">
@@ -50,12 +53,20 @@ const Header = () => {
             <input
               type="text"
               placeholder="Callsign ara (örn:THY123)"
+              onChange={(e) => dispatch(setSearchTerm(e.target.value.trim()))}
+              value={searchTerm}
               className="w-64 pl-10 pr-9 py-2.5 text-sm font-medium bg-linear-to-br from-primary/5 to-light/10 border border-primary/15 rounded-xl text-text placeholder:text-text/40 focus:outline-none focus:border-primary/40 focus:shadow-md focus:shadow-primary/10 transition duration-300"
             />
 
-            <button className="absolute right-2.5 flex items-center justify-center size-5 rounded-md hover:bg-primary/10 text-text/50 hover:text-primary transition">
-              <X />
-            </button>
+            {searchTerm && (
+              <button
+                type="reset"
+                onClick={() => dispatch(setSearchTerm(""))}
+                className="absolute right-2.5 flex items-center justify-center size-5 rounded-md hover:bg-primary/10 text-text/50 hover:text-primary transition"
+              >
+                <X />
+              </button>
+            )}
           </div>
           {/* aktif uçuş */}
           <div className="group flex items-center gap-2.5 px-4 py-1 bg-linear-to-br from-primary/5 to-light/10 border border-primary/15 rounded-xl hover:border-primary/30 transition duration-300 hover:shadow-md hover:shadow-primary/10">
@@ -66,7 +77,9 @@ const Header = () => {
               <span className="text-[10px] text-text/50 font-semibold uppercase tracking-wider leading-tight">
                 Aktif Uçuş
               </span>
-              <span className="text-base font-bold text-text leading-tight">300</span>
+              <span className="text-base font-bold text-text leading-tight">
+                {loading ? "... " : flights.length}
+              </span>
             </div>
           </div>
         </div>
