@@ -760,6 +760,68 @@ UserBuilder
 
 JavaScript açısından özellikle **Factory, Strategy, Observer, Adapter, Facade ve Decorator** desenlerini iyi anlaman çok değerli. React/Node.js tarafında bu fikirlerin farklı biçimlerini sürekli görürsün.
 
-# TODO - S.O.L.I.D Prensipleri
+# S.O.L.I.D Prensipleri
 
-# TODO - 12 Factor Uygulama İlkesi
+Tabii, daha kısa şekilde:
+
+- **S — Single Responsibility Principle:** Bir component veya fonksiyon **tek bir işten sorumlu olmalı**. Örneğin aynı component hem API çağrısı yapıp hem form yönetip hem de UI çizmemeli.
+
+- **O — Open/Closed Principle:** Kod **değiştirilmeye kapalı, genişletilmeye açık** olmalı. Yeni özellik eklerken mevcut component'i sürekli değiştirmek yerine props veya composition ile genişletmek daha doğru olur.
+
+- **L — Liskov Substitution Principle:** Aynı görevi yapan component'ler **birbirinin yerine geçtiğinde uygulama bozulmamalı**. Örneğin bir `Button` yerine başka bir button component'i kullanıldığında `disabled` veya `onClick` gibi davranışlar korunmalı.
+
+- **I — Interface Segregation Principle:** Bir component sadece **ihtiyaç duyduğu prop'ları almalı**. Örneğin bütün `user` nesnesini almak yerine sadece `name`, `email` ve `age` alınabilir.
+
+- **D — Dependency Inversion Principle:** Component'ler doğrudan `fetch`, `axios`, `localStorage` gibi detaylara bağlı olmamalı. Bunun yerine **service gibi bir ara katmana bağımlı olmalı**.
+
+Kısaca:
+
+```text
+S → Tek sorumluluk
+O → Değiştirmeden genişlet
+L → Yerine koyunca bozulmasın
+I → Sadece ihtiyacın olanı al
+D → Detaya değil soyutlamaya bağımlı ol
+```
+
+# 12 Factor Uygulama İlkesi
+
+Tabii. 12 Factor App prensiplerini tek tek, kısa ama açıklayıcı şekilde yazayım:
+
+1. **Codebase**
+   Uygulamanın tek bir kod tabanı olmalı ve development, test, production gibi farklı ortamlara aynı kod tabanından deploy edilmelidir.
+
+2. **Dependencies**
+   Uygulamanın kullandığı tüm bağımlılıklar açıkça tanımlanmalıdır. Örneğin JavaScript projelerinde bağımlılıklar `package.json` içinde tutulur.
+
+3. **Config**
+   API adresi, veritabanı bağlantısı, secret key gibi ortama göre değişen ayarlar kodun içine yazılmamalı; environment variable olarak tutulmalıdır.
+
+4. **Backing Services**
+   Veritabanı, cache, e-posta servisi gibi dış servisler uygulamadan ayrı ele alınmalıdır. Gerektiğinde başka bir servisle değiştirilebilmelidir.
+
+5. **Build, Release, Run**
+   Uygulamanın derlenmesi, yayınlanacak sürümün hazırlanması ve çalıştırılması birbirinden ayrı aşamalar olarak yönetilmelidir.
+
+6. **Processes**
+   Uygulama mümkün olduğunca stateless çalışmalıdır. Kalıcı veriler uygulamanın belleğinde değil, veritabanı veya cache gibi dış sistemlerde tutulmalıdır.
+
+7. **Port Binding**
+   Uygulama çalıştığı servisi belirli bir port üzerinden sunmalıdır. Örneğin bir backend uygulamasının `3000` portundan hizmet vermesi gibi.
+
+8. **Concurrency**
+   Uygulama artan kullanıcı veya trafik miktarına karşı birden fazla instance veya process çalıştırılarak ölçeklenebilmelidir.
+
+9. **Disposability**
+   Uygulama hızlı şekilde başlatılabilmeli ve gerektiğinde güvenli şekilde kapatılabilmelidir. Bu özellik Docker ve Kubernetes gibi ortamlarda önemlidir.
+
+10. **Dev/Prod Parity**
+    Development, test ve production ortamları mümkün olduğunca birbirine benzer olmalıdır. Böylece "bende çalışıyordu" gibi ortam kaynaklı sorunlar azaltılır.
+
+11. **Logs**
+    Uygulama logları dosya olarak yönetmeye çalışmamalı, logları çıktı olarak üretmelidir. Logların saklanması ve analiz edilmesi başka sistemlere bırakılmalıdır.
+
+12. **Admin Processes**
+    Veritabanı migration, veri düzeltme veya bakım işlemleri gibi tek seferlik yönetim görevleri uygulamanın kullandığı aynı kod ve ortam üzerinden çalıştırılmalıdır.
+
+Kısaca 12 Factor App'in amacı, uygulamayı **daha kolay deploy edilebilir, ölçeklenebilir, taşınabilir ve sürdürülebilir** hale getirmektir.
