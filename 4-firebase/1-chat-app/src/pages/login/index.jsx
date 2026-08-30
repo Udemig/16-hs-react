@@ -1,12 +1,32 @@
+import { useNavigate } from "react-router-dom";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../../firebase";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    signInWithPopup(auth, provider).then(() => {
+      navigate("/");
+      toast.success("Oturum açıldı");
+    });
+  };
+
   return (
     <div className="wrapper">
       <div className="box flex flex-col justify-center items-center gap-12.5">
         <h1 className="text-4xl">Chat Odası</h1>
+
+        <p className="text-gray-400">Devam Etmek İçin Giriş Yap</p>
+
+        <button className="btn flex gap-5 items-center" onClick={handleLogin}>
+          <img src="/google.png" alt="google" className="w-7.5" />
+          <span>Google İle Gir</span>
+        </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
