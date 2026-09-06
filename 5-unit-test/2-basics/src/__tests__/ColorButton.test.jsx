@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import ColorButton from "../components/ColorButton";
 
-test("should first", () => {
+test("buton doğru şekilde renk ve yazı değiştirir", () => {
   // test edilecek bileşen render edilir
   render(<ColorButton />);
 
