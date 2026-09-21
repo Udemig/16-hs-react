@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <!-- ==========================================
+       1. ESSENTIAL / ENCODING & RENDERING
+       ========================================== -->
+  <!-- Character encoding must be within the first 1024 bytes -->
+  <meta charset="UTF-8" />
+  
+  <!-- Responsive viewport: crucial for mobile-first rendering & Core Web Vitals -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+  
+  <!-- Browser engine compatibility -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- Page Title (50-60 characters recommended for SEO) -->
+  <title>Modern Web App | Master SEO & Meta Tags Template</title>
+
+  <!-- ==========================================
+       2. PRIMARY SEO & SEARCH ENGINE TAGS
+       ========================================== -->
+  <!-- Search engine description (150-160 characters recommended) -->
+  <meta name="description" content="Production-ready modern HTML5 template configured with essential SEO, Open Graph, Twitter Cards, PWA, accessibility, and security meta tags." />
+  
+  <!-- Comma-separated keywords (used selectively by search & indexing crawlers) -->
+  <meta name="keywords" content="frontend developer, html5, meta tags, seo, open graph, twitter cards, responsive web design" />
+  
+  <!-- Content author and owner -->
+  <meta name="author" content="Frontend Developer" />
+  <meta name="publisher" content="Your Brand or Company Name" />
+
+  <!-- Crawler indexing directives: index and follow links -->
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="googlebot" content="index, follow" />
+
+  <!-- Canonical URL to prevent duplicate content indexing penalties -->
+  <link rel="canonical" href="https://example.com/" />
+
+  <!-- Alternate hreflang tags for multilingual support (example) -->
+  <link rel="alternate" hreflang="x-default" href="https://example.com/" />
+  <link rel="alternate" hreflang="en" href="https://example.com/" />
+  <link rel="alternate" hreflang="tr" href="https://example.com/tr/" />
+
+  <!-- ==========================================
+       3. SOCIAL MEDIA: OPEN GRAPH (Facebook, LinkedIn, Discord, etc.)
+       ========================================== -->
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Modern Web App | Master SEO & Meta Tags Template" />
+  <meta property="og:description" content="Production-ready modern HTML5 template configured with essential SEO, Open Graph, Twitter Cards, PWA, accessibility, and security meta tags." />
+  <meta property="og:url" content="https://example.com/" />
+  <meta property="og:site_name" content="Modern Web App" />
+  
+  <!-- Recommended social preview image dimensions: 1200x630 (1.91:1 ratio) -->
+  <meta property="og:image" content="https://example.com/assets/og-image.jpg" />
+  <meta property="og:image:secure_url" content="https://example.com/assets/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Preview of Modern Web App template showing performance and SEO metrics" />
+  <meta property="og:image:type" content="image/jpeg" />
+
+  <!-- ==========================================
+       4. SOCIAL MEDIA: TWITTER / X CARDS
+       ========================================== -->
+  <!-- summary_large_image displays prominent hero card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@yourbrand" />
+  <meta name="twitter:creator" content="@yourhandle" />
+  <meta name="twitter:title" content="Modern Web App | Master SEO & Meta Tags Template" />
+  <meta name="twitter:description" content="Production-ready modern HTML5 template configured with essential SEO, Open Graph, Twitter Cards, PWA, accessibility, and security meta tags." />
+  <meta name="twitter:image" content="https://example.com/assets/twitter-card.jpg" />
+  <meta name="twitter:image:alt" content="Preview image for Twitter card sharing" />
+
+  <!-- ==========================================
+       5. MOBILE, PWA & BROWSER THEME
+       ========================================== -->
+  <!-- Adaptive browser address bar and UI color theme -->
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#3b82f6" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f172a" />
+  <meta name="color-scheme" content="light dark" />
+
+  <!-- iOS Safari specific meta tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="ModernApp" />
+
+  <!-- Disables automatic phone number/email/address detection that can alter styling -->
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no" />
+
+  <!-- Favicons and app touch icons -->
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- ==========================================
+       6. SECURITY, PRIVACY & NETWORK OPTIMIZATION
+       ========================================== -->
+  <!-- Referrer policy: sends full URL on same-origin, origin only on cross-origin HTTPS -->
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <!-- Content Security Policy (Uncomment and adjust according to project requirements) -->
+  <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;" /> -->
+
+  <!-- Resource Hints for faster asset loading (Core Web Vitals - LCP/FCP) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+
+  <!-- Structured Data: JSON-LD for rich Google Search snippet -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Modern Web App",
+    "url": "https://example.com/",
+    "description": "Production-ready modern HTML5 template configured with essential SEO, Open Graph, Twitter Cards, PWA, accessibility, and security meta tags.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://example.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- Base styling for preview -->
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.15);
+      --border: #334155;
+      --tag-bg: #0369a1;
+      --tag-text: #e0f2fe;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    header h1 {
+      font-size: 2.25rem;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .card h2 {
+      font-size: 1.25rem;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card ul {
+      list-style: none;
+    }
+
+    .card li {
+      padding: 0.4rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .card li strong {
+      color: var(--text-main);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Modern HTML5 Meta Tags Suite</h1>
+      <p>Configured according to modern frontend best practices, SEO, Core Web Vitals, and WCAG AA standards.</p>
+      <span class="badge">Frontend Developer Verified</span>
+    </header>
+
+    <main class="grid" role="region" aria-label="Meta Tag Categories">
+      <section class="card" aria-labelledby="core-meta">
+        <h2 id="core-meta">⚙️ Core & Rendering</h2>
+        <ul>
+          <li><strong>Charset:</strong> UTF-8 (first 1024 bytes)</li>
+          <li><strong>Viewport:</strong> responsive width & scale</li>
+          <li><strong>Compatibility:</strong> X-UA-Compatible</li>
+          <li><strong>Formatting:</strong> Disable auto link parsing</li>
+        </ul>
+      </section>
+
+      <section class="card" aria-labelledby="seo-meta">
+        <h2 id="seo-meta">🔍 Search Engine (SEO)</h2>
+        <ul>
+          <li><strong>Title & Description:</strong> optimal character limits</li>
+          <li><strong>Robots Directives:</strong> index, follow, large previews</li>
+          <li><strong>Canonical URL:</strong> prevent duplicate content</li>
+          <li><strong>JSON-LD:</strong> Schema.org structured data</li>
+        </ul>
+      </section>
+
+      <section class="card" aria-labelledby="social-meta">
+        <h2 id="social-meta">🌐 Open Graph & Social</h2>
+        <ul>
+          <li><strong>og:title & og:description:</strong> social preview cards</li>
+          <li><strong>og:image:</strong> 1200x630px high-resolution banner</li>
+          <li><strong>Twitter Card:</strong> summary_large_image format</li>
+          <li><strong>og:locale & type:</strong> internationalization & schema</li>
+        </ul>
+      </section>
+
+      <section class="card" aria-labelledby="pwa-meta">
+        <h2 id="pwa-meta">📱 Mobile & PWA Experience</h2>
+        <ul>
+          <li><strong>Theme Color:</strong> adaptive light/dark mode</li>
+          <li><strong>Apple Mobile Web App:</strong> standalone iOS experience</li>
+          <li><strong>Favicons & Touch Icons:</strong> multi-resolution support</li>
+          <li><strong>Web Manifest:</strong> site.webmanifest linkage</li>
+        </ul>
+      </section>
+
+      <section class="card" aria-labelledby="perf-security">
+        <h2 id="perf-security">🛡️ Security & Performance</h2>
+        <ul>
+          <li><strong>Referrer-Policy:</strong> strict-origin-when-cross-origin</li>
+          <li><strong>Preconnect / DNS:</strong> fast third-party resource handshake</li>
+          <li><strong>Content-Security-Policy:</strong> XSS defense ready</li>
+          <li><strong>Accessible Semantic HTML:</strong> WCAG 2.1 AA structure</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>Created by <strong>Frontend Developer</strong> • Clean, semantic, and production-ready.</p>
+    </footer>
+  </div>
+</body>
+</html>
+

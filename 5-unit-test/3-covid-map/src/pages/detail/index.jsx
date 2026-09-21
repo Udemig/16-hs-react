@@ -32,7 +32,7 @@ const Detail = () => {
       const details = {
         name: countryData?.names?.common,
         continents: countryData?.continents,
-        capitals: countryData?.capitals?.[0]?.name,
+        capital: countryData?.capitals?.map((i) => i.name),
         flag: {
           alt: countryData?.flag?.description,
           svg: countryData?.flag?.url_svg,

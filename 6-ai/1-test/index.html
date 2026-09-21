@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NexusCore — Otonom Yapay Zeka & Bulut Orkestrasyonu</title>
+  <meta name="description" content="NexusCore ile çoklu bulut altyapınızda otonom yapay zeka ajanlarını ve mikro servis iş akışlarını ışık hızında yönetin, izleyin ve ölçeklendirin." />
+  
+  <!-- Typography (Google Fonts: Plus Jakarta Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Ambient background glow elements container -->
+  <div class="ambient-glows-container" aria-hidden="true">
+    <div class="ambient-glow glow-top"></div>
+    <div class="ambient-glow glow-middle"></div>
+    <div class="ambient-glow glow-bottom"></div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" role="status" aria-live="polite"></div>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="site-header" id="header">
+    <div class="container header-container">
+      <!-- Logo -->
+      <a href="#" class="logo-group">
+        <div class="logo-icon-wrapper">
+          <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="8" fill="url(#logo-grad)" />
+            <path d="M16 6L24.66 11V21L16 26L7.34 21V11L16 6Z" stroke="white" stroke-width="2" stroke-linejoin="round" />
+            <circle cx="16" cy="16" r="3.5" fill="white" />
+            <path d="M16 6V12.5M24.66 21L19 17.5M7.34 21L13 17.5" stroke="white" stroke-width="1.8" />
+            <defs>
+              <linearGradient id="logo-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6366F1" />
+                <stop offset="1" stop-color="#06B6D4" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <span class="logo-text">Nexus<span class="logo-highlight">Core</span></span>
+        <span class="badge-version">v3.2</span>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="nav-desktop" aria-label="Ana Menü">
+        <ul class="nav-links">
+          <li><a href="#ozellikler" class="nav-link">Özellikler</a></li>
+          <li><a href="#konsol" class="nav-link">Canlı Konsol</a></li>
+          <li><a href="#hesaplayici" class="nav-link">Tasarruf Hesaplayıcı</a></li>
+          <li><a href="#entegrasyon" class="nav-link">Ekosistem</a></li>
+        </ul>
+      </nav>
+
+      <!-- Desktop Action Buttons -->
+      <div class="nav-actions">
+        <a href="#cta" class="btn btn-ghost">Giriş Yap</a>
+        <a href="#cta" class="btn btn-primary">
+          <span>Ücretsiz Başla</span>
+          <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menüyü Aç/Kapat" aria-expanded="false">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+      </button>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-drawer" id="mobileDrawer">
+      <ul class="mobile-links">
+        <li><a href="#ozellikler" class="mobile-nav-link">Özellikler</a></li>
+        <li><a href="#konsol" class="mobile-nav-link">Canlı Konsol</a></li>
+        <li><a href="#hesaplayici" class="mobile-nav-link">Tasarruf Hesaplayıcı</a></li>
+        <li><a href="#entegrasyon" class="mobile-nav-link">Ekosistem</a></li>
+      </ul>
+      <div class="mobile-actions">
+        <a href="#cta" class="btn btn-ghost w-full">Giriş Yap</a>
+        <a href="#cta" class="btn btn-primary w-full">Ücretsiz Başla</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= HERO SECTION ================= -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-container">
+        
+        <!-- Hero Tag/Chip -->
+        <div class="announcement-badge reveal-fade">
+          <span class="badge-pulse"></span>
+          <span class="badge-text">⚡ <strong>Nexus 3.0 Yayında:</strong> Otonom Ajan Sürülerini Keşfedin</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </div>
+
+        <!-- Hero Title -->
+        <h1 class="hero-title reveal-fade">
+          Otonom Yapay Zekayı<br />
+          <span class="gradient-text">Işık Hızında</span> Yönetin
+        </h1>
+
+        <!-- Hero Subtitle -->
+        <p class="hero-subtitle reveal-fade">
+          Çoklu bulut altyapınızda yüzlerce yapay zeka ajanını tek noktadan devreye alın, izleyin ve mikrosaniye gecikmeyle orkestre edin. Kurumsal güvenlik ve sınırsız ölçeklenebilirlik bir arada.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="hero-cta-group reveal-fade">
+          <a href="#cta" class="btn btn-primary btn-lg shadow-glow">
+            <span>14 Gün Ücretsiz Deneyin</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <button class="btn btn-secondary btn-lg" id="demoButton">
+            <svg class="play-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+            <span>Canlı Demoyu İzle</span>
+          </button>
+        </div>
+
+        <!-- Metric Badges Strip -->
+        <div class="hero-trust-bar reveal-fade">
+          <div class="trust-stat">
+            <span class="stat-number" data-target="99.99" data-suffix="%">0%</span>
+            <span class="stat-label">SLA Çalışma Süresi</span>
+          </div>
+          <div class="trust-divider"></div>
+          <div class="trust-stat">
+            <span class="stat-number" data-target="12" data-suffix=" ms">0 ms</span>
+            <span class="stat-label">Ortalama Uç Yanıt</span>
+          </div>
+          <div class="trust-divider"></div>
+          <div class="trust-stat">
+            <span class="stat-number" data-target="250" data-suffix="M+">0M+</span>
+            <span class="stat-label">Günlük İşlem Hacmi</span>
+          </div>
+          <div class="trust-divider"></div>
+          <div class="trust-stat">
+            <span class="stat-number" data-target="4.9" data-suffix="/5">0/5</span>
+            <span class="stat-label">Mühendis Memnuniyeti</span>
+          </div>
+        </div>
+
+        <!-- ================= HERO INTERACTIVE CONSOLE ================= -->
+        <div class="hero-preview-wrapper reveal-fade" id="konsol">
+          <div class="interactive-console">
+            <!-- Console Window Header -->
+            <div class="console-header">
+              <div class="window-controls">
+                <span class="control-dot dot-red"></span>
+                <span class="control-dot dot-yellow"></span>
+                <span class="control-dot dot-green"></span>
+              </div>
+              
+              <!-- Tab Switchers -->
+              <div class="console-tabs" role="tablist">
+                <button class="console-tab active" role="tab" aria-selected="true" data-tab="telemetry">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                  </svg>
+                  <span>Canlı Telemetri</span>
+                </button>
+                <button class="console-tab" role="tab" aria-selected="false" data-tab="agents">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                  </svg>
+                  <span>Ajan Sürüleri (8 Aktif)</span>
+                </button>
+                <button class="console-tab" role="tab" aria-selected="false" data-tab="stream">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="4 17 10 11 4 5"></polyline>
+                    <line x1="12" y1="19" x2="20" y2="19"></line>
+                  </svg>
+                  <span>Sistem Kayıtları</span>
+                </button>
+              </div>
+
+              <div class="console-status">
+                <span class="pulse-indicator"></span>
+                <span class="status-label">Uç Ağ: Çevrimiçi</span>
+              </div>
+            </div>
+
+            <!-- Tab Content 1: Live Telemetry -->
+            <div class="tab-panel active" id="tab-telemetry">
+              <div class="console-grid">
+                <div class="telemetry-card">
+                  <div class="card-meta">
+                    <span class="meta-title">İşlem Hızı (TPS)</span>
+                    <span class="meta-badge badge-green">+18.4%</span>
+                  </div>
+                  <div class="card-val">14,820 <span class="unit">istek/sn</span></div>
+                  <div class="mini-bar-chart">
+                    <div class="bar" style="height: 40%"></div>
+                    <div class="bar" style="height: 65%"></div>
+                    <div class="bar" style="height: 55%"></div>
+                    <div class="bar" style="height: 80%"></div>
+                    <div class="bar" style="height: 95%"></div>
+                    <div class="bar" style="height: 70%"></div>
+                    <div class="bar" style="height: 88%"></div>
+                    <div class="bar active-bar" style="height: 100%"></div>
+                  </div>
+                </div>
+
+                <div class="telemetry-card">
+                  <div class="card-meta">
+                    <span class="meta-title">Ortalama Gecikme</span>
+                    <span class="meta-badge badge-cyan">-34% Düşüş</span>
+                  </div>
+                  <div class="card-val">8.4 <span class="unit">ms</span></div>
+                  <div class="sparkline-container">
+                    <svg class="sparkline" viewBox="0 0 100 30">
+                      <path d="M0,25 Q15,22 30,15 T60,10 T85,5 T100,2" fill="none" stroke="#06B6D4" stroke-width="2" />
+                      <circle cx="100" cy="2" r="3" fill="#06B6D4" />
+                    </svg>
+                  </div>
+                </div>
+
+                <div class="telemetry-card">
+                  <div class="card-meta">
+                    <span class="meta-title">Önbellek İsabeti</span>
+                    <span class="meta-badge badge-purple">Optimum</span>
+                  </div>
+                  <div class="card-val">99.78 <span class="unit">%</span></div>
+                  <div class="progress-track">
+                    <div class="progress-fill" style="width: 99.78%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="console-stream-box">
+                <div class="stream-line"><span class="timestamp">[21:14:02]</span> <span class="tag tag-ok">BAŞARILI</span> <span class="msg">Ajan-7 &rarr; Multi-Model Sentez: GPT-4o & Claude 3.5 Sonnet uzlaşması sağlandı (14ms).</span></div>
+                <div class="stream-line"><span class="timestamp">[21:14:03]</span> <span class="tag tag-info">BİLGİ</span> <span class="msg">Avrupa-Batı Uç Düğümü üzerinden 12.000 veri paketi önbellekten servis edildi.</span></div>
+                <div class="stream-line"><span class="timestamp">[21:14:04]</span> <span class="tag tag-ok">BAŞARILI</span> <span class="msg">Kriptografik anahtar rotasyonu tamamlandı. Sıfır kesinti, 0ms bekleme süresi.</span></div>
+              </div>
+            </div>
+
+            <!-- Tab Content 2: Agent Swarms -->
+            <div class="tab-panel" id="tab-agents">
+              <div class="agent-swarm-list">
+                <div class="swarm-item">
+                  <div class="swarm-avatar">⚡</div>
+                  <div class="swarm-info">
+                    <strong>Ajan Sürüsü Alpha — Doğal Dil Ayrıştırıcı</strong>
+                    <span>32 Paralel Düğüm • 99.98% Doğruluk • 4ms gecikme</span>
+                  </div>
+                  <span class="status-pill green">Aktif & Dağıtık</span>
+                </div>
+                <div class="swarm-item">
+                  <div class="swarm-avatar">🧠</div>
+                  <div class="swarm-info">
+                    <strong>Ajan Sürüsü Beta — Akıllı Güvenlik Analizi</strong>
+                    <span>16 Paralel Düğüm • Anomali Tespiti: Devrede</span>
+                  </div>
+                  <span class="status-pill green">Aktif & İzlemede</span>
+                </div>
+                <div class="swarm-item">
+                  <div class="swarm-avatar">🌐</div>
+                  <div class="swarm-info">
+                    <strong>Ajan Sürüsü Gamma — Global PoP Yönlendirici</strong>
+                    <span>300+ Uç Lokasyon • Otomatik Yük Dengeleme</span>
+                  </div>
+                  <span class="status-pill green">Optimize Edildi</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab Content 3: Live Logs -->
+            <div class="tab-panel" id="tab-stream">
+              <div class="code-terminal" id="liveLogTerminal">
+                <!-- Dynamic logs rendered by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= LOGO CAROUSEL / SOCIAL PROOF ================= -->
+    <section class="social-proof-section">
+      <div class="container">
+        <p class="section-eyebrow text-center">TÜRKİYE'NİN VE DÜNYANIN LİDER MÜHENDİSLİK EKİPLERİ TARAFINDAN GÜVENİLİYOR</p>
+        <div class="client-logos">
+          <div class="client-logo"><span class="logo-mark">▲</span> VERTEX</div>
+          <div class="client-logo"><span class="logo-mark">●</span> PULSE CLOUD</div>
+          <div class="client-logo"><span class="logo-mark">■</span> HYPERFLOW</div>
+          <div class="client-logo"><span class="logo-mark">◈</span> KRONOS AI</div>
+          <div class="client-logo"><span class="logo-mark">❖</span> STRATA TECH</div>
+          <div class="client-logo"><span class="logo-mark">✦</span> NOVACORP</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FEATURES SECTION ================= -->
+    <section class="features-section" id="ozellikler">
+      <div class="container">
+        <div class="section-header text-center reveal-fade">
+          <div class="pill-label">EŞSİZ PERFORMANS</div>
+          <h2 class="section-title">Yapay Zeka Mimarinizi <span class="gradient-text">Zirveye Taşıyın</span></h2>
+          <p class="section-desc">
+            Klasik altyapı darboğazlarına son verin. NexusCore, modern yapay zeka operasyonlarınız için sıfırdan tasarlanmış devrimsel bir motor sunar.
+          </p>
+        </div>
+
+        <!-- 6 Feature Cards Grid with Spotlight Effect -->
+        <div class="features-grid" id="featuresGrid">
+          
+          <!-- Card 1 -->
+          <div class="feature-card reveal-fade" data-spotlight>
+            <div class="card-border-glow"></div>
+            <div class="feature-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </div>
+            <h3 class="feature-heading">Otonom Ajan Sürüleri</h3>
+            <p class="feature-text">
+              Geniş ve karmaşık iş akışlarını alt saniyede yüzlerce mikro göreve böler. Çoklu LLM modellerini otomatik yönlendirir ve senkronize eder.
+            </p>
+            <div class="feature-footer">
+              <span class="feature-tag">Otomatik Yönlendirme</span>
+              <span class="feature-arrow">&rarr;</span>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="feature-card reveal-fade" data-spotlight>
+            <div class="card-border-glow"></div>
+            <div class="feature-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+            </div>
+            <h3 class="feature-heading">Sıfır Gecikmeli Uç Ağ</h3>
+            <p class="feature-text">
+              Dünya çapında 300'den fazla PoP uç noktasında dağıtık yürütme. İstekleri merkezi sunucuya gitmeden en yakın uçta milisaniyeler içinde çözer.
+            </p>
+            <div class="feature-footer">
+              <span class="feature-tag">&lt; 10ms Küresel Gecikme</span>
+              <span class="feature-arrow">&rarr;</span>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="feature-card reveal-fade" data-spotlight>
+            <div class="card-border-glow"></div>
+            <div class="feature-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <h3 class="feature-heading">Kendi Kendini Onaran Altyapı</h3>
+            <p class="feature-text">
+              Hataları oluşmadan önce öngören tahminleyici yapay zeka monitörleri. Kesinti anında sıfır veri kaybıyla anında yedek düğüme geçiş ve geri alma.
+            </p>
+            <div class="feature-footer">
+              <span class="feature-tag">Sıfır Kesinti</span>
+              <span class="feature-arrow">&rarr;</span>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="feature-card reveal-fade" data-spotlight>
+            <div class="card-border-glow"></div>
+            <div class="feature-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+            <h3 class="feature-heading">Kriptografik Kurumsal Güvenlik</h3>
+            <p class="feature-text">
+              Sıfır-bilgi (Zero-Knowledge) mimarisiyle uçtan uca şifreleme. Verileriniz asla model eğitiminde kullanılmaz. KVKK ve SOC2 Tip II sertifikalı.
+            </p>
+            <div class="feature-footer">
+              <span class="feature-tag">SOC2 & KVKK Uyumlu</span>
+              <span class="feature-arrow">&rarr;</span>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="feature-card reveal-fade" data-spotlight>
+            <div class="card-border-glow"></div>
+            <div class="feature-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+              </svg>
+            </div>
+            <h3 class="feature-heading">Derin Dağıtık Telemetri</h3>
+            <p class="feature-text">
+              Her bir API çağrısını, token tüketimini ve model adımını alev grafikleriyle (flamegraph) izleyin. Maliyet kaçaklarını milisaniyesinde yakalayın.
+            </p>
+            <div class="feature-footer">
+              <span class="feature-tag">Tam Görünürlük</span>
+              <span class="feature-arrow">&rarr;</span>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="feature-card reveal-fade" data-spotlight>
+            <div class="card-border-glow"></div>
+            <div class="feature-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
+            </div>
+            <h3 class="feature-heading">Geliştirici Dostu SDK & API</h3>
+            <p class="feature-text">
+              Python, TypeScript, Go ve Rust için tek satırlık kütüphaneler. Webhook desteği, açık kaynak entegrasyonlar ve gelişmiş CLI araçları.
+            </p>
+            <div class="feature-footer">
+              <span class="feature-tag">5 Dakikada Entegre</span>
+              <span class="feature-arrow">&rarr;</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= INTERACTIVE ROI / SAVINGS CALCULATOR ================= -->
+    <section class="calculator-section" id="hesaplayici">
+      <div class="container">
+        <div class="calculator-card reveal-fade">
+          <div class="calc-header text-center">
+            <div class="pill-label">CANLI YATIRIM GETİRİSİ</div>
+            <h2 class="calc-title">NexusCore ile Ne Kadar Tasarruf Edersiniz?</h2>
+            <p class="calc-subtitle">
+              Aylık operasyonel iş akışı hacminizi belirleyin, kazandığınız zamanı ve altyapı maliyet tasarrufunu anında görün.
+            </p>
+          </div>
+
+          <div class="calc-body">
+            <div class="slider-group">
+              <div class="slider-header">
+                <label for="volumeSlider" class="slider-label">Aylık Yapay Zeka İstek Hacmi:</label>
+                <span class="slider-value-display" id="sliderValueDisplay">250,000 İstek</span>
+              </div>
+              <input type="range" id="volumeSlider" min="20000" max="2000000" step="20000" value="250000" class="custom-range" />
+              <div class="slider-ticks">
+                <span>20K</span>
+                <span>500K</span>
+                <span>1M</span>
+                <span>2M+</span>
+              </div>
+            </div>
+
+            <!-- Dynamic Outputs -->
+            <div class="calc-results-grid">
+              <div class="calc-metric-box">
+                <span class="calc-box-title">Kazanılan Mühendislik Zamanı</span>
+                <div class="calc-box-num" id="hoursSaved">140 <span class="calc-unit">saat/ay</span></div>
+                <p class="calc-box-desc">Manuel hata ayıklama ve altyapı yönetimi yerine ürün geliştirmeye ayrılan süre.</p>
+              </div>
+
+              <div class="calc-metric-box highlight-box">
+                <span class="calc-box-title">Tahmini Altyapı Maliyet Tasarrufu</span>
+                <div class="calc-box-num" id="costSaved">$4,250 <span class="calc-unit">/ay</span></div>
+                <p class="calc-box-desc">Akıllı model yönlendirme ve uç önbellekleme sayesinde %55'e varan bütçe avantajı.</p>
+              </div>
+
+              <div class="calc-metric-box">
+                <span class="calc-box-title">Hız ve Yanıt Artışı</span>
+                <div class="calc-box-num" id="speedBoost">4.6x <span class="calc-unit">Daha Hızlı</span></div>
+                <p class="calc-box-desc">Uç ağ mimarisi sayesinde küresel kullanıcılarınıza sunulan ışık hızında yanıt süresi.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= INTEGRATION ECOSYSTEM ================= -->
+    <section class="integration-section" id="entegrasyon">
+      <div class="container">
+        <div class="section-header text-center reveal-fade">
+          <div class="pill-label">EKOSİSTEM UYUMLULUĞU</div>
+          <h2 class="section-title">Kullandığınız <span class="gradient-text">Tüm Araçlarla</span> Kusursuz Birliktelik</h2>
+          <p class="section-desc">
+            Mevcut bulut sağlayıcılarınızı veya kod tabanınızı değiştirmeden tek bir API anahtarıyla dakikalar içinde başlayın.
+          </p>
+        </div>
+
+        <div class="integration-chips-wrapper reveal-fade">
+          <div class="integration-chip">
+            <span class="chip-dot"></span> OpenAI GPT-4o
+          </div>
+          <div class="integration-chip">
+            <span class="chip-dot"></span> Anthropic Claude
+          </div>
+          <div class="integration-chip">
+            <span class="chip-dot"></span> Google Gemini Pro
+          </div>
+          <div class="integration-chip">
+            <span class="chip-dot"></span> AWS Bedrock
+          </div>
+          <div class="integration-chip">
+            <span class="chip-dot"></span> HuggingFace
+          </div>
+          <div class="integration-chip">
+            <span class="chip-dot"></span> LangChain
+          </div>
+          <div class="integration-chip">
+            <span class="chip-dot"></span> Docker & K8s
+          </div>
+          <div class="integration-chip">
+            <span class="chip-dot"></span> Vercel & Next.js
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CTA BANNER ================= -->
+    <section class="cta-section" id="cta">
+      <div class="container">
+        <div class="cta-card reveal-fade">
+          <!-- Background decoration -->
+          <div class="cta-glow" aria-hidden="true"></div>
+          
+          <div class="cta-content text-center">
+            <div class="pill-label">HEMEN DENEYİN</div>
+            <h2 class="cta-title">
+              Yapay Zeka İş Akışlarınızı<br />
+              <span class="gradient-text">Geleceğe Taşımaya Hazır mısınız?</span>
+            </h2>
+            <p class="cta-subtitle">
+              14 gün boyunca tüm kurumsal özellikleri sınırsız test edin. Kredi kartı bilgisi gerekmez.
+            </p>
+
+            <!-- Interactive Email Form -->
+            <form class="cta-form" id="signupForm" novalidate>
+              <div class="input-wrapper">
+                <svg class="mail-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <input 
+                  type="email" 
+                  id="emailInput" 
+                  placeholder="İş e-posta adresinizi girin..." 
+                  class="cta-input" 
+                  required 
+                />
+              </div>
+              <button type="submit" class="btn btn-primary btn-submit">
+                <span>Hemen Başlayın</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            </form>
+
+            <!-- Trust badges list -->
+            <div class="cta-perks">
+              <span class="perk-item">
+                <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Kredi kartı gerekmez
+              </span>
+              <span class="perk-item">
+                <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                2 dakikada kurulum
+              </span>
+              <span class="perk-item">
+                <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                İstediğiniz zaman iptal edin
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-top">
+        <!-- Brand Column -->
+        <div class="footer-brand">
+          <a href="#" class="logo-group">
+            <div class="logo-icon-wrapper">
+              <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="32" height="32" rx="8" fill="url(#footer-logo-grad)" />
+                <path d="M16 6L24.66 11V21L16 26L7.34 21V11L16 6Z" stroke="white" stroke-width="2" stroke-linejoin="round" />
+                <circle cx="16" cy="16" r="3.5" fill="white" />
+                <defs>
+                  <linearGradient id="footer-logo-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#6366F1" />
+                    <stop offset="1" stop-color="#06B6D4" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <span class="logo-text">Nexus<span class="logo-highlight">Core</span></span>
+          </a>
+          <p class="footer-tagline">
+            Yeni nesil otonom yapay zeka ajanları ve yüksek performanslı bulut altyapısı orkestrasyon çözümü.
+          </p>
+          
+          <!-- System Status Pill -->
+          <div class="system-status-indicator">
+            <span class="status-dot"></span>
+            <span>Tüm Sistemler Kusursuz Çalışıyor</span>
+          </div>
+        </div>
+
+        <!-- Links Columns -->
+        <div class="footer-links-grid">
+          <div class="footer-col">
+            <h4 class="footer-heading">Ürün</h4>
+            <ul class="footer-links">
+              <li><a href="#ozellikler">Otonom Ajanlar</a></li>
+              <li><a href="#konsol">Uç Ağ Motoru</a></li>
+              <li><a href="#hesaplayici">Telemetri & İzleme</a></li>
+              <li><a href="#entegrasyon">Entegrasyonlar</a></li>
+              <li><a href="#">Sürüm Notları (v3.2)</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-heading">Kaynaklar</h4>
+            <ul class="footer-links">
+              <li><a href="#">Dokümantasyon</a></li>
+              <li><a href="#">API Referansı</a></li>
+              <li><a href="#">Mimari Rehberi</a></li>
+              <li><a href="#">Açık Kaynak SDK'lar</a></li>
+              <li><a href="#">Topluluk Forumu</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-heading">Şirket</h4>
+            <ul class="footer-links">
+              <li><a href="#">Hakkımızda</a></li>
+              <li><a href="#">Kariyer <span class="badge-hiring">İş İlanları</span></a></li>
+              <li><a href="#">Mühendislik Blogu</a></li>
+              <li><a href="#">Basın Kiti</a></li>
+              <li><a href="#">İletişim</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-heading">Yasal & Güvenlik</h4>
+            <ul class="footer-links">
+              <li><a href="#">Gizlilik Politikası</a></li>
+              <li><a href="#">Kullanım Şartları</a></li>
+              <li><a href="#">KVKK Aydınlatma Metni</a></li>
+              <li><a href="#">SOC2 Uyumluluk Raporu</a></li>
+              <li><a href="#">Çerez Tercihleri</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <p class="copyright-text">
+          &copy; 2026 NexusCore Inc. Tüm hakları saklıdır. Modern web teknolojileriyle geliştirilmiştir.
+        </p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Twitter / X">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+</body>
+</html>

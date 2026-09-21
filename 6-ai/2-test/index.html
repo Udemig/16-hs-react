@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexora — İşinizi Geleceğe Taşıyın</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #05060f; --surface: #0d0f1e; --card: #111327;
+      --border: rgba(255,255,255,.07); --accent: #7c3aed; --accent2: #06b6d4;
+      --glow: rgba(124,58,237,.45); --glow2: rgba(6,182,212,.35);
+      --text: #e8eaf0; --muted: #8b92b3; --white: #ffffff;
+      --radius: 16px; --transition: .35s cubic-bezier(.4,0,.2,1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Segoe UI", system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 99px; }
+
+    /* NAVBAR */
+    #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 72px; background: transparent; transition: background var(--transition), box-shadow var(--transition); }
+    #navbar.scrolled { background: rgba(5,6,15,.88); backdrop-filter: blur(18px); box-shadow: 0 1px 0 var(--border); }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-size: 1.35rem; font-weight: 800; color: var(--white); letter-spacing: -.5px; }
+    .logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, var(--accent), var(--accent2)); border-radius: 10px; display: grid; place-items: center; font-size: 1rem; }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: .9rem; font-weight: 500; transition: color var(--transition); position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 99px; transition: width var(--transition); }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: 10px; font-size: .9rem; font-weight: 600; cursor: pointer; text-decoration: none; border: none; transition: all var(--transition); }
+    .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+    .btn-ghost:hover { color: var(--white); border-color: rgba(255,255,255,.2); background: rgba(255,255,255,.04); }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), #9333ea); color: var(--white); box-shadow: 0 0 20px var(--glow); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 35px var(--glow); }
+    .btn-large { padding: 14px 32px; font-size: 1rem; border-radius: 12px; }
+    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-outline:hover { border-color: var(--accent2); color: var(--accent2); box-shadow: 0 0 18px var(--glow2); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 99px; transition: all .3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; inset: 72px 0 0; background: rgba(5,6,15,.97); backdrop-filter: blur(24px); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 32px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 1.4rem; font-weight: 600; color: var(--text); text-decoration: none; transition: color var(--transition); }
+    .mobile-menu a:hover { color: var(--accent2); }
+
+    /* HERO */
+    #hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 140px 5% 80px; position: relative; overflow: hidden; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .25; animation: blobFloat 8s ease-in-out infinite; }
+    .blob-1 { width: 600px; height: 600px; background: radial-gradient(circle, var(--accent), transparent 70%); top: -150px; left: -100px; }
+    .blob-2 { width: 500px; height: 500px; background: radial-gradient(circle, var(--accent2), transparent 70%); top: 20%; right: -80px; animation-delay: -4s; }
+    .blob-3 { width: 400px; height: 400px; background: radial-gradient(circle, #ec4899, transparent 70%); bottom: 10%; left: 30%; animation-delay: -2s; }
+    @keyframes blobFloat { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-30px) scale(1.05); } }
+    #hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,.12) 1px, transparent 1px); background-size: 36px 36px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 99px; background: rgba(124,58,237,.15); border: 1px solid rgba(124,58,237,.4); color: #a78bfa; font-size: .8rem; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 24px; animation: fadeUp .8s ease both; }
+    .badge-dot { width: 6px; height: 6px; background: var(--accent2); border-radius: 50%; animation: pulse 2s ease infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .5; transform: scale(1.4); } }
+    .hero-title { font-size: clamp(2.6rem, 7vw, 5.5rem); font-weight: 900; line-height: 1.1; letter-spacing: -2px; margin-bottom: 24px; animation: fadeUp .8s .1s ease both; }
+    .gradient-text { background: linear-gradient(135deg, #a78bfa 0%, var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-sub { max-width: 600px; margin: 0 auto 40px; font-size: 1.15rem; color: var(--muted); animation: fadeUp .8s .2s ease both; }
+    .hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; animation: fadeUp .8s .3s ease both; }
+    .hero-stats { display: flex; gap: 48px; justify-content: center; flex-wrap: wrap; margin-top: 72px; animation: fadeUp .8s .5s ease both; }
+    .stat { text-align: center; }
+    .stat-value { font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, var(--white), var(--muted)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stat-label { font-size: .8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+    .stat-divider { width: 1px; background: var(--border); align-self: stretch; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* COMMON */
+    section { padding: 100px 5%; }
+    .section-label { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent2); margin-bottom: 14px; }
+    .section-title { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 14px; }
+    .section-sub { color: var(--muted); font-size: 1.05rem; max-width: 520px; }
+    .section-header { margin-bottom: 64px; }
+
+    /* FEATURES */
+    #features { background: var(--surface); }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .feature-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 36px 32px; position: relative; overflow: hidden; transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition); cursor: default; }
+    .feature-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--accent), var(--accent2)); opacity: 0; transition: opacity var(--transition); pointer-events: none; }
+    .feature-card:hover { transform: translateY(-6px); border-color: rgba(124,58,237,.5); box-shadow: 0 20px 60px rgba(0,0,0,.4), 0 0 0 1px rgba(124,58,237,.2); }
+    .feature-card:hover::before { opacity: .04; }
+    .feature-card > * { position: relative; }
+    .feature-icon { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; font-size: 1.5rem; margin-bottom: 22px; position: relative; }
+    .feature-icon::after { content: ''; position: absolute; inset: -1px; border-radius: 14px; padding: 1px; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; }
+    .fi-1 { background: rgba(124,58,237,.15); } .fi-2 { background: rgba(6,182,212,.15); } .fi-3 { background: rgba(236,72,153,.15); }
+    .fi-4 { background: rgba(245,158,11,.15); } .fi-5 { background: rgba(34,197,94,.15); } .fi-6 { background: rgba(239,68,68,.15); }
+    .feature-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: var(--white); }
+    .feature-desc { font-size: .9rem; color: var(--muted); line-height: 1.7; }
+    .feature-tag { display: inline-block; margin-top: 18px; font-size: .72rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--accent2); background: rgba(6,182,212,.1); padding: 4px 10px; border-radius: 99px; border: 1px solid rgba(6,182,212,.2); }
+
+    /* HOW IT WORKS */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); position: relative; }
+    .steps::before { content: ''; position: absolute; top: 36px; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent); }
+    .step { text-align: center; padding: 0 24px 0; }
+    .step-num { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: inline-grid; place-items: center; font-size: 1.5rem; font-weight: 900; color: var(--white); margin-bottom: 28px; box-shadow: 0 0 30px var(--glow); position: relative; z-index: 1; }
+    .step-title { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+    .step-desc { font-size: .88rem; color: var(--muted); }
+
+    /* TESTIMONIALS */
+    #testimonials { background: var(--surface); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .testimonial-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; transition: transform var(--transition); }
+    .testimonial-card:hover { transform: translateY(-4px); }
+    .stars { display: flex; gap: 4px; margin-bottom: 18px; }
+    .stars span { color: #fbbf24; font-size: 1rem; }
+    .testimonial-text { font-size: .95rem; color: var(--muted); line-height: 1.75; margin-bottom: 24px; font-style: italic; }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+    .author-avatar { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font-size: .9rem; font-weight: 700; color: var(--white); }
+    .av-1 { background: linear-gradient(135deg, #7c3aed, #4f46e5); } .av-2 { background: linear-gradient(135deg, #06b6d4, #0284c7); } .av-3 { background: linear-gradient(135deg, #ec4899, #be185d); }
+    .author-name { font-weight: 700; font-size: .9rem; }
+    .author-role { font-size: .8rem; color: var(--muted); }
+
+    /* PRICING */
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 960px; margin: 0 auto; }
+    .pricing-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px 32px; transition: transform var(--transition), box-shadow var(--transition); position: relative; overflow: hidden; }
+    .pricing-card.featured { border-color: var(--accent); box-shadow: 0 0 60px var(--glow), 0 0 0 1px rgba(124,58,237,.3); }
+    .pricing-card.featured::before { content: ''; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(124,58,237,.08) 0%, transparent 60%); pointer-events: none; }
+    .pricing-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,.4); }
+    .popular-badge { position: absolute; top: 20px; right: 20px; background: linear-gradient(135deg, var(--accent), #9333ea); color: var(--white); font-size: .7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 4px 12px; border-radius: 99px; }
+    .plan-name { font-size: .8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    .plan-price { font-size: 3rem; font-weight: 900; color: var(--white); line-height: 1; margin-bottom: 4px; }
+    .plan-price span { font-size: 1.2rem; font-weight: 400; color: var(--muted); }
+    .plan-period { font-size: .85rem; color: var(--muted); margin-bottom: 28px; }
+    .plan-features { list-style: none; margin-bottom: 32px; display: flex; flex-direction: column; gap: 12px; }
+    .plan-features li { display: flex; align-items: center; gap: 10px; font-size: .9rem; color: var(--muted); }
+    .plan-features li .check { width: 18px; height: 18px; border-radius: 50%; background: rgba(6,182,212,.15); border: 1px solid rgba(6,182,212,.3); display: grid; place-items: center; font-size: .6rem; color: var(--accent2); flex-shrink: 0; }
+    .plan-divider { height: 1px; background: var(--border); margin: 28px 0; }
+
+    /* CTA */
+    #cta { padding: 100px 5%; }
+    .cta-box { max-width: 800px; margin: 0 auto; text-align: center; background: var(--card); border: 1px solid rgba(124,58,237,.3); border-radius: 24px; padding: 72px 5%; position: relative; overflow: hidden; }
+    .cta-box::before { content: ''; position: absolute; top: -80px; left: 50%; transform: translateX(-50%); width: 400px; height: 250px; background: radial-gradient(ellipse, var(--glow) 0%, transparent 70%); pointer-events: none; }
+    .cta-box::after { content: ''; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(124,58,237,.06), rgba(6,182,212,.04)); pointer-events: none; }
+    .cta-box > * { position: relative; z-index: 1; }
+    .cta-title { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; letter-spacing: -1px; margin-bottom: 16px; }
+    .cta-sub { color: var(--muted); font-size: 1.05rem; max-width: 480px; margin: 0 auto 36px; }
+    .cta-form { display: flex; gap: 12px; max-width: 460px; margin: 0 auto; flex-wrap: wrap; }
+    .cta-input { flex: 1; min-width: 200px; background: rgba(255,255,255,.05); border: 1px solid var(--border); border-radius: 10px; padding: 12px 18px; color: var(--white); font-size: .95rem; outline: none; transition: border-color var(--transition), box-shadow var(--transition); font-family: inherit; }
+    .cta-input::placeholder { color: var(--muted); }
+    .cta-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(124,58,237,.2); }
+    .cta-note { margin-top: 16px; font-size: .8rem; color: var(--muted); }
+
+    /* FOOTER */
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 72px 5% 32px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 64px; }
+    .footer-desc { font-size: .9rem; color: var(--muted); line-height: 1.7; margin: 16px 0 24px; }
+    .social-links { display: flex; gap: 10px; }
+    .social-link { width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--border); display: grid; place-items: center; font-size: .9rem; text-decoration: none; color: var(--muted); transition: all var(--transition); }
+    .social-link:hover { border-color: var(--accent2); color: var(--accent2); background: rgba(6,182,212,.07); }
+    .footer-col-title { font-size: .8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--white); margin-bottom: 20px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { text-decoration: none; font-size: .9rem; color: var(--muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--accent2); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 32px; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: .85rem; color: var(--muted); }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a { font-size: .85rem; color: var(--muted); text-decoration: none; transition: color var(--transition); }
+    .footer-legal a:hover { color: var(--text); }
+
+    /* ANIMATIONS */
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .cursor-dot { width: 8px; height: 8px; background: var(--accent2); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); }
+    .cursor-ring { width: 36px; height: 36px; border: 1.5px solid rgba(6,182,212,.5); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width .3s, height .3s, border-color .3s; }
+    .toast { position: fixed; bottom: 32px; right: 32px; background: var(--card); border: 1px solid rgba(6,182,212,.4); border-radius: 14px; padding: 16px 22px; display: flex; align-items: center; gap: 12px; color: var(--text); font-size: .92rem; font-weight: 500; z-index: 9000; transform: translateY(100px); opacity: 0; transition: all .4s cubic-bezier(.34,1.56,.64,1); box-shadow: 0 8px 32px rgba(0,0,0,.4); }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast-icon { font-size: 1.2rem; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } .steps::before { display: none; } }
+    @media (max-width: 640px) { .nav-links, .nav-actions { display: none; } .hamburger { display: flex; } .footer-grid { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; align-items: flex-start; } .hero-stats { gap: 24px; } .stat-divider { display: none; } .cursor-dot, .cursor-ring { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="toast" id="toast"><span class="toast-icon">🎉</span><span id="toastMsg">Harika!</span></div>
+
+  <nav id="navbar">
+    <a href="#" class="nav-logo"><div class="logo-icon">⚡</div>Nexora</a>
+    <ul class="nav-links">
+      <li><a href="#features">Özellikler</a></li>
+      <li><a href="#how">Nasıl Çalışır</a></li>
+      <li><a href="#testimonials">Referanslar</a></li>
+      <li><a href="#pricing">Fiyatlar</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#" class="btn btn-ghost">Giriş Yap</a>
+      <a href="#cta" class="btn btn-primary">Ücretsiz Başla</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menü"><span></span><span></span><span></span></button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#features" class="mobile-link">Özellikler</a>
+    <a href="#how" class="mobile-link">Nasıl Çalışır</a>
+    <a href="#testimonials" class="mobile-link">Referanslar</a>
+    <a href="#pricing" class="mobile-link">Fiyatlar</a>
+    <a href="#cta" class="btn btn-primary btn-large">Ücretsiz Başla →</a>
+  </div>
+
+  <section id="hero">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="hero-badge"><span class="badge-dot"></span>&#10024; Yeni — Yapay Zeka Destekli İş Zekası</div>
+    <h1 class="hero-title">İşinizi <span class="gradient-text">Dönüştürecek</span><br>Tek Platform</h1>
+    <p class="hero-sub">Nexora ile ekibinizin verimliliğini artırın, süreçlerinizi otomatikleştirin ve veriye dayalı kararlar alarak rakiplerinizin önüne geçin.</p>
+    <div class="hero-cta">
+      <a href="#cta" class="btn btn-primary btn-large">14 Gün Ücretsiz Dene →</a>
+      <a href="#how" class="btn btn-outline btn-large">▶ Demo İzle</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-value"><span class="counter" data-target="12000">0</span>+</div><div class="stat-label">Aktif Şirket</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><div class="stat-value">%<span class="counter" data-target="94">0</span></div><div class="stat-label">Müşteri Memnuniyeti</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><div class="stat-value"><span class="counter" data-target="3">0</span>×</div><div class="stat-label">Verimlilik Artışı</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><div class="stat-value"><span class="counter" data-target="99">0</span>.9%</div><div class="stat-label">Uptime Garantisi</div></div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="section-header reveal">
+      <span class="section-label">Özellikler</span>
+      <h2 class="section-title">Her İhtiyacınız İçin<br>Doğru Araç</h2>
+      <p class="section-sub">Güçlü ve sezgisel araçlarımızla işletmenizin potansiyelini en üst düzeye taşıyın.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal"><div class="feature-icon fi-1">🧠</div><h3 class="feature-title">Yapay Zeka Analizi</h3><p class="feature-desc">GPT tabanlı motorumuz verilerinizi analiz eder, trendleri saptar ve akıllı öneriler sunar. Kararlarınızı veriye dayandırın.</p><span class="feature-tag">Yeni</span></div>
+      <div class="feature-card reveal"><div class="feature-icon fi-2">⚡</div><h3 class="feature-title">Anlık Otomasyon</h3><p class="feature-desc">Tekrarlayan görevlerinizi sürükle-bırak iş akışlarıyla otomatikleştirin. Ekibiniz stratejiye odaklanırken Nexora geri kalanını halleder.</p><span class="feature-tag">Popüler</span></div>
+      <div class="feature-card reveal"><div class="feature-icon fi-3">🔒</div><h3 class="feature-title">Kurumsal Güvenlik</h3><p class="feature-desc">AES-256 şifreleme, iki faktörlü doğrulama ve SOC 2 uyumluluğuyla verileriniz her zaman güvende.</p><span class="feature-tag">SOC 2</span></div>
+      <div class="feature-card reveal"><div class="feature-icon fi-4">📊</div><h3 class="feature-title">Canlı Gösterge Paneli</h3><p class="feature-desc">İşletmenizin nabzını gerçek zamanlı izleyin. Özelleştirilebilir widget'lar ve güçlü filtreleme seçenekleriyle raporlama artık çok kolay.</p><span class="feature-tag">Canlı</span></div>
+      <div class="feature-card reveal"><div class="feature-icon fi-5">🌐</div><h3 class="feature-title">500+ Entegrasyon</h3><p class="feature-desc">Slack, Salesforce, HubSpot, Jira ve daha fazlasıyla tek tıkla bağlanın. Mevcut iş akışınızı bozmadan entegre olun.</p><span class="feature-tag">API</span></div>
+      <div class="feature-card reveal"><div class="feature-icon fi-6">🚀</div><h3 class="feature-title">Ölçeklenebilir Altyapı</h3><p class="feature-desc">Startup'tan kurumsal ölçeğe sorunsuz büyüyün. Nexora, ekibiniz 5 kişi de olsa 5.000 kişi de olsa aynı hızda çalışır.</p><span class="feature-tag">Bulut</span></div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="section-header reveal" style="text-align:center;margin:0 auto 64px;">
+      <span class="section-label">Süreç</span>
+      <h2 class="section-title">3 Adımda Başlayın</h2>
+      <p class="section-sub" style="margin:0 auto;">Kurulum dakikalar içinde tamamlanır. Kredi kartı gerekmez.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="step-num">1</div><h3 class="step-title">Hesap Oluşturun</h3><p class="step-desc">E-posta adresinizle 30 saniyede kayıt olun. Hemen çalışmaya başlayın.</p></div>
+      <div class="step reveal"><div class="step-num">2</div><h3 class="step-title">Araçlarınızı Bağlayın</h3><p class="step-desc">Mevcut yazılımlarınızı tek tıkla entegre edin. Rehberli kurulum sizi yönlendirir.</p></div>
+      <div class="step reveal"><div class="step-num">3</div><h3 class="step-title">Büyümeyi İzleyin</h3><p class="step-desc">Yapay zeka içgörülerinizi inceleyin, otomasyonları devreye alın ve sonuçları görün.</p></div>
+    </div>
+  </section>
+
+  <section id="testimonials">
+    <div class="section-header reveal">
+      <span class="section-label">Referanslar</span>
+      <h2 class="section-title">Müşterilerimiz<br>Ne Diyor?</h2>
+      <p class="section-sub">Binlerce şirketten sadece birkaçı.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal"><div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="testimonial-text">"Nexora'yı kullanmaya başladıktan sonra satış sürecimiz %67 kısaldı. Otomasyon özelliği gerçekten inanılmaz. Tüm ekibimiz artık stratejiye odaklanabiliyor."</p><div class="testimonial-author"><div class="author-avatar av-1">AY</div><div><div class="author-name">Ayşe Yılmaz</div><div class="author-role">CEO · TechVenture A.Ş.</div></div></div></div>
+      <div class="testimonial-card reveal"><div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="testimonial-text">"Veri analizinde harcadığımız zamanı %80 azalttık. Yapay zeka gösterge paneli sayesinde şirkette neler döndüğünü her an görebiliyoruz."</p><div class="testimonial-author"><div class="author-avatar av-2">MK</div><div><div class="author-name">Mehmet Kaya</div><div class="author-role">CTO · InovaLab</div></div></div></div>
+      <div class="testimonial-card reveal"><div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="testimonial-text">"Entegrasyon kolaylığı beni şaşırttı. Tüm sistemlerimizi 2 gün içinde bağladık. Müşteri desteği de 7/24 mükemmel hizmet veriyor."</p><div class="testimonial-author"><div class="author-avatar av-3">ZD</div><div><div class="author-name">Zeynep Demir</div><div class="author-role">COO · GlobalReach</div></div></div></div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="section-header reveal" style="text-align:center;margin:0 auto 64px;">
+      <span class="section-label">Fiyatlar</span>
+      <h2 class="section-title">Sürpriz Yok, Şeffaf Fiyatlar</h2>
+      <p class="section-sub" style="margin:0 auto;">Her bütçeye uygun plan. İstediğiniz zaman yükseltin veya iptal edin.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal"><div class="plan-name">Başlangıç</div><div class="plan-price">&#8378;0 <span>/ay</span></div><div class="plan-period">Sonsuza kadar ücretsiz</div><div class="plan-divider"></div><ul class="plan-features"><li><span class="check">✓</span>3 kullanıcıya kadar</li><li><span class="check">✓</span>5 otomasyon akışı</li><li><span class="check">✓</span>Temel analitik</li><li><span class="check">✓</span>E-posta desteği</li><li><span class="check">✓</span>10 entegrasyon</li></ul><a href="#cta" class="btn btn-outline" style="width:100%;justify-content:center;">Ücretsiz Başla</a></div>
+      <div class="pricing-card featured reveal"><div class="popular-badge">En Popüler</div><div class="plan-name">Profesyonel</div><div class="plan-price">&#8378;499 <span>/ay</span></div><div class="plan-period">Kullanıcı başına · yıllık fatura</div><div class="plan-divider"></div><ul class="plan-features"><li><span class="check">✓</span>Sınırsız kullanıcı</li><li><span class="check">✓</span>Sınırsız otomasyon</li><li><span class="check">✓</span>Yapay Zeka analizi</li><li><span class="check">✓</span>Öncelikli destek</li><li><span class="check">✓</span>500+ entegrasyon</li><li><span class="check">✓</span>Özel gösterge paneli</li></ul><a href="#cta" class="btn btn-primary" style="width:100%;justify-content:center;">14 Gün Ücretsiz Dene</a></div>
+      <div class="pricing-card reveal"><div class="plan-name">Kurumsal</div><div class="plan-price" style="font-size:2rem;">Özel</div><div class="plan-period">Özel fiyatlandırma</div><div class="plan-divider"></div><ul class="plan-features"><li><span class="check">✓</span>Tüm Pro özellikler</li><li><span class="check">✓</span>Özel altyapı</li><li><span class="check">✓</span>SLA garantisi</li><li><span class="check">✓</span>7/24 özel destek</li><li><span class="check">✓</span>SSO / SAML</li><li><span class="check">✓</span>Özel entegrasyonlar</li></ul><a href="#cta" class="btn btn-outline" style="width:100%;justify-content:center;">Satış Ekibiyle Görüş</a></div>
+    </div>
+  </section>
+
+  <section id="cta">
+    <div class="cta-box reveal">
+      <span class="section-label">🚀 Hemen Başlayın</span>
+      <h2 class="cta-title">Rakiplerinizin Önüne<br>Geçmeye Hazır mısınız?</h2>
+      <p class="cta-sub">14 günlük ücretsiz deneme sürecinizi başlatın. Kredi kartı gerekmez, kurulum 2 dakika.</p>
+      <form class="cta-form" id="ctaForm">
+        <input type="email" class="cta-input" placeholder="is-eposta@sirket.com" required />
+        <button type="submit" class="btn btn-primary btn-large">Başla →</button>
+      </form>
+      <p class="cta-note">🔒 Spam yok. İstediğiniz zaman iptal edebilirsiniz.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <a href="#" class="nav-logo"><div class="logo-icon">⚡</div>Nexora</a>
+        <p class="footer-desc">İşletmenizi geleceğe taşıyacak yapay zeka destekli SaaS platform. 12.000+ şirketin güvendiği çözüm.</p>
+        <div class="social-links">
+          <a href="#" class="social-link">𝕏</a>
+          <a href="#" class="social-link">in</a>
+          <a href="#" class="social-link">gh</a>
+          <a href="#" class="social-link">▶</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Ürün</div>
+        <ul class="footer-links"><li><a href="#">Özellikler</a></li><li><a href="#">Fiyatlar</a></li><li><a href="#">Entegrasyonlar</a></li><li><a href="#">Yol Haritası</a></li><li><a href="#">Sürüm Notları</a></li></ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Şirket</div>
+        <ul class="footer-links"><li><a href="#">Hakkımızda</a></li><li><a href="#">Blog</a></li><li><a href="#">Kariyer</a></li><li><a href="#">Basın Kiti</a></li><li><a href="#">İletişim</a></li></ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Destek</div>
+        <ul class="footer-links"><li><a href="#">Yardım Merkezi</a></li><li><a href="#">Dokümantasyon</a></li><li><a href="#">API Referansı</a></li><li><a href="#">Topluluk</a></li><li><a href="#">Durum Sayfası</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Nexora Teknoloji A.Ş. Tüm hakları saklıdır.</div>
+      <div class="footer-legal"><a href="#">Gizlilik Politikası</a><a href="#">Kullanım Koşulları</a><a href="#">KVKK</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // Custom cursor
+    const dot = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+    });
+    (function animRing() {
+      rx += (mx - rx) * .12; ry += (my - ry) * .12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animRing);
+    })();
+    document.querySelectorAll('a, button, input').forEach(el => {
+      el.addEventListener('mouseenter', () => { ring.style.width = '54px'; ring.style.height = '54px'; ring.style.borderColor = 'rgba(124,58,237,.7)'; });
+      el.addEventListener('mouseleave', () => { ring.style.width = '36px'; ring.style.height = '36px'; ring.style.borderColor = 'rgba(6,182,212,.5)'; });
+    });
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 30));
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+    document.querySelectorAll('.mobile-link, .mobile-menu .btn').forEach(l => l.addEventListener('click', () => { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); }));
+    // Scroll reveal
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const delay = entry.target.closest('.features-grid,.testimonials-grid,.pricing-grid,.steps')
+          ? Array.from(entry.target.parentElement.children).indexOf(entry.target) * 110 : 0;
+        setTimeout(() => entry.target.classList.add('visible'), delay);
+        ro.unobserve(entry.target);
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+    // Counters
+    const co = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target, target = +el.dataset.target, dur = 1800, start = performance.now();
+        (function upd(now) {
+          const p = Math.min((now - start) / dur, 1), ease = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
+          el.textContent = Math.floor(ease * target).toLocaleString('tr-TR');
+          if (p < 1) requestAnimationFrame(upd); else el.textContent = target.toLocaleString('tr-TR');
+        })(start);
+        co.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.counter').forEach(c => co.observe(c));
+    // CTA form
+    const toast = document.getElementById('toast'), toastMsg = document.getElementById('toastMsg');
+    document.getElementById('ctaForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value.trim();
+      if (!email) return;
+      toastMsg.textContent = email + ' adresinize aktivasyon bağlantısı gönderildi! 🚀';
+      toast.classList.add('show');
+      e.target.reset();
+      setTimeout(() => toast.classList.remove('show'), 5000);
+    });
+    // Active nav
+    const sections = document.querySelectorAll('section[id]');
+    const navAs = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let cur = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+      navAs.forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--white)' : ''; });
+    });
+  </script>
+</body>
+</html>

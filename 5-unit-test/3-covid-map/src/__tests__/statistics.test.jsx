@@ -48,7 +48,7 @@ describe("Statistics Bileşeni", () => {
 
   test("api'dan veri gelirse ekrana istatistikler gelir", async () => {
     // mockladığımız fonksiyon çağrılınca istatistikleri return etsin
-    statsApi.get.mockResolvedValue({ data: { data: mockStatsData } });
+    statsApi.get.mockResolvedValue(mockStatsData);
 
     // bileşeni renderla
     render(<Statistics />);

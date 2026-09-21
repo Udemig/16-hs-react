@@ -1,0 +1,363 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Bronte Antep Fıstığı",
+      "slug": "bronte-antep-fistigi",
+      "description": "Sicilya Bronte'den getirilen kavrulmuş fıstık parçaları ve saf fıstık ezmesi.",
+      "price": 140,
+      "image": "/images/pistachio.png",
+      "badge": "⭐ Çok Satan",
+      "badgeType": "popular",
+      "categories": ["nut", "special"],
+      "servingDefault": "Külah",
+      "origin": "Bronte, Sicilya / İtalya",
+      "rating": 5.0,
+      "reviewCount": 148,
+      "intensity": "Yoğun & Kremamsı",
+      "isVegan": false,
+      "ingredients": [
+        "Taze Günlük Çiftlik Sütü",
+        "DOP Bronte Antep Fıstığı Ezmesi (%22)",
+        "Pancar Şekeri",
+        "Deniz Tuzu",
+        "Doğal Kıvam Verici (Keçiboynuzu Unu)"
+      ],
+      "nutrition": {
+        "calories": "245 kcal",
+        "protein": "7.2 g",
+        "fat": "14.5 g",
+        "carbs": "22.0 g"
+      },
+      "allergens": [
+        "Süt ve süt ürünleri (Laktoz)",
+        "Antep Fıstığı (Ağaç yemişi)"
+      ],
+      "storage": "-18°C özel termo korumalı kutuda erimeden teslim edilir. Tüketmeden önce 3-5 dakika oda sıcaklığında bekleterek ipeksi kıvamına ulaşmasını sağlayabilirsiniz.",
+      "pairing": "Sıcak bir İtalyan espresso ve fırından yeni çıkmış çıtır tereyağlı brioche ile kusursuz bir lezzet dengesi sunar."
+    },
+    {
+      "id": 2,
+      "name": "Bitter & Deniz Tuzu",
+      "slug": "bitter-deniz-tuzu",
+      "description": "%72 Madagaskar kakaosu, Belçika çikolata parçaları ve Maldon deniz tuzu kristalleri.",
+      "price": 130,
+      "image": "/images/chocolate.png",
+      "badge": "🍫 Favori",
+      "badgeType": "favorite",
+      "categories": ["chocolate"],
+      "servingDefault": "Külah",
+      "origin": "Madagaskar & Maldon, İngiltere",
+      "rating": 4.9,
+      "reviewCount": 112,
+      "intensity": "Zengin & Kadifemsi",
+      "isVegan": false,
+      "ingredients": [
+        "%72 Madagaskar Kakaosu",
+        "Belçika Bitter Çikolata Parçaları",
+        "Taze Çiftlik Sütü",
+        "Maldon Deniz Tuzu Kristalleri",
+        "Pancar Şekeri"
+      ],
+      "nutrition": {
+        "calories": "260 kcal",
+        "protein": "5.8 g",
+        "fat": "15.2 g",
+        "carbs": "25.4 g"
+      },
+      "allergens": [
+        "Süt ve süt ürünleri (Laktoz)",
+        "Soya lesitini"
+      ],
+      "storage": "-18°C sıcaklıkta muhafaza edilir. Kakao aromalarının tüm zenginliğini hissetmek için hafif çözünmüş kadife dokusunda servis ediniz.",
+      "pairing": "Filtre kahve, cevizli biscotti veya vişneli tart ile zengin bitter kontrastı yakalar."
+    },
+    {
+      "id": 3,
+      "name": "Dağ Çileği & Ahududu",
+      "slug": "dag-cilegi-ahududu",
+      "description": "Süt ve laktoz içermez. %80 gerçek orman meyvesi ve taze nane dokunuşu.",
+      "price": 125,
+      "image": "/images/strawberry.png",
+      "badge": "🌱 Vegan / Yeni",
+      "badgeType": "vegan",
+      "categories": ["fruit"],
+      "servingDefault": "Külah",
+      "isVegan": true,
+      "origin": "Karadeniz Ormanları / Türkiye",
+      "rating": 4.9,
+      "reviewCount": 89,
+      "intensity": "Canlandırıcı & Ferahlatıcı",
+      "ingredients": [
+        "Taze Dağ Çileği (%45)",
+        "Yabani Ahududu (%35)",
+        "Doğal Kaynak Suyu",
+        "Pancar Şekeri",
+        "Taze Bahçe Nanesi"
+      ],
+      "nutrition": {
+        "calories": "115 kcal",
+        "protein": "0.8 g",
+        "fat": "0.2 g",
+        "carbs": "26.5 g"
+      },
+      "allergens": [
+        "Alerjen içermez (Laktozsuz & Glutensiz)"
+      ],
+      "storage": "-18°C termo ambalajında tazeliğini korur. Doğal meyve lifleri sayesinde kristallenme yapmaz.",
+      "pairing": "Buz gibi limonlu maden suyu, prosecco veya çıtır bademli makaron ile harika bir yaz ferahlığı yaratır."
+    },
+    {
+      "id": 4,
+      "name": "Madagaskar Burbon Vanilya",
+      "slug": "madagaskar-burbon-vanilya",
+      "description": "Hakiki Madagaskar vanilya çubuğu tanecikleri ve tuzlu tereyağlı ev yapımı karamel girdabı.",
+      "price": 120,
+      "image": "/images/gelato.png",
+      "badge": "✨ Klasik",
+      "badgeType": "classic",
+      "categories": ["nut", "special"],
+      "servingDefault": "Külah",
+      "origin": "Sava Bölgesi, Madagaskar",
+      "rating": 5.0,
+      "reviewCount": 164,
+      "intensity": "Yumuşak & Aromatik",
+      "isVegan": false,
+      "ingredients": [
+        "Madagaskar Burbon Vanilya Çubuğu Tanecikleri",
+        "Taze Çiftlik Sütü & Mandıra Kreması",
+        "Karamelize Şeker Girdabı",
+        "Tuzlu Köy Tereyağı"
+      ],
+      "nutrition": {
+        "calories": "220 kcal",
+        "protein": "4.5 g",
+        "fat": "11.0 g",
+        "carbs": "24.8 g"
+      },
+      "allergens": [
+        "Süt ve süt ürünleri (Laktoz)"
+      ],
+      "storage": "-18°C termo korumada teslim edilir. Hakiki vanilya havyarlarının enfes aroması ilk kaşıkta belirginleşir.",
+      "pairing": "Ilık çikolatalı sufle, elmalı tart veya espresso üzerine ilave edilen klasik Affogato için biçilmiş kaftan."
+    },
+    {
+      "id": 5,
+      "name": "Piyemonte Fındığı & Gianduja",
+      "slug": "piyemonte-findigi-gianduja",
+      "description": "İtalyan IGP Piyemonte fındığı pralini ve kadifemsi sütlü çikolata girdapları.",
+      "price": 145,
+      "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCmSg4iKLSV6vbQ1_tucLKmsQOUfbq_fbf8945wylfCMAQOtpMOMIPrZ21XzKm3J2Ffa37dsWk1gs4RsU3WACi31iUF9UBdVHKgNQKTVGsa2NUx9_7QffEVqALY3L993y8t4fwO5vGjgZXGxJp4NmLtN0KIVaSUZmar0doxRvaLiAG4DrFR9K60-DV4NNS5u6gNiG9lPHy8_k1v3ZTbLZWYS2Ua1inW8_WSqtFBo9LnR8KZme7Yl5g",
+      "badge": "🌰 IGP Piyemonte",
+      "badgeType": "origin",
+      "categories": ["nut", "chocolate"],
+      "servingDefault": "Külah",
+      "origin": "Langhe, Piyemonte / İtalya",
+      "rating": 4.9,
+      "reviewCount": 97,
+      "intensity": "Fındıklı & Dolgun",
+      "isVegan": false,
+      "ingredients": [
+        "IGP Sertifikalı Piyemonte Fındığı Ezmesi (%25)",
+        "Belçika Gianduja Çikolatası",
+        "Taze Çiftlik Sütü",
+        "Kavrulmuş Bütün Fındık Parçacıkları"
+      ],
+      "nutrition": {
+        "calories": "270 kcal",
+        "protein": "6.9 g",
+        "fat": "16.8 g",
+        "carbs": "23.5 g"
+      },
+      "allergens": [
+        "Süt ve süt ürünleri (Laktoz)",
+        "Fındık (Ağaç yemişi)",
+        "Soya lesitini"
+      ],
+      "storage": "-18°C koşullarında saklanır. Fındık yağının zenginliği dondurmaya benzersiz bir ipeksilik kazandırır.",
+      "pairing": "Yoğun gövdeli cappuccino, kavrulmuş bademler ve taze kruvasan ile mükemmel sabah şöleni."
+    },
+    {
+      "id": 6,
+      "name": "Limon & Taze Fesleğen Sorbe",
+      "slug": "limon-taze-feslegen-sorbe",
+      "description": "Bodrum misket limonu ve bahçeden taze fesleğenle ferahlatan, serinletici özel tarif.",
+      "price": 120,
+      "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuDg0BvQPwQIoaNj0fq77v7qXX5xbj8zYWUcxj79c-7GR6n-LycLfU-rW8YFc-HlJyxS6WFrovFM2-8qo0UjujwezsEMqsixwfXg5xcJimIF5w0dSGdd_OWyEXOU0RcmA_TLQviJmgVsK4tlHZC7QkUi4SeITEqw_kwlptT1awDqonV-ghi9GfKJmm19JeZ6PCRHM6ILLWV1DSahTvP8OFJ70Cdnpgr8vWT2jZCb2jBvAmKQujBu498",
+      "badge": "🍋 Ferahlatıcı",
+      "badgeType": "refreshing",
+      "categories": ["fruit", "special"],
+      "servingDefault": "Külah",
+      "isVegan": true,
+      "origin": "Bodrum Yarımadası / Türkiye",
+      "rating": 4.8,
+      "reviewCount": 73,
+      "intensity": "Asidik & Canlandırıcı",
+      "ingredients": [
+        "Bodrum Misket Limon Suyu & Kabuğu (%40)",
+        "Bahçe Fesleğeni Yaprakları",
+        "Doğal Kaynak Suyu",
+        "Pancar Şekeri"
+      ],
+      "nutrition": {
+        "calories": "108 kcal",
+        "protein": "0.5 g",
+        "fat": "0.1 g",
+        "carbs": "25.0 g"
+      },
+      "allergens": [
+        "Alerjen içermez (Laktozsuz & Glutensiz)"
+      ],
+      "storage": "-18°C termo muhafazada iletilir. Doğal turunçgil asiditesi sayesinde her an tazeleyici ferahlık sunar.",
+      "pairing": "Ağır yemeklerin ardından damak tazeleyici olarak veya soğuk yeşil çay ile ikindi molalarında harika gider."
+    }
+  ],
+  "featuredProducts": [
+    {
+      "id": 1,
+      "name": "Pistacchio Puro",
+      "description": "Volkanik Etna toprağında yetişen fıstıkların kavrulup taş değirmende ezilmesiyle hazırlanan yoğun fıstık ziyafeti.",
+      "price": 140,
+      "image": "/images/pistachio.png",
+      "badge": "👑 Şefin İmzası",
+      "originLabel": "Sicilya, Bronte",
+      "certLabel": "DOP Sertifikalı",
+      "labelColor": "tertiary",
+      "servingDefault": "Külah"
+    },
+    {
+      "id": 2,
+      "name": "Bitter & Deniz Tuzu",
+      "description": "Yoğun bitter kakao katmanlarının Maldon deniz tuzu kristalleriyle buluştuğu karşı konulamaz çikolata rüyası.",
+      "price": 130,
+      "image": "/images/chocolate.png",
+      "badge": "🍫 %72 Madagaskar",
+      "originLabel": "Belçika & Maldon",
+      "certLabel": "Derin Kakao",
+      "labelColor": "secondary",
+      "servingDefault": "Külah"
+    },
+    {
+      "id": 3,
+      "name": "Dağ Çileği & Ahududu",
+      "description": "Taze nane dokunuşu ve %80 gerçek orman meyvesi püresiyle üretilen, ferahlatıcı yaz sorbesi.",
+      "price": 125,
+      "image": "/images/strawberry.png",
+      "badge": "🍓 %100 Vegan & Taze",
+      "originLabel": "Dağ Meyveleri",
+      "certLabel": "Sıfır Laktoz",
+      "labelColor": "secondary",
+      "servingDefault": "Bardak"
+    }
+  ],
+  "benefits": [
+    {
+      "id": 1,
+      "icon": "water_drop",
+      "title": "Günlük Taze Üretim",
+      "description": "Her sabah Kadıköy atölyemizde taze çiftlik sütü ve mevsimin en tatlı meyveleriyle sınırlı miktarda üretilir."
+    },
+    {
+      "id": 2,
+      "icon": "eco",
+      "title": "Özenli & Kaliteli",
+      "description": "Yapay aroma, glikoz şurubu, koruyucu veya kimyasal renklendirici içermez; saf İtalyan gelateria saflığı."
+    },
+    {
+      "id": 3,
+      "icon": "moped",
+      "title": "Hızlı Yerel Teslimat",
+      "description": "Özel soğutmalı termo çantalar ve kuru buz bariyerleri sayesinde erimeden 30 dakikada kapınızda."
+    },
+    {
+      "id": 4,
+      "icon": "cookie",
+      "title": "El Yapımı Taze Külahlar",
+      "description": "İtalyan vanilyalı, taze tereyağlı çıtır çıtır külahlarımızı her siparişte hijyenik paketlerle gönderiyoruz."
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "name": "Zeynep K.",
+      "initials": "ZK",
+      "location": "Moda, Kadıköy",
+      "rating": 5,
+      "text": "Hayatımda yediğim en iyi Antep fıstıklı dondurma! Kurye geldiğinde kutu buz gibiydi, tek bir damla bile erimemişti. Külahın çıtırlığı ise efsane.",
+      "avatarBg": "secondary-fixed",
+      "avatarText": "on-secondary-fixed"
+    },
+    {
+      "id": 2,
+      "name": "Murat D.",
+      "initials": "MD",
+      "location": "Fenerbahçe",
+      "rating": 5,
+      "text": "Bitter çikolatadaki tuz dokunuşu mükemmel. Moda'ya her gelişimde dükkana uğrardım, artık cuma akşamları eve hızlıca sipariş edebilmek harika bir lüks.",
+      "avatarBg": "surface-container-highest",
+      "avatarText": "on-surface"
+    },
+    {
+      "id": 3,
+      "name": "Elif S.",
+      "initials": "ES",
+      "location": "Caddebostan",
+      "rating": 5,
+      "text": "Çilek sorbe gerçekten meyvenin kendisi gibi, yapay şeker tadı asla yok. Çocuklarım için içim son derece rahat sipariş veriyorum. Elinize sağlık!",
+      "avatarBg": "tertiary-fixed",
+      "avatarText": "on-tertiary-fixed"
+    }
+  ],
+  "categories": [
+    { "id": "all", "label": "Tümü", "count": 6 },
+    { "id": "fruit", "label": "Meyveli & Sorbe" },
+    { "id": "chocolate", "label": "Çikolatalı & Kahveli" },
+    { "id": "nut", "label": "Sütlü & Kuruyemişli" },
+    { "id": "special", "label": "Özel & Sezonluk" }
+  ],
+  "deliveryZones": [
+    { "id": 1, "name": "moda" },
+    { "id": 2, "name": "kadıköy" },
+    { "id": 3, "name": "kadikoy" },
+    { "id": 4, "name": "fenerbahçe" },
+    { "id": 5, "name": "fenerbahce" },
+    { "id": 6, "name": "caddebostan" },
+    { "id": 7, "name": "suadiye" },
+    { "id": 8, "name": "bostancı" },
+    { "id": 9, "name": "bostanci" },
+    { "id": 10, "name": "acıbadem" },
+    { "id": 11, "name": "acibadem" },
+    { "id": 12, "name": "göztepe" },
+    { "id": 13, "name": "goztepe" },
+    { "id": 14, "name": "koşuyolu" },
+    { "id": 15, "name": "kosuyolu" },
+    { "id": 16, "name": "erenköy" },
+    { "id": 17, "name": "erenkoy" }
+  ],
+  "storeInfo": {
+    "name": "Gelato & Co.",
+    "subtitle": "Cremeria & Laboratorio",
+    "address": "Caferağa Mah. Moda Cad. No: 42/A, Kadıköy / İstanbul",
+    "addressShort": "Kadıköy, Moda",
+    "hours": "Haftanın her günü 11:00 - 00:00",
+    "hoursShort": "Pazartesi - Pazar",
+    "hoursDetail": "11:00 - 00:00",
+    "phone": "+90 (216) 555 43 21",
+    "email": "ciao@gelatoco.com.tr",
+    "heroImage": "/images/mix.png",
+    "aboutImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuDzcsoBAxbzIKVltegmEgkpcdqGlQRd2qCuQNFQaK_4kf6zw25ADeEQaSyD8jsNxeNzkgG2apVU2-giWcBEJhlI4Q-XobzsZIHr6CukL75dfCJV_JmOaikj3mHHX61hb6QN9ejUSTrrZf0FK4C8ZqsT7VltiZFCMtGMeamsxraSU_mGgv2K43ATP2QLReXe66gJteIcLzfNpvJUWPdtIAavaRb55I5H_oHexNEstmG9QCvxVe0CgHo",
+    "mapImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuD3lN9lqm9NIGZ6Q8DvtGduZmv8692SKhELM1xZsBka2v3f3-_mYFkPrGL9-YOfxn39SG3W01E8tHiRKCkAnt52iaYqKBCjSy_IBz1GralU5E4_tBptt7HCaxUpbxhA5ePTB2YJXgtiBDuM31seMpL_45TBwZyN1InBQ5rI8id1aoywa32r1r2DQkU0HNbtTvHbP7dNsPXDyKXHSsWdEoth2ScfPS6RnSSnXi-_MAgEQp_h2AOQKug",
+    "instagram": "https://instagram.com",
+    "whatsapp": "https://wa.me",
+    "googleMaps": "https://maps.google.com",
+    "deliveryNote": "Moda ve Kadıköy bölgelerine gece yarısına kadar kapıya kurye servisi."
+  },
+  "promo": {
+    "id": 1,
+    "badge": "Yaza Özel Teklif",
+    "title": "2 Kutu Alana Teslimat Bizden! 🍨✨",
+    "description": "500gr ve 1000gr özel termobox aile paketlerimizde Moda ve Kadıköy genelinde kurye bedeli sıfır. Kendi 4'lü lezzet kombinasyonunu yarat.",
+    "ctaText": "Paket Boylarını İncele",
+    "ctaLink": "#urunler"
+  }
+}
