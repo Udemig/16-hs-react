@@ -1,14 +1,14 @@
-import { useState, type FC, type SubmitEvent } from "react";
+import { useEffect, useState, type FC, type SubmitEvent } from "react";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { MDE_OPTIONS, SELECT_STYLES } from "../../utils/constants";
 import ReactSelect from "react-select/creatable";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Check, X } from "lucide-react";
 import type { NoteValues } from "../../utils/types";
-import { addNote } from "../../redux/noteSlice";
+import { addNote, updateNote } from "../../redux/noteSlice";
 import { toast } from "react-toastify";
-import { useAppDispatch } from "../../redux";
+import { useAppDispatch, useAppSelector } from "../../redux";
 
 const Form: FC = () => {
   const [title, setTitle] = useState<string>("");
@@ -17,6 +17,25 @@ const Form: FC = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+
+  // not verilerini store'dan al
+  const { notes } = useAppSelector((store) => store);
+
+  // düzenleme modundaysa not bilgilerini state'e aktar
+  useEffect(() => {
+    if (id) {
+      const found = notes.find((note) => note.id == id);
+      if (!found) return;
+      setTitle(found.title);
+      setContent(found.content);
+      setSelectedTags(found.tags);
+    } else {
+      setTitle("");
+      setContent("");
+      setSelectedTags([]);
+    }
+  }, [notes, id]);
 
   // form gönderilince
   const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
@@ -29,18 +48,23 @@ const Form: FC = () => {
       tags: selectedTags,
     };
 
-    // yeni not oluşturulucağını slice'a haber ver
-    dispatch(addNote(values));
-
-    // ansayfaya yönlendirme ve bildirim
-    navigate("/");
-    toast.success("Not oluşturuldu");
+    if (id) {
+      // notun güncelleneceğini slice'a haber ver
+      dispatch(updateNote({ id, data: values }));
+      toast.success("Not güncellendi");
+      navigate(`/note/${id}`);
+    } else {
+      // yeni not oluşturulucağını slice'a haber ver
+      dispatch(addNote(values));
+      toast.success("Not oluşturuldu");
+      navigate("/");
+    }
   };
 
   return (
     <div>
       <div>
-        <h1 className="text-2xl font-bold text-text-primary">Not Oluştur</h1>
+        <h1 className="text-2xl font-bold text-text-primary">{id ? "Notu Düzenle" : "Not Oluştur"}</h1>
         <p className="text-text-secondary">Fikirlerinizi ve notlarınızı kaydedin</p>
       </div>
 

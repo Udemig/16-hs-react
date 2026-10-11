@@ -18,8 +18,16 @@ const noteSlice = createSlice({
       // notu diziye ekle
       state.notes.unshift(newNote);
     },
-    deleteNote: (state, action) => {},
-    updateNote: (state, action) => {},
+
+    deleteNote: (state, action: PayloadAction<string>) => {
+      state.notes = state.notes.filter((note) => note.id !== action.payload);
+    },
+
+    updateNote: (state, action: PayloadAction<{ id: string; data: NoteValues }>) => {
+      const index = state.notes.findIndex((note) => note.id === action.payload.id);
+
+      state.notes.splice(index, 1, { id: action.payload.id, ...action.payload.data });
+    },
   },
 });
 

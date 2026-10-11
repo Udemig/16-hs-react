@@ -6,8 +6,11 @@ import Total from "../../components/home/Total";
 
 const Home: FC = () => {
   const { notes } = useAppSelector((store) => store);
+  const store = useAppSelector((store) => store);
   const [title, setTitle] = useState<string>("");
   const [tags, setTags] = useState<string[]>([]);
+
+  console.log(store);
 
   // title ve etiketlere göre filtrele
   const filtredNotes = notes.filter((note) => {
