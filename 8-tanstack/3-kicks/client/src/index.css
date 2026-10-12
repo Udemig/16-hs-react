@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Open Sans", sans-serif;
+  --font-rubik: "Rubik", sans-serif;
+
+  --color-blue: #4a69e2;
+  --color-yellow: #ffa52f;
+  --color-white: #ffffff;
+  --color-fa-white: #fafafa;
+  --color-gray: #e7e7e3;
+  --color-main-gray: #70706e;
+  --color-dark-gray: #232321;
+}
+
+@layer base {
+  body {
+    @apply bg-gray text-dark-gray font-sans;
+  }
+
+  button {
+    @apply cursor-pointer transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  a {
+    @apply cursor-pointer transition-all duration-300;
+  }
+
+  h1,
+  h2 {
+    @apply font-rubik font-bold text-4xl;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sans text-2xl;
+  }
+}
+
+@layer components {
+}

@@ -2,13 +2,16 @@ import type { FC } from "react";
 import { INITIAL_VALUES, INPUT_FIELDS } from "../../utils/constants";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { PLACE_SCHEMA } from "../../utils/schemas";
+import { useCreatePlace } from "../../service/hooks";
 
 const FormPage: FC = () => {
+  const { isPending, mutate } = useCreatePlace();
+
   // form gönderilince çalışır
   // otomatik olarak preventDefault yapar
   // values parametresi ile inputlardaki değerlere erişir
   const handleSubmit = (values: any) => {
-    console.log(values);
+    mutate(values);
   };
 
   return (
@@ -39,12 +42,12 @@ const FormPage: FC = () => {
                 <ErrorMessage
                   name={item.name}
                   component="div"
-                  className="text-red-500 text-sm font-medium"
+                  className="text-red-500 text-sm font-medium absolute -bottom-6"
                 />
               </div>
             ))}
 
-            <button type="submit" className="btn btn-primary mt-4 text-lg">
+            <button disabled={isPending} type="submit" className="btn btn-primary mt-4 text-lg">
               Gönder
             </button>
           </Form>

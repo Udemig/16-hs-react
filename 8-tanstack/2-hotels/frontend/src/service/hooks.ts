@@ -37,3 +37,19 @@ export const useDeletePlace = () => {
     },
   });
 };
+
+// yeni bir konaklama alanı oluştur
+export const useCreatePlace = () => {
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: (data: any) => api.post("/places", data),
+    onSuccess: (res) => {
+      toast.success("Konaklama alanı oluşturuldu");
+      navigate("/");
+    },
+    onError: (err) => {
+      toast.error(`Bir hata oluştu: ${err.message}`);
+    },
+  });
+};
