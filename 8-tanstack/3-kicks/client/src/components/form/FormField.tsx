@@ -9,6 +9,7 @@ interface Props {
   required?: boolean;
   options?: string[];
   info?: string;
+  styles?: string;
 }
 
 const FormField: FC<Props> = ({
@@ -19,9 +20,10 @@ const FormField: FC<Props> = ({
   required = true,
   options,
   info,
+  styles,
 }) => {
   return (
-    <div className="relative">
+    <div className={`relative ${styles}`}>
       <div>
         {type === "radio" ? (
           <div className="flex gap-4">

@@ -10,10 +10,14 @@ import Button from "../../components/form/Button";
 import { Formik, Form } from "formik";
 import { REGISTER_INITIAL_VALUES } from "../../constants";
 import { REGISTER_SCHEMA } from "../../constants/schemas";
+import { useRegister } from "../../service/auth";
+import { Link } from "react-router-dom";
 
 const Register: FC = () => {
+  const { isPending, mutate } = useRegister();
+
   const handleSubmit = (values: any) => {
-    console.log(values);
+    mutate(values);
   };
 
   return (
@@ -70,12 +74,14 @@ const Register: FC = () => {
               type="checkbox"
               name="terms"
               label="Giriş yaparak Kullanım Koşulları’nı ve Gizlilik Bildirimi’ni kabul etmiş olursunuz."
+              styles="mb-4"
             />
 
             <FormField type="checkbox" name="session" label="Oturumu açık tut" />
 
             <button
               type="submit"
+              disabled={isPending}
               className="flex items-center bg-dark-gray text-white justify-between px-4 py-2 rounded-lg font-medium text-sm"
             >
               <span>KAYDOL</span>
@@ -83,6 +89,13 @@ const Register: FC = () => {
             </button>
           </Form>
         </Formik>
+
+        <p className="mt-4">
+          Hesabınız varsa{" "}
+          <Link to="/login" className="text-blue-500 underline">
+            Giriş Yapın
+          </Link>
+        </p>
       </section>
     </div>
   );

@@ -42,4 +42,15 @@
 }
 
 @layer components {
+  .spacing {
+    @apply py-8 px-4 md:px-8 lg:px-12 xl:px-16;
+  }
+
+  .btn {
+    @apply bg-blue text-white font-semibold px-6 py-3 rounded-xl hover:brightness-90;
+  }
+
+  .menu-item {
+    @apply block w-full text-left px-5 py-2.5 hover:bg-gray;
+  }
 }
