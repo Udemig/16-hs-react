@@ -35,7 +35,7 @@ const Register: FC = () => {
         >
           <Form className="flex flex-col gap-4" noValidate>
             <div>
-              <h1 className="mb-2">Kayıt Ol</h1>
+              <h1 className="mb-2 text-2xl">Kayıt Ol</h1>
               <p>Bu yöntemleri kullanabilirsin</p>
             </div>
 

@@ -26,13 +26,21 @@ const FormField: FC<Props> = ({
     <div className={`relative ${styles}`}>
       <div>
         {type === "radio" ? (
-          <div className="flex gap-4">
-            {options?.map((option) => (
-              <div className="flex gap-4">
-                <Field type="radio" id={option} name={name} value={option} />
-                <label htmlFor={option}>{option}</label>
-              </div>
-            ))}
+          <div>
+            {label && (
+              <label className="text-sm/6 font-semibold text-gray-800">
+                {label} {required && <span className="text-red-500 ms-1">*</span>}
+              </label>
+            )}
+
+            <div className="flex gap-4 mt-2">
+              {options?.map((option) => (
+                <div className="flex gap-4">
+                  <Field type="radio" id={option} name={name} value={option} />
+                  <label htmlFor={option}>{option}</label>
+                </div>
+              ))}
+            </div>
           </div>
         ) : type === "checkbox" ? (
           <div className="flex">
@@ -48,6 +56,12 @@ const FormField: FC<Props> = ({
           </div>
         ) : (
           <div>
+            {label && (
+              <label className="text-sm/6 font-semibold text-gray-800">
+                {label} {required && <span className="text-red-500 ms-1">*</span>}
+              </label>
+            )}
+
             <Field
               id={name}
               name={name}

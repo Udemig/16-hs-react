@@ -30,14 +30,14 @@
 
   h1,
   h2 {
-    @apply font-rubik font-bold text-4xl;
+    @apply font-rubik font-bold;
   }
 
   h3,
   h4,
   h5,
   h6 {
-    @apply font-sans text-2xl;
+    @apply font-sans;
   }
 }
 

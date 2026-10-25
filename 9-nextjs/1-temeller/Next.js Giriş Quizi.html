@@ -1,0 +1,515 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Next.js Giriş Quizi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  /* Layout: tek sütun, bir seferde tek soru kartı; üstte bölüm filtresi ve ilerleme, sonda bölüm bazlı sonuç. Renkler ve yazı tipleri "Next.js’e Giriş" destesiyle aynı. */
+  :root {
+    --bg: #F5F3EE;
+    --surface: #FCFBF8;
+    --ink: #14161B;
+    --soft: #4A505C;
+    --muted: #6B6F78;
+    --line: #E2DED5;
+    --accent: #2457D6;
+    --accent-weak: #DCE6FF;
+    --accent2: #B4561A;
+    --good: #1F7A4D;
+    --good-weak: #DDF1E6;
+    --bad: #B42318;
+    --bad-weak: #FBE4E1;
+    --code-bg: #1A1D24;
+    --code-fg: #E6E3DC;
+    --display: "Space Grotesk", "Segoe UI", Arial, sans-serif;
+    --mono: "JetBrains Mono", "Cascadia Code", Consolas, "Courier New", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0F1115; --surface: #171A21; --ink: #F2F0EA; --soft: #B4BAC6; --muted: #8C93A0;
+      --line: #2A2F3A; --accent: #8FB0FF; --accent-weak: #1C2A4D; --accent2: #F0A868;
+      --good: #5BC891; --good-weak: #12301F; --bad: #F08A7E; --bad-weak: #3A1A17;
+      --code-bg: #0B0D11; --code-fg: #E6E3DC; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0F1115; --surface: #171A21; --ink: #F2F0EA; --soft: #B4BAC6; --muted: #8C93A0;
+    --line: #2A2F3A; --accent: #8FB0FF; --accent-weak: #1C2A4D; --accent2: #F0A868;
+    --good: #5BC891; --good-weak: #12301F; --bad: #F08A7E; --bad-weak: #3A1A17;
+    --code-bg: #0B0D11; --code-fg: #E6E3DC; color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--display);
+    font-size: 16px;
+    line-height: 1.5;
+    padding-block: 32px 64px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+
+  header { display: flex; flex-direction: column; gap: 8px; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  h1 { font-size: clamp(30px, 6vw, 44px); line-height: 1.05; letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+  .lead { color: var(--soft); margin: 0; max-width: 60ch; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font: inherit; font-size: 14px; font-weight: 500; color: var(--soft);
+    background: transparent; border: 1px solid var(--line); border-radius: 999px;
+    padding: 6px 14px; cursor: pointer;
+  }
+  .chip span { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-left: 4px; }
+  .chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .chip[aria-pressed="true"] span { color: var(--bg); opacity: 0.7; }
+
+  .progress { display: flex; flex-direction: column; gap: 8px; }
+  .progress-row { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .bar { height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; }
+  .bar > i { display: block; height: 100%; background: var(--accent); width: 0; transition: width 0.25s ease; }
+
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: clamp(20px, 4vw, 32px); display: flex; flex-direction: column; gap: 20px; }
+  .meta { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 13px; }
+  .meta .sec { font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent2); }
+  .meta .ref { font-family: var(--mono); color: var(--muted); }
+  .question { font-size: clamp(20px, 3.4vw, 24px); font-weight: 600; line-height: 1.3; margin: 0; text-wrap: balance; }
+  .question code, .opt code, .explain code, .review code { font-family: var(--mono); font-size: 0.88em; background: var(--accent-weak); color: var(--ink); padding: 1px 5px; border-radius: 4px; }
+  pre { margin: 0; background: var(--code-bg); color: var(--code-fg); border-radius: 12px; padding: 18px 20px; overflow-x: auto; font-family: var(--mono); font-size: 14px; line-height: 1.6; }
+
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .opt {
+    font: inherit; text-align: left; color: var(--ink);
+    display: grid; grid-template-columns: 32px 1fr; gap: 12px; align-items: start;
+    background: var(--bg); border: 1px solid var(--line); border-radius: 12px;
+    padding: 12px 14px; cursor: pointer; transition: border-color 0.15s, background 0.15s;
+  }
+  .opt:hover:not(:disabled) { border-color: var(--accent); }
+  .opt:disabled { cursor: default; }
+  .opt .key { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--muted); border: 1px solid var(--line); border-radius: 8px; height: 28px; display: grid; place-items: center; }
+  .opt .txt { min-width: 0; padding-top: 2px; }
+  .opt.correct { background: var(--good-weak); border-color: var(--good); }
+  .opt.correct .key { background: var(--good); color: var(--surface); border-color: var(--good); }
+  .opt.wrong { background: var(--bad-weak); border-color: var(--bad); }
+  .opt.wrong .key { background: var(--bad); color: var(--surface); border-color: var(--bad); }
+  .opt.dim { opacity: 0.6; }
+
+  .explain { border-left: 3px solid var(--good); padding: 4px 0 4px 16px; display: flex; flex-direction: column; gap: 4px; }
+  .explain.is-wrong { border-left-color: var(--bad); }
+  .explain strong { font-size: 15px; }
+  .explain.is-right strong { color: var(--good); }
+  .explain.is-wrong strong { color: var(--bad); }
+  .explain p { margin: 0; color: var(--soft); }
+
+  .nav { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    font: inherit; font-weight: 600; font-size: 15px; cursor: pointer;
+    border-radius: 10px; padding: 10px 18px; border: 1px solid var(--line);
+    background: transparent; color: var(--ink);
+  }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .hint { font-size: 13px; color: var(--muted); }
+  .hint kbd { font-family: var(--mono); font-size: 12px; border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; }
+
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* Sonuç */
+  .score { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .score b { font-size: clamp(48px, 10vw, 72px); line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+  .score span { font-size: 18px; color: var(--soft); }
+  .sections { display: flex; flex-direction: column; gap: 12px; }
+  .srow { display: grid; grid-template-columns: minmax(0, 180px) 1fr 56px; gap: 12px; align-items: center; font-size: 14px; }
+  .srow .name { color: var(--soft); min-width: 0; }
+  .srow .val { font-family: var(--mono); text-align: right; font-variant-numeric: tabular-nums; }
+  .srow .bar > i { background: var(--good); }
+  .srow.low .bar > i { background: var(--accent2); }
+  h2 { font-size: 20px; margin: 0; }
+  .review { display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0; list-style: none; }
+  .review li { border-top: 1px solid var(--line); padding-top: 14px; display: flex; flex-direction: column; gap: 4px; }
+  .review .q { font-weight: 600; }
+  .review .a { color: var(--good); }
+  .review .e { color: var(--soft); font-size: 14px; }
+  .review .r { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .done-msg { color: var(--soft); margin: 0; }
+
+  @media (max-width: 480px) {
+    .srow { grid-template-columns: 1fr 48px; }
+    .srow .bar { grid-column: 1 / -1; grid-row: 2; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Frontend · Modül 9</p>
+    <h1>Next.js Giriş Quizi</h1>
+    <p class="lead">“Next.js’e Giriş” destesindeki konular üzerine sorular. Her cevabın ardından açıklamayı ve konunun geçtiği slaytı görürsün.</p>
+  </header>
+
+  <div class="chips" id="chips" role="group" aria-label="Bölüm seç"></div>
+
+  <div class="progress" id="progress">
+    <div class="progress-row"><span id="pos"></span><span id="tally"></span></div>
+    <div class="bar"><i id="bar"></i></div>
+  </div>
+
+  <main id="view" aria-live="polite"></main>
+</div>
+
+<script>
+  const SECTIONS = {
+    routing: "Routing",
+    ileri: "İleri Routing",
+    opt: "Optimizasyon",
+    render: "Rendering ve Veri",
+    navform: "Navigation ve Form",
+    ssg: "SSG",
+  };
+
+  // a: doğru seçeneğin indeksi (o dizisinde). Seçenekler ekranda karıştırılır.
+  const QUESTIONS = [
+    // Routing
+    { s: "routing", ref: "04 · App Router",
+      q: "<code>src/app/products/[id]/page.jsx</code> dosyası hangi adresi karşılar?",
+      o: ["<code>/products/42</code>", "<code>/products/[id]</code>", "<code>/products?id=42</code>", "<code>/src/app/products/42</code>"], a: 0,
+      e: "Köşeli parantezli klasör dinamik bir parça tanımlar; URL’de oraya herhangi bir değer gelebilir. Klasör yolu URL yolunu belirler, src/app kısmı URL’e girmez." },
+    { s: "routing", ref: "04 · App Router",
+      q: "<code>src/app</code> içindeki bir klasörün sayfa olarak algılanması için ne gerekir?",
+      o: ["İçinde <code>page.jsx</code> dosyası olmalı", "Router’a <code>&lt;Route path&gt;</code> ile eklenmeli", "Klasör adı büyük harfle başlamalı", "İçinde <code>index.jsx</code> dosyası olmalı"], a: 0,
+      e: "Next.js page.jsx dosyalarını kendisi bulup router’a ekler. İçinde page.jsx olmayan klasör sayfa değildir." },
+    { s: "routing", ref: "05 · Link",
+      q: "React Router’daki <code>&lt;Link to=\"/products\"&gt;</code> Next.js’te nasıl yazılır?",
+      o: ["<code>&lt;Link href=\"/products\"&gt;</code>, next/link’ten", "<code>&lt;Link to=\"/products\"&gt;</code>, next/navigation’dan", "<code>&lt;a to=\"/products\"&gt;</code>", "<code>&lt;Navigate href=\"/products\" /&gt;</code>"], a: 0,
+      e: "Next.js’te Link bileşeni next/link’ten gelir ve prop’un adı href’tir. BrowserRouter gibi bir sarmalayıcıya gerek yoktur." },
+    { s: "routing", ref: "05 · Link",
+      q: "Sayfalar arası geçişte düz <code>&lt;a&gt;</code> yerine <code>Link</code> kullanmanın faydası nedir?",
+      o: ["Sayfa baştan yüklenmez, state korunur ve görünen linkler önceden yüklenir", "Link sadece dış sitelere gitmek için kullanılır", "&lt;a&gt; etiketi Next.js’te hata verir", "Link sayfayı her seferinde sunucudan yeniden indirir"], a: 0,
+      e: "Link client-side geçiş yapar, yani sayfa yenilenmez. Ayrıca ekranda görünen Link’lerin hedef sayfaları arka planda önceden yüklenir (prefetch)." },
+    { s: "routing", ref: "06 · Dynamic Routes",
+      q: "Next.js 15+ sürümünde bu kodun sorunu nedir?",
+      code: "const Detail = ({ params }) => {\n  const { id } = params;\n  return <h1>{id}</h1>;\n};",
+      o: ["<code>params</code> bir Promise; bileşen async olmalı ve <code>await params</code> yazılmalı", "Hiçbir sorun yok", "params yerine server component’ta <code>useParams()</code> kullanılmalı", "Klasör adı <code>[id]</code> yerine <code>:id</code> olmalı"], a: 0,
+      e: "Next.js 15’ten beri params bir Promise’tir. Server component’ta hook kullanılamaz; bileşeni async yapıp params’ı await ederiz." },
+    { s: "routing", ref: "07 · Catch-all",
+      q: "<code>app/docs/[...slug]/page.jsx</code> varken <code>/docs/belge-1/sayfa-10</code> adresine gidilirse <code>slug</code> ne olur?",
+      o: ["<code>[\"belge-1\", \"sayfa-10\"]</code>", "<code>\"belge-1/sayfa-10\"</code>", "<code>\"sayfa-10\"</code>", "404 sayfası açılır"], a: 0,
+      e: "Catch-all segmenti URL’deki parçaları bir dizi olarak verir. Tek metin olarak göstermek için slug.join(\"/\") kullanılır." },
+    { s: "routing", ref: "08 · Route Groups",
+      q: "<code>app/(auth)/login/page.jsx</code> dosyasının URL’i nedir?",
+      o: ["<code>/login</code>", "<code>/auth/login</code>", "<code>/(auth)/login</code>", "<code>/auth</code>"], a: 0,
+      e: "Parantez içindeki klasör adı URL’e eklenmez. Route group’lar sayfaları kategorize etmek ve gruba özel layout, loading, error tanımlamak içindir." },
+    { s: "routing", ref: "09 · Layout ve Template",
+      q: "Sidebar’daki bir input’a isim yazdın, sonra Login’den Register’a geçtin ve isim silindi. Sidebar hangi dosyada tanımlıdır?",
+      o: ["<code>template.jsx</code>", "<code>layout.jsx</code>", "<code>page.jsx</code>", "<code>loading.jsx</code>"], a: 0,
+      e: "Template, layout ile aynı işi yapar ama her sayfa geçişinde yeniden oluşur, bu yüzden state sıfırlanır. Layout kalıcıdır ve state’i korur." },
+    { s: "routing", ref: "10 · Özel Dosyalar",
+      q: "<code>error.jsx</code> dosyasının en üstüne neden <code>\"use client\"</code> yazmak zorundayız?",
+      o: ["Tekrar Dene butonu onClick ile reset’i çağırıyor; etkileşim client component ister", "Hata mesajları sadece tarayıcıda oluşur", "error.jsx sunucuda hiç çalışmaz, bu sadece bir gelenek", "Zorunlu değil, istersek yazmayabiliriz"], a: 0,
+      e: "error.jsx, error ve reset prop’larını alır. reset bir butonun onClick’inde çağrıldığı için dosya client component olmalı; yazmazsanız Next.js hata verir." },
+    { s: "routing", ref: "11 · loading.jsx ve error.jsx",
+      q: "React’te her sayfada yazdığımız <code>isLoading</code>/<code>error</code> state’leri ve <code>if</code> kontrollerinin Next.js’teki karşılığı nedir?",
+      o: ["Klasöre konan <code>loading.jsx</code> ve <code>error.jsx</code> dosyaları", "<code>useLoading()</code> ve <code>useError()</code> hook’ları", "next.config.js içindeki loading ayarı", "Karşılığı yok, aynı kalıbı yazmaya devam ederiz"], a: 0,
+      e: "Bileşen async işlem beklerken klasördeki loading.jsx, hata fırlatırsa error.jsx otomatik ekrana gelir. Bileşen sadece asıl içeriği yazar." },
+    { s: "routing", ref: "11 · loading.jsx ve error.jsx",
+      q: "<code>loading.jsx</code> ne zaman ekrana gelir?",
+      o: ["Aynı klasördeki bir bileşen async bir işlemi beklerken", "Uygulama ilk açıldığında bir kez", "Kullanıcı bir butona tıkladığında", "Sadece build sırasında"], a: 0,
+      e: "loading.jsx, bulunduğu klasördeki sayfalar veri beklerken gösterilir. Etkisi oluşturulduğu klasöre bağlıdır." },
+    { s: "routing", ref: "12 · Metadata",
+      q: "Layout’ta <code>title: { template: \"%s | Getir\" }</code>, ürünler sayfasında <code>title: \"Ürünler\"</code> var. Tarayıcı sekmesinde ne yazar?",
+      o: ["Ürünler | Getir", "Getir", "%s | Getir", "Ürünler"], a: 0,
+      e: "title.template içindeki %s yerine alt sayfanın title değeri yazılır. Böylece her sayfanın başlığı aynı formatta olur." },
+    { s: "routing", ref: "12 · Metadata",
+      q: "Ürün detay sayfasının başlığı API’dan gelen ürün adına göre değişecek. Hangisini kullanırız?",
+      o: ["<code>generateMetadata</code> fonksiyonu", "<code>export const metadata</code> nesnesi", "<code>document.title</code> ataması", "index.html içindeki <code>&lt;title&gt;</code>"], a: 0,
+      e: "Statik başlık için metadata nesnesi yeterlidir. Başlık veriye bağlıysa async generateMetadata fonksiyonu params’ı alır, veriyi çeker ve metadata döndürür." },
+
+    // İleri Routing
+    { s: "ileri", ref: "13 · Parallel Routes",
+      q: "<code>dashboard/@revenue/page.jsx</code> içeriği <code>dashboard/layout.jsx</code>’e nasıl ulaşır?",
+      o: ["Layout’a <code>revenue</code> adında bir prop olarak", "<code>/dashboard/revenue</code> adresinde ayrı bir sayfa olarak", "Layout içinde <code>import Revenue from \"./@revenue\"</code> ile", "<code>children</code> prop’unun içinde"], a: 0,
+      e: "@ ile başlayan klasörler slot’tur; URL’e eklenmez ve layout’a kendi adlarıyla prop olarak gelir. Her slot’un kendi loading, error ve verisi olabilir." },
+    { s: "ileri", ref: "13 · Parallel Routes",
+      q: "Bir slot klasöründeki <code>default.jsx</code> dosyası ne işe yarar?",
+      o: ["O slot’ta mevcut adrese uyan sayfa yoksa yedek olarak gösterilir", "Slot’un varsayılan stilini tanımlar", "Slot’un loading ekranıdır", "Slot’u devre dışı bırakır"], a: 0,
+      e: "Örneğin /dashboard/settings adresinde @users slot’unda settings sayfası yoksa default.jsx devreye girer. Genelde null döndürür." },
+    { s: "ileri", ref: "14 · Intercepting Routes",
+      q: "Wonders listesinde bir fotoğrafa Link ile tıklayınca detay modal olarak açılıyor. Aynı adreste sayfa yenilenirse ne olur?",
+      o: ["Detay tam sayfa olarak açılır", "Modal tekrar açılır", "404 sayfası gelir", "Liste sayfasına geri dönülür"], a: 0,
+      e: "Link ile gelindiğinde istek yakalanır (intercept) ve modal gösterilir. Yenileme veya paylaşılan link doğrudan wonders/[id]/page.jsx’i açar." },
+    { s: "ileri", ref: "14 · Intercepting Routes",
+      q: "Intercepting route klasör adındaki <code>(..)</code> neyi ifade eder?",
+      o: ["Bir üst seviyedeki route’u yakalar", "Aynı seviyedeki route’u yakalar", "app kökündeki route’u yakalar", "Route group’tur, URL’e girmez"], a: 0,
+      e: "(.) aynı seviye, (..) bir üst seviye, (..)(..) iki üst seviye, (...) app kökü demektir. Slot klasörleri (@modal) seviye sayılmaz." },
+
+    // Optimizasyon
+    { s: "opt", ref: "15 · Optimizasyon",
+      q: "Hangisi <code>next/image</code> bileşeninin yaptığı bir şey <b>değildir</b>?",
+      o: ["Hiçbir ayar yapmadan her dış alan adından gelen resmi optimize eder", "Resmi WebP formatına çevirir", "Lazy loading yapar", "Resim boyutunu optimize eder"], a: 0,
+      e: "Dış kaynaklı resimlerin optimize edilmesi için alan adı next.config dosyasında images.remotePatterns’a eklenmelidir." },
+    { s: "opt", ref: "15 · Optimizasyon",
+      q: "<code>import { data } from \"@/utils/constants\"</code> satırındaki <code>@</code> neyi gösterir?",
+      o: ["<code>src</code> klasörünü", "Projenin kök klasörünü", "node_modules klasörünü", "Bulunduğumuz dosyanın klasörünü"], a: 0,
+      e: "Absolute import’ta @ işareti src klasöründen başlar. Dosya taşınsa bile import yolunu değiştirmek gerekmez." },
+
+    // Rendering
+    { s: "render", ref: "16 · Rendering",
+      q: "Next.js’te yeni oluşturulan bir bileşen varsayılan olarak hangi türdedir?",
+      o: ["Server Component", "Client Component", "Static Component", "Dosya adına göre değişir"], a: 0,
+      e: "Her bileşen varsayılan olarak Server Component’tir. Client component için dosyanın en üstüne \"use client\" yazılır." },
+    { s: "render", ref: "17 · CSR ve SSR",
+      q: "SSR ile render edilen bir sayfada tarayıcıya ilk gelen HTML nasıldır?",
+      o: ["İçeriği dolu HTML", "Sadece <code>&lt;div id=\"root\"&gt;&lt;/div&gt;</code> içeren boş HTML", "HTML gelmez, sadece JSON gelir", "Sadece CSS dosyası gelir"], a: 0,
+      e: "SSR’de JavaScript sunucuda çalışır ve HTML orada oluşur. Bu yüzden arama motoru dolu sayfayı okur ve içerik daha erken görünür." },
+    { s: "render", ref: "18 · Component Çeşitleri",
+      q: "Hangisi bir Server Component içinde kullanılamaz?",
+      o: ["<code>useState</code>", "<code>async/await</code> ile veri çekme", "Başka bir Server Component’ı render etmek", "<code>export const metadata</code>"], a: 0,
+      e: "Server Component’larda hook’lar ve kullanıcı etkileşimi (onClick, onChange) kullanılamaz. Bunlar gerektiğinde sadece o parçayı client component yaparız." },
+    { s: "render", ref: "19 · İç İçe Kullanım",
+      q: "Bir Server Component’ı, Client Component’ın içinde server özelliğini kaybetmeden nasıl kullanırız?",
+      o: ["Client component’a <code>children</code> olarak dışarıdan veririz", "Client component dosyasının içinde import ederiz", "Server component’a da \"use client\" yazarız", "Mümkün değildir"], a: 0,
+      e: "Client component dosyasında import edilen server component client’a dönüşür. children (HOC) olarak dışarıdan verildiğinde server component olarak kalır." },
+    { s: "render", ref: "20 · Data Fetching",
+      q: "Server Component’ta veri çekmenin React’teki useEffect yöntemine göre farkı nedir?",
+      o: ["Bileşen async olur ve veri doğrudan await edilir; state ve useEffect gerekmez", "Server Component’ta veri çekilemez", "useEffect yine zorunludur, sadece başına await eklenir", "Veri sadece next.config dosyasında çekilebilir"], a: 0,
+      e: "Server Component’ta const data = await fetchRecipes() yazmak yeterli. Yükleniyor ve hata durumlarını loading.jsx ve error.jsx üstlenir." },
+    { s: "render", ref: "21 · Cache",
+      q: "<code>fetch(url, { next: { revalidate: 60 } })</code> ne yapar?",
+      o: ["60 saniye boyunca cache’teki veriyi kullanır, sonra yeniden çeker", "İsteği 60 saniye geciktirir", "60 saniyede bir sayfayı yeniler", "İsteği 60 kez dener"], a: 0,
+      e: "revalidate süresi dolana kadar cache kullanılır; süre dolduktan sonraki istekte API’ye yeniden gidilip cache güncellenir." },
+    { s: "render", ref: "21 · Cache",
+      q: "Her istekte API’ye yeniden gidilmesini istiyorsak fetch’e hangi ayarı veririz?",
+      o: ["<code>cache: \"no-store\"</code>", "<code>cache: \"force-cache\"</code>", "<code>cache: \"no-cache\"</code>", "<code>next: { revalidate: 3600 }</code>"], a: 0,
+      e: "no-store hiç cache kullanmaz. force-cache veriyi bir kez çekip hep cache’ten okur; no-cache ise önce API’ye verinin değişip değişmediğini sorar." },
+
+    // Navigation ve Form
+    { s: "navform", ref: "22 · Next.js Methods",
+      q: "React Router’daki <code>navigate(\"/x\")</code> çağrısının Next.js’teki karşılığı nedir?",
+      o: ["<code>useRouter()</code> ile alınan <code>router.push(\"/x\")</code>", "<code>redirect(\"/x\")</code>, client component’ta onClick içinde", "<code>usePathname(\"/x\")</code>", "<code>&lt;Link to=\"/x\"&gt;</code>"], a: 0,
+      e: "useRouter next/navigation’dan gelir ve sadece client component’ta çalışır. back, forward, replace ve refresh metotları da vardır." },
+    { s: "navform", ref: "22 · Next.js Methods",
+      q: "Bir Server Component’ta, kullanıcı giriş yapmamışsa login sayfasına yönlendirmek için hangisi kullanılır?",
+      o: ["<code>redirect(\"/login\")</code>", "<code>useRouter().push(\"/login\")</code>", "<code>&lt;Navigate to=\"/login\" /&gt;</code>", "<code>window.location = \"/login\"</code>"], a: 0,
+      e: "redirect server component’ta kullanılır ve genelde yetkilendirmede tercih edilir. Hook’lar server component’ta çalışmaz." },
+    { s: "navform", ref: "22 · Next.js Methods",
+      q: "React Router’daki <code>useLocation().pathname</code> karşılığı hangisidir?",
+      o: ["<code>usePathname()</code>", "<code>useParams()</code>", "<code>useSearchParams()</code>", "<code>useRouter().pathname</code>"], a: 0,
+      e: "usePathname kullanıcının bulunduğu adresi verir. Admin panelinde sidebar’daki aktif linki bulmak için bunu kullanıyoruz." },
+    { s: "navform", ref: "23 · Server Actions",
+      q: "Bir fonksiyonun server action olması için ne gerekir?",
+      o: ["Fonksiyon async olmalı ve içinde (ya da dosyanın başında) <code>\"use server\"</code> yazmalı", "Fonksiyon adı Action ile bitmeli", "Dosyanın başında \"use client\" olmalı", "Fonksiyon bir API route içinde tanımlanmalı"], a: 0,
+      e: "Server action’lar sunucuda çalışır; içlerine doğrudan backend kodu yazılabilir. Formun action prop’una verilirler." },
+    { s: "navform", ref: "23 · Server Actions",
+      q: "Server action içinde formdaki email değerine nasıl ulaşırız?",
+      code: "<form action={handleSubmitAction}>\n  <input name=\"email\" type=\"email\" />\n  <button>Gönder</button>\n</form>",
+      o: ["<code>formData.get(\"email\")</code>, input’un name değeriyle", "<code>e.target.email.value</code>", "useState ile tutulan email state’inden", "<code>document.querySelector(\"input\").value</code>"], a: 0,
+      e: "Server action parametre olarak FormData alır. Değerler input’ların name değerleriyle okunur; state, onChange ve preventDefault gerekmez." },
+
+    // SSG
+    { s: "ssg", ref: "24 · SSG",
+      q: "Varsayılan olarak hangi sayfalar build sırasında statik HTML olarak üretilir?",
+      o: ["URL parametresi olmayan sayfalar", "URL parametresi olan sayfalar", "Sadece anasayfa", "Hiçbiri, her sayfa istek anında üretilir"], a: 0,
+      e: "Parametresiz sayfalar (ör. /products) varsayılan olarak statiktir. [id] gibi parametreli sayfalar varsayılan olarak dinamiktir." },
+    { s: "ssg", ref: "25 · revalidate, dynamic",
+      q: "Statik bir sayfanın her 60 saniyede bir yeniden oluşturulmasını istiyoruz. Sayfa dosyasına ne yazarız?",
+      o: ["<code>export const revalidate = 60;</code>", "<code>export const dynamic = \"force-dynamic\";</code>", "<code>export const cache = 60;</code>", "<code>setInterval(render, 60000)</code>"], a: 0,
+      e: "revalidate statik sayfayı belirli aralıklarla yeniden oluşturur. dynamic = \"force-dynamic\" ise sayfayı tamamen dinamik yapar." },
+    { s: "ssg", ref: "25 · generateStaticParams",
+      q: "<code>generateStaticParams</code> ne döndürmelidir?",
+      code: "export const generateStaticParams = async () => {\n  const data = await fetchRecipes();\n  return /* ? */;\n};",
+      o: ["<code>[{ id: \"1\" }, { id: \"2\" }, …]</code> gibi bir parametre listesi", "Sayfanın HTML içeriği", "Sayfanın metadata nesnesi", "<code>true</code> ya da <code>false</code>"], a: 0,
+      e: "Next.js listedeki her eleman için sayfanın statik bir halini build sırasında üretir. Değerler string olmalı, bu yüzden String(i.id) yazıyoruz." },
+  ];
+  QUESTIONS.forEach((q, i) => (q.id = i));
+
+  const shuffle = (arr) => {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  };
+
+  const state = { filter: "all", list: [], idx: 0, answers: {}, order: {}, showResult: false };
+
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+  function newOrders(list) {
+    list.forEach((q) => (state.order[q.id] = shuffle([0, 1, 2, 3])));
+  }
+
+  function setList(list) {
+    state.list = list;
+    const firstOpen = list.findIndex((q) => state.answers[q.id] === undefined);
+    state.idx = firstOpen === -1 ? 0 : firstOpen;
+    state.showResult = list.length > 0 && firstOpen === -1;
+    render();
+  }
+
+  function selectFilter(key) {
+    state.filter = key;
+    setList(key === "all" ? QUESTIONS : QUESTIONS.filter((q) => q.s === key));
+  }
+
+  function renderChips() {
+    const items = [["all", "Tümü", QUESTIONS.length]].concat(
+      Object.entries(SECTIONS).map(([k, v]) => [k, v, QUESTIONS.filter((q) => q.s === k).length]),
+    );
+    $("chips").innerHTML = items
+      .map(([k, label, n]) => `<button class="chip" type="button" data-k="${k}" aria-pressed="${state.filter === k}">${label}<span>${n}</span></button>`)
+      .join("");
+  }
+
+  function correctCount(list) {
+    return list.filter((q) => state.answers[q.id] === q.a).length;
+  }
+
+  function renderProgress() {
+    const answered = state.list.filter((q) => state.answers[q.id] !== undefined).length;
+    const total = state.list.length;
+    $("pos").textContent = state.showResult ? `${total} sorunun hepsi cevaplandı` : `Soru ${state.idx + 1} / ${total}`;
+    $("tally").textContent = `${correctCount(state.list)} doğru · ${answered - correctCount(state.list)} yanlış`;
+    $("bar").style.width = total ? `${(answered / total) * 100}%` : "0";
+  }
+
+  function renderQuestion() {
+    const q = state.list[state.idx];
+    const chosen = state.answers[q.id];
+    const answered = chosen !== undefined;
+    const order = state.order[q.id];
+    const letters = ["A", "B", "C", "D"];
+    const last = state.idx === state.list.length - 1;
+
+    const opts = order
+      .map((oi, pos) => {
+        let cls = "opt";
+        if (answered) {
+          if (oi === q.a) cls += " correct";
+          else if (oi === chosen) cls += " wrong";
+          else cls += " dim";
+        }
+        return `<button class="${cls}" type="button" data-oi="${oi}" ${answered ? "disabled" : ""}><span class="key">${letters[pos]}</span><span class="txt">${q.o[oi]}</span></button>`;
+      })
+      .join("");
+
+    let explain = "";
+    if (answered) {
+      const right = chosen === q.a;
+      explain = `<div class="explain ${right ? "is-right" : "is-wrong"}"><strong>${right ? "Doğru" : "Yanlış"}</strong><p>${q.e}</p></div>`;
+    }
+
+    $("view").innerHTML = `
+      <article class="card">
+        <div class="meta"><span class="sec">${SECTIONS[q.s]}</span><span class="ref">Slayt ${q.ref}</span></div>
+        <h2 class="question">${q.q}</h2>
+        ${q.code ? `<pre><code>${esc(q.code)}</code></pre>` : ""}
+        <div class="options">${opts}</div>
+        ${explain}
+        <div class="nav">
+          <button class="btn" type="button" id="prev" ${state.idx === 0 ? "disabled" : ""}>Önceki</button>
+          <button class="btn primary" type="button" id="next" ${answered ? "" : "disabled"}>${last ? "Sonucu gör" : "Sonraki"}</button>
+        </div>
+        <p class="hint">Klavye: <kbd>A</kbd>–<kbd>D</kbd> ya da <kbd>1</kbd>–<kbd>4</kbd> ile seç, <kbd>Enter</kbd> ile ilerle.</p>
+      </article>`;
+  }
+
+  function renderResult() {
+    const list = state.list;
+    const right = correctCount(list);
+    const wrong = list.filter((q) => state.answers[q.id] !== q.a);
+    const keys = Object.keys(SECTIONS).filter((k) => list.some((q) => q.s === k));
+
+    const rows = keys
+      .map((k) => {
+        const qs = list.filter((q) => q.s === k);
+        const c = correctCount(qs);
+        const pct = Math.round((c / qs.length) * 100);
+        return `<div class="srow ${pct < 70 ? "low" : ""}"><span class="name">${SECTIONS[k]}</span><div class="bar"><i style="width:${pct}%"></i></div><span class="val">${c}/${qs.length}</span></div>`;
+      })
+      .join("");
+
+    const review = wrong.length
+      ? `<h2>Tekrar bakılacak sorular</h2><ul class="review">${wrong
+          .map((q) => `<li><span class="q">${q.q}</span><span class="a">Doğru cevap: ${q.o[q.a]}</span><span class="e">${q.e}</span><span class="r">Slayt ${q.ref}</span></li>`)
+          .join("")}</ul>`
+      : `<p class="done-msg">Hepsi doğru. Bu bölümdeki bütün konular oturmuş görünüyor.</p>`;
+
+    $("view").innerHTML = `
+      <article class="card">
+        <div class="score"><b>${right} / ${list.length}</b><span>doğru · %${Math.round((right / list.length) * 100)}</span></div>
+        ${keys.length > 1 ? `<div class="sections">${rows}</div>` : ""}
+        <div class="nav">
+          <button class="btn" type="button" id="restart">Baştan başla</button>
+          ${wrong.length ? `<button class="btn primary" type="button" id="retry">Yanlışları tekrar çöz (${wrong.length})</button>` : ""}
+        </div>
+      </article>
+      <article class="card">${review}</article>`;
+  }
+
+  function render() {
+    renderChips();
+    renderProgress();
+    if (state.showResult) renderResult();
+    else renderQuestion();
+  }
+
+  function answer(oi) {
+    const q = state.list[state.idx];
+    if (state.answers[q.id] !== undefined) return;
+    state.answers[q.id] = oi;
+    render();
+    const next = $("next");
+    if (next) next.focus();
+  }
+
+  function goNext() {
+    const q = state.list[state.idx];
+    if (state.answers[q.id] === undefined) return;
+    if (state.idx === state.list.length - 1) state.showResult = true;
+    else state.idx++;
+    render();
+  }
+
+  document.addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip");
+    if (chip) return selectFilter(chip.dataset.k);
+    const opt = e.target.closest(".opt");
+    if (opt && !opt.disabled) return answer(Number(opt.dataset.oi));
+    const id = e.target.closest("button")?.id;
+    if (id === "next") goNext();
+    if (id === "prev" && state.idx > 0) { state.idx--; render(); }
+    if (id === "restart") {
+      state.list.forEach((q) => delete state.answers[q.id]);
+      newOrders(state.list);
+      setList(state.list);
+    }
+    if (id === "retry") {
+      const wrong = state.list.filter((q) => state.answers[q.id] !== q.a);
+      wrong.forEach((q) => delete state.answers[q.id]);
+      newOrders(wrong);
+      setList(wrong);
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (state.showResult || e.metaKey || e.ctrlKey || e.altKey) return;
+    const map = { a: 0, b: 1, c: 2, d: 3, "1": 0, "2": 1, "3": 2, "4": 3 };
+    const pos = map[e.key.toLowerCase()];
+    const q = state.list[state.idx];
+    if (pos !== undefined && state.answers[q.id] === undefined) {
+      answer(state.order[q.id][pos]);
+    } else if (e.key === "Enter" && state.answers[q.id] !== undefined && !e.target.closest("button")) {
+      goNext();
+    }
+  });
+
+  newOrders(QUESTIONS);
+  selectFilter("all");
+</script>
+
+</body></html>

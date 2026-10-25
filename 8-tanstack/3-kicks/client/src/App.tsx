@@ -6,6 +6,9 @@ import Register from "./pages/register";
 import Layout from "./components/layout";
 import Dashboard from "./pages/dashboard";
 import Protected from "./components/protected";
+import Detail from "./pages/detail";
+import Create from "./pages/create";
+import Edit from "./pages/edit";
 
 const router = createBrowserRouter([
   { path: "/login", element: <Login /> },
@@ -22,10 +25,34 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/shoe/:id",
+        element: (
+          <Protected allowedRoles={["user", "admin"]}>
+            <Detail />
+          </Protected>
+        ),
+      },
+      {
         path: "/admin/dashboard",
         element: (
           <Protected allowedRoles={["admin"]}>
             <Dashboard />
+          </Protected>
+        ),
+      },
+      {
+        path: "/admin/create",
+        element: (
+          <Protected allowedRoles={["admin"]}>
+            <Create />
+          </Protected>
+        ),
+      },
+      {
+        path: "/admin/edit/:id",
+        element: (
+          <Protected allowedRoles={["admin"]}>
+            <Edit />
           </Protected>
         ),
       },

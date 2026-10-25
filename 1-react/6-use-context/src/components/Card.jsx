@@ -2,18 +2,14 @@ import { useContext } from "react";
 import { BasketContext } from "../context/basket-context";
 
 const Card = ({ product }) => {
-  // BasketContext yapısındaki sepeteEkle fonksiyonuna eriş
-  const { addToBasket, basket } = useContext(BasketContext);
+  // BasketContext'ten sepet dizisine ve ekleme fonksiyonuna eriş
+  const { basket, addToBasket } = useContext(BasketContext);
 
-  // ekrana basılan ürün sepet dizisinde varsa bul
-  const found = basket.find((i) => i.id === product.id);
+  // ekrana basılan ürün sepette var mı?
+  const inBasket = basket.some((item) => item.id === product.id);
 
   return (
     <div className="card py-2">
-      <div className="d-flex justify-content-center">
-        <img src={product.thumbnail} alt={product.title} height={120} />
-      </div>
-
       <div className="card-body d-flex flex-column gap-1 justify-content-between">
         <div className="d-flex flex-column gap-1">
           <h4>{product.title}</h4>
@@ -24,16 +20,16 @@ const Card = ({ product }) => {
           </p>
           <p className="d-flex gap-2">
             <span>Fiyat:</span>
-            <b>{product.price}$</b>
-          </p>
-          <p className="d-flex gap-2">
-            <span>Rating:</span>
-            <b>⭐ {product.rating}</b>
+            <b>{product.price}₺</b>
           </p>
         </div>
 
-        <button className="rounded btn btn-dark" onClick={() => addToBasket(product)}>
-          Sepete Ekle {found && `(${found.amount})`}
+        <button
+          className="rounded btn btn-dark"
+          disabled={inBasket}
+          onClick={() => addToBasket(product)}
+        >
+          {inBasket ? "Sepette" : "Sepete Ekle"}
         </button>
       </div>
     </div>

@@ -1,14 +1,9 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { ProductContext } from "../context/product-context";
 import { BasketContext } from "../context/basket-context";
 
 const Header = () => {
-  const { products } = useContext(ProductContext);
   const { basket } = useContext(BasketContext);
-
-  // amount toplamlarını hesapla
-  const total = basket.reduce((total, item) => total + item.amount, 0);
 
   return (
     <nav className="navbar navbar-expand-md bg-dark navbar-dark ">
@@ -29,12 +24,12 @@ const Header = () => {
           <ul className="navbar-nav">
             <li className="nav-item">
               <NavLink className="nav-link" to="/">
-                Anasayfa ({products?.length})
+                Anasayfa
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/sepet">
-                Sepet ({total})
+                Sepet ({basket.length})
               </NavLink>
             </li>
           </ul>

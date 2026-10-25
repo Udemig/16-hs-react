@@ -27,3 +27,28 @@ export interface Response<T> {
   message: string;
   data: T;
 }
+
+export interface Product {
+  id: string;
+  name: string;
+  picture: string[];
+  description: string;
+  isNew: boolean;
+  discount: number;
+  size: string;
+  color: string;
+  gender: "men" | "women" | "unisex";
+  price: number;
+  updatedAt: string;
+}
+
+export interface ProductValues {
+  name: string;
+  description: string;
+  isNew: boolean;
+  size: string;
+  color: string;
+  gender: "men" | "women" | "unisex";
+  price: number;
+  discount?: number;
+}

@@ -7,12 +7,12 @@ import UserInfo from "./UserInfo";
 const Header: FC = () => {
   return (
     <header className="grid grid-cols-3 items-center bg-white px-5 py-4 md:px-8 md:py-6 rounded-3xl mb-8">
-      <button className="md:hidden">
+      <button className="lg:hidden">
         <Hamburger />
       </button>
 
-      <nav className="hidden md:flex gap-8 font-semibold">
-        <Link to="/" className="hover:text-blue">
+      <nav className="hidden lg:flex gap-8 font-semibold">
+        <Link to="/" className="hover:text-blue whitespace-nowrap">
           Yeni Gelenler 🔥
         </Link>
         <Link to="/" className="hover:text-blue">

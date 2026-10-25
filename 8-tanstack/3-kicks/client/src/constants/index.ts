@@ -11,3 +11,16 @@ export const REGISTER_INITIAL_VALUES = {
   passwordConfirm: "",
   terms: false,
 };
+
+export const SIZES = ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"];
+
+export const INPUT_ARRAY = [
+  { label: "İsim", name: "name", type: "text" },
+  { label: "Fiyat", name: "price", type: "number" },
+  { label: "İndirim", name: "discount", type: "number" },
+  { label: "Renk", name: "color", type: "text" },
+  { label: "Beden", name: "size", type: "text" },
+  { label: "Açıklama", name: "description", type: "text" },
+  { label: "Yeni Ürün", name: "isNew", type: "checkbox", required: false },
+  { label: "Cinsiyet", name: "gender", type: "radio", options: ["men", "women", "unisex"] },
+];

@@ -35,7 +35,7 @@ const Login: FC = () => {
         >
           <Form className="flex flex-col justify-center gap-4  h-full flex-1" noValidate>
             <div>
-              <h1 className="mb-2">Giriş Yap</h1>
+              <h1 className="mb-2 text-2xl">Giriş Yap</h1>
               <p>Bu yöntemleri kullanabilirsin</p>
             </div>
 
