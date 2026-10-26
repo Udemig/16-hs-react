@@ -1,0 +1,407 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Frontend Genel Quiz</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  /* Layout: tek sütun, bir seferde tek soru kartı; üstte bölüm filtresi ve ilerleme, sonda bölüm bazlı sonuç. Renkler ve yazı tipleri "Next.js’e Giriş" destesiyle aynı. */
+  :root {
+    --bg: #F5F3EE;
+    --surface: #FCFBF8;
+    --ink: #14161B;
+    --soft: #4A505C;
+    --muted: #6B6F78;
+    --line: #E2DED5;
+    --accent: #2457D6;
+    --accent-weak: #DCE6FF;
+    --accent2: #B4561A;
+    --good: #1F7A4D;
+    --good-weak: #DDF1E6;
+    --bad: #B42318;
+    --bad-weak: #FBE4E1;
+    --code-bg: #1A1D24;
+    --code-fg: #E6E3DC;
+    --display: "Space Grotesk", "Segoe UI", Arial, sans-serif;
+    --mono: "JetBrains Mono", "Cascadia Code", Consolas, "Courier New", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0F1115; --surface: #171A21; --ink: #F2F0EA; --soft: #B4BAC6; --muted: #8C93A0;
+      --line: #2A2F3A; --accent: #8FB0FF; --accent-weak: #1C2A4D; --accent2: #F0A868;
+      --good: #5BC891; --good-weak: #12301F; --bad: #F08A7E; --bad-weak: #3A1A17;
+      --code-bg: #0B0D11; --code-fg: #E6E3DC; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0F1115; --surface: #171A21; --ink: #F2F0EA; --soft: #B4BAC6; --muted: #8C93A0;
+    --line: #2A2F3A; --accent: #8FB0FF; --accent-weak: #1C2A4D; --accent2: #F0A868;
+    --good: #5BC891; --good-weak: #12301F; --bad: #F08A7E; --bad-weak: #3A1A17;
+    --code-bg: #0B0D11; --code-fg: #E6E3DC; color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--display);
+    font-size: 16px;
+    line-height: 1.5;
+    padding-block: 32px 64px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+
+  header { display: flex; flex-direction: column; gap: 8px; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  h1 { font-size: clamp(30px, 6vw, 44px); line-height: 1.05; letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+  .lead { color: var(--soft); margin: 0; max-width: 60ch; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font: inherit; font-size: 14px; font-weight: 500; color: var(--soft);
+    background: transparent; border: 1px solid var(--line); border-radius: 999px;
+    padding: 6px 14px; cursor: pointer;
+  }
+  .chip span { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-left: 4px; }
+  .chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .chip[aria-pressed="true"] span { color: var(--bg); opacity: 0.7; }
+
+  .progress { display: flex; flex-direction: column; gap: 8px; }
+  .progress-row { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .bar { height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; }
+  .bar > i { display: block; height: 100%; background: var(--accent); width: 0; transition: width 0.25s ease; }
+
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: clamp(20px, 4vw, 32px); display: flex; flex-direction: column; gap: 20px; }
+  .meta { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 13px; }
+  .meta .sec { font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent2); }
+  .meta .ref { font-family: var(--mono); color: var(--muted); }
+  .question { font-size: clamp(20px, 3.4vw, 24px); font-weight: 600; line-height: 1.3; margin: 0; text-wrap: balance; }
+  .question code, .opt code, .explain code, .review code { font-family: var(--mono); font-size: 0.88em; background: var(--accent-weak); color: var(--ink); padding: 1px 5px; border-radius: 4px; }
+  pre { margin: 0; background: var(--code-bg); color: var(--code-fg); border-radius: 12px; padding: 18px 20px; overflow-x: auto; font-family: var(--mono); font-size: 14px; line-height: 1.6; }
+
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .opt {
+    font: inherit; text-align: left; color: var(--ink);
+    display: grid; grid-template-columns: 32px 1fr; gap: 12px; align-items: start;
+    background: var(--bg); border: 1px solid var(--line); border-radius: 12px;
+    padding: 12px 14px; cursor: pointer; transition: border-color 0.15s, background 0.15s;
+  }
+  .opt:hover:not(:disabled) { border-color: var(--accent); }
+  .opt:disabled { cursor: default; }
+  .opt .key { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--muted); border: 1px solid var(--line); border-radius: 8px; height: 28px; display: grid; place-items: center; }
+  .opt .txt { min-width: 0; padding-top: 2px; }
+  .opt.correct { background: var(--good-weak); border-color: var(--good); }
+  .opt.correct .key { background: var(--good); color: var(--surface); border-color: var(--good); }
+  .opt.wrong { background: var(--bad-weak); border-color: var(--bad); }
+  .opt.wrong .key { background: var(--bad); color: var(--surface); border-color: var(--bad); }
+  .opt.dim { opacity: 0.6; }
+
+  .explain { border-left: 3px solid var(--good); padding: 4px 0 4px 16px; display: flex; flex-direction: column; gap: 4px; }
+  .explain.is-wrong { border-left-color: var(--bad); }
+  .explain strong { font-size: 15px; }
+  .explain.is-right strong { color: var(--good); }
+  .explain.is-wrong strong { color: var(--bad); }
+  .explain p { margin: 0; color: var(--soft); }
+
+  .nav { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    font: inherit; font-weight: 600; font-size: 15px; cursor: pointer;
+    border-radius: 10px; padding: 10px 18px; border: 1px solid var(--line);
+    background: transparent; color: var(--ink);
+  }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .hint { font-size: 13px; color: var(--muted); }
+  .hint kbd { font-family: var(--mono); font-size: 12px; border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; }
+
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* Sonuç */
+  .score { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .score b { font-size: clamp(48px, 10vw, 72px); line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+  .score span { font-size: 18px; color: var(--soft); }
+  .sections { display: flex; flex-direction: column; gap: 12px; }
+  .srow { display: grid; grid-template-columns: minmax(0, 180px) 1fr 56px; gap: 12px; align-items: center; font-size: 14px; }
+  .srow .name { color: var(--soft); min-width: 0; }
+  .srow .val { font-family: var(--mono); text-align: right; font-variant-numeric: tabular-nums; }
+  .srow .bar > i { background: var(--good); }
+  .srow.low .bar > i { background: var(--accent2); }
+  h2 { font-size: 20px; margin: 0; }
+  .review { display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0; list-style: none; }
+  .review li { border-top: 1px solid var(--line); padding-top: 14px; display: flex; flex-direction: column; gap: 4px; }
+  .review .q { font-weight: 600; }
+  .review .a { color: var(--good); }
+  .review .e { color: var(--soft); font-size: 14px; }
+  .review .r { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .done-msg { color: var(--soft); margin: 0; }
+
+  @media (max-width: 480px) {
+    .srow { grid-template-columns: 1fr 48px; }
+    .srow .bar { grid-column: 1 / -1; grid-row: 2; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Frontend · Genel Tekrar</p>
+    <h1>Frontend Genel Quiz</h1>
+    <p class="lead">HTML, CSS, JavaScript, React ve TypeScript üzerine 10 soru. Her cevabın ardından açıklamayı görürsün.</p>
+  </header>
+
+  <div class="chips" id="chips" role="group" aria-label="Bölüm seç"></div>
+
+  <div class="progress" id="progress">
+    <div class="progress-row"><span id="pos"></span><span id="tally"></span></div>
+    <div class="bar"><i id="bar"></i></div>
+  </div>
+
+  <main id="view" aria-live="polite"></main>
+</div>
+
+<script>
+  const SECTIONS = {
+    web: "HTML ve CSS",
+    js: "JavaScript",
+    react: "React",
+    ts: "TypeScript",
+    genel: "Web Genel",
+  };
+
+  // a: doğru seçeneğin indeksi (o dizisinde). Seçenekler ekranda karıştırılır.
+  const QUESTIONS = [
+    { s: "web", ref: "Semantik HTML",
+      q: "Sayfanın ana gezinme linklerini sarmalamak için en uygun semantik etiket hangisidir?",
+      o: ["<code>&lt;nav&gt;</code>", "<code>&lt;div&gt;</code>", "<code>&lt;section&gt;</code>", "<code>&lt;aside&gt;</code>"], a: 0,
+      e: "nav, gezinme linkleri için tanımlanmış semantik etikettir. Ekran okuyucular ve arama motorları bu etiketi tanır; div ise hiçbir anlam taşımaz." },
+    { s: "web", ref: "Flexbox",
+      q: "Bir flex kapsayıcıda öğeleri <b>ana eksen</b> boyunca ortalamak için hangi özellik kullanılır?",
+      o: ["<code>justify-content: center</code>", "<code>align-items: center</code>", "<code>text-align: center</code>", "<code>place-self: center</code>"], a: 0,
+      e: "justify-content ana ekseni, align-items çapraz ekseni hizalar. Varsayılan yön row olduğu için justify-content yatayda hizalar." },
+    { s: "js", ref: "Asenkron JS",
+      q: "Bu kodun konsol çıktısı sırasıyla nedir?",
+      code: "console.log(\"A\");\nsetTimeout(() => console.log(\"B\"), 0);\nPromise.resolve().then(() => console.log(\"C\"));\nconsole.log(\"D\");",
+      o: ["A, D, C, B", "A, B, C, D", "A, C, D, B", "A, D, B, C"], a: 0,
+      e: "Senkron kod önce çalışır (A, D). Sonra microtask kuyruğundaki Promise (C), en son macrotask olan setTimeout (B) çalışır." },
+    { s: "js", ref: "Değişken tanımlama",
+      q: "<code>const user = { name: \"Ali\" }; user.name = \"Veli\";</code> satırları ne olur?",
+      o: ["Hata vermez, nesnenin içeriği değiştirilebilir", "TypeError fırlatır", "const olduğu için değer değişmez, sessizce yok sayılır", "SyntaxError fırlatır"], a: 0,
+      e: "const, değişkenin başka bir değere yeniden atanmasını engeller. Nesnenin içindeki özellikler yine de değiştirilebilir." },
+    { s: "react", ref: "State",
+      q: "Bu butona üç kez art arda tıklanırsa ekranda ne yazar?",
+      code: "const [count, setCount] = useState(0);\n\nconst handleClick = () => {\n  setCount(count + 1);\n  setCount(count + 1);\n};",
+      o: ["Her tıklamada 1 artar (1, 2, 3)", "Her tıklamada 2 artar (2, 4, 6)", "Hep 1 kalır", "Hata verir"], a: 0,
+      e: "State bir render boyunca sabittir; iki çağrı da aynı count değerini görür. Ardışık güncellemeler için setCount(prev => prev + 1) yazılır." },
+    { s: "react", ref: "useEffect",
+      q: "Bileşen ilk render olduğunda yalnızca <b>bir kez</b> çalışacak effect için bağımlılık dizisi nasıl olmalı?",
+      o: ["Boş dizi: <code>[]</code>", "Hiç dizi verilmemeli", "<code>[undefined]</code>", "<code>[true]</code>"], a: 0,
+      e: "Boş bağımlılık dizisi effect’in sadece mount sonrasında çalışmasını sağlar. Dizi hiç verilmezse effect her render’da çalışır." },
+    { s: "react", ref: "Listeler",
+      q: "Bir listeyi <code>map</code> ile render ederken <code>key</code> prop’u neden gerekir?",
+      o: ["React’in hangi elemanın değiştiğini doğru takip etmesi için", "Elemanları CSS ile stillemek için", "Elemanları sıralamak için", "Zorunlu değildir, sadece bir gelenektir"], a: 0,
+      e: "key, React’in liste elemanlarını yeniden render ederken eşleştirmesine yardım eder. Mümkünse index yerine benzersiz bir id kullanılır." },
+    { s: "ts", ref: "Tip tanımları",
+      q: "<code>type</code> ile <code>interface</code> arasındaki farklardan hangisi doğrudur?",
+      o: ["Aynı adlı interface’ler birleşir, type tekrar tanımlanamaz", "interface union tipi tanımlayabilir, type tanımlayamaz", "type sadece nesneler için kullanılır", "İkisi arasında hiçbir fark yoktur"], a: 0,
+      e: "Interface’ler declaration merging ile genişletilebilir. Union tipleri (<code>\"a\" | \"b\"</code>) ise sadece type ile tanımlanabilir." },
+    { s: "ts", ref: "Generics",
+      q: "Aşağıdaki fonksiyonda <code>T</code> ne işe yarar?",
+      code: "function first<T>(list: T[]): T {\n  return list[0];\n}",
+      o: ["Fonksiyon çağrılırken belirlenen bir tipi temsil eder", "T adında bir sınıfı içe aktarır", "Dizinin her zaman string olmasını sağlar", "Çalışma zamanında tip kontrolü yapar"], a: 0,
+      e: "Generic parametre, fonksiyonun farklı tiplerle tip güvenliğini kaybetmeden çalışmasını sağlar. first([1, 2]) çağrısında T number olur. Tipler derleme sırasında silinir." },
+    { s: "genel", ref: "HTTP",
+      q: "Bir API isteği sonucunda sunucunun <code>404</code> dönmesi ne anlama gelir?",
+      o: ["İstenen kaynak bulunamadı", "Sunucuda beklenmeyen bir hata oluştu", "İstek başarılı oldu", "Kullanıcının yetkisi yok"], a: 0,
+      e: "404 kaynak bulunamadı demektir. Sunucu hatası 500, yetkisizlik 401/403, başarı ise 200 serisidir. Ayrıca fetch, 404’te hata fırlatmaz; res.ok kontrol edilmelidir." },
+  ];
+  QUESTIONS.forEach((q, i) => (q.id = i));
+
+  const shuffle = (arr) => {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  };
+
+  const state = { filter: "all", list: [], idx: 0, answers: {}, order: {}, showResult: false };
+
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+  function newOrders(list) {
+    list.forEach((q) => (state.order[q.id] = shuffle([0, 1, 2, 3])));
+  }
+
+  function setList(list) {
+    state.list = list;
+    const firstOpen = list.findIndex((q) => state.answers[q.id] === undefined);
+    state.idx = firstOpen === -1 ? 0 : firstOpen;
+    state.showResult = list.length > 0 && firstOpen === -1;
+    render();
+  }
+
+  function selectFilter(key) {
+    state.filter = key;
+    setList(key === "all" ? QUESTIONS : QUESTIONS.filter((q) => q.s === key));
+  }
+
+  function renderChips() {
+    const items = [["all", "Tümü", QUESTIONS.length]].concat(
+      Object.entries(SECTIONS).map(([k, v]) => [k, v, QUESTIONS.filter((q) => q.s === k).length]),
+    );
+    $("chips").innerHTML = items
+      .map(([k, label, n]) => `<button class="chip" type="button" data-k="${k}" aria-pressed="${state.filter === k}">${label}<span>${n}</span></button>`)
+      .join("");
+  }
+
+  function correctCount(list) {
+    return list.filter((q) => state.answers[q.id] === q.a).length;
+  }
+
+  function renderProgress() {
+    const answered = state.list.filter((q) => state.answers[q.id] !== undefined).length;
+    const total = state.list.length;
+    $("pos").textContent = state.showResult ? `${total} sorunun hepsi cevaplandı` : `Soru ${state.idx + 1} / ${total}`;
+    $("tally").textContent = `${correctCount(state.list)} doğru · ${answered - correctCount(state.list)} yanlış`;
+    $("bar").style.width = total ? `${(answered / total) * 100}%` : "0";
+  }
+
+  function renderQuestion() {
+    const q = state.list[state.idx];
+    const chosen = state.answers[q.id];
+    const answered = chosen !== undefined;
+    const order = state.order[q.id];
+    const letters = ["A", "B", "C", "D"];
+    const last = state.idx === state.list.length - 1;
+
+    const opts = order
+      .map((oi, pos) => {
+        let cls = "opt";
+        if (answered) {
+          if (oi === q.a) cls += " correct";
+          else if (oi === chosen) cls += " wrong";
+          else cls += " dim";
+        }
+        return `<button class="${cls}" type="button" data-oi="${oi}" ${answered ? "disabled" : ""}><span class="key">${letters[pos]}</span><span class="txt">${q.o[oi]}</span></button>`;
+      })
+      .join("");
+
+    let explain = "";
+    if (answered) {
+      const right = chosen === q.a;
+      explain = `<div class="explain ${right ? "is-right" : "is-wrong"}"><strong>${right ? "Doğru" : "Yanlış"}</strong><p>${q.e}</p></div>`;
+    }
+
+    $("view").innerHTML = `
+      <article class="card">
+        <div class="meta"><span class="sec">${SECTIONS[q.s]}</span><span class="ref">Konu: ${q.ref}</span></div>
+        <h2 class="question">${q.q}</h2>
+        ${q.code ? `<pre><code>${esc(q.code)}</code></pre>` : ""}
+        <div class="options">${opts}</div>
+        ${explain}
+        <div class="nav">
+          <button class="btn" type="button" id="prev" ${state.idx === 0 ? "disabled" : ""}>Önceki</button>
+          <button class="btn primary" type="button" id="next" ${answered ? "" : "disabled"}>${last ? "Sonucu gör" : "Sonraki"}</button>
+        </div>
+        <p class="hint">Klavye: <kbd>A</kbd>–<kbd>D</kbd> ya da <kbd>1</kbd>–<kbd>4</kbd> ile seç, <kbd>Enter</kbd> ile ilerle.</p>
+      </article>`;
+  }
+
+  function renderResult() {
+    const list = state.list;
+    const right = correctCount(list);
+    const wrong = list.filter((q) => state.answers[q.id] !== q.a);
+    const keys = Object.keys(SECTIONS).filter((k) => list.some((q) => q.s === k));
+
+    const rows = keys
+      .map((k) => {
+        const qs = list.filter((q) => q.s === k);
+        const c = correctCount(qs);
+        const pct = Math.round((c / qs.length) * 100);
+        return `<div class="srow ${pct < 70 ? "low" : ""}"><span class="name">${SECTIONS[k]}</span><div class="bar"><i style="width:${pct}%"></i></div><span class="val">${c}/${qs.length}</span></div>`;
+      })
+      .join("");
+
+    const review = wrong.length
+      ? `<h2>Tekrar bakılacak sorular</h2><ul class="review">${wrong
+          .map((q) => `<li><span class="q">${q.q}</span><span class="a">Doğru cevap: ${q.o[q.a]}</span><span class="e">${q.e}</span><span class="r">Konu: ${q.ref}</span></li>`)
+          .join("")}</ul>`
+      : `<p class="done-msg">Hepsi doğru. Bu bölümdeki bütün konular oturmuş görünüyor.</p>`;
+
+    $("view").innerHTML = `
+      <article class="card">
+        <div class="score"><b>${right} / ${list.length}</b><span>doğru · %${Math.round((right / list.length) * 100)}</span></div>
+        ${keys.length > 1 ? `<div class="sections">${rows}</div>` : ""}
+        <div class="nav">
+          <button class="btn" type="button" id="restart">Baştan başla</button>
+          ${wrong.length ? `<button class="btn primary" type="button" id="retry">Yanlışları tekrar çöz (${wrong.length})</button>` : ""}
+        </div>
+      </article>
+      <article class="card">${review}</article>`;
+  }
+
+  function render() {
+    renderChips();
+    renderProgress();
+    if (state.showResult) renderResult();
+    else renderQuestion();
+  }
+
+  function answer(oi) {
+    const q = state.list[state.idx];
+    if (state.answers[q.id] !== undefined) return;
+    state.answers[q.id] = oi;
+    render();
+    const next = $("next");
+    if (next) next.focus();
+  }
+
+  function goNext() {
+    const q = state.list[state.idx];
+    if (state.answers[q.id] === undefined) return;
+    if (state.idx === state.list.length - 1) state.showResult = true;
+    else state.idx++;
+    render();
+  }
+
+  document.addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip");
+    if (chip) return selectFilter(chip.dataset.k);
+    const opt = e.target.closest(".opt");
+    if (opt && !opt.disabled) return answer(Number(opt.dataset.oi));
+    const id = e.target.closest("button")?.id;
+    if (id === "next") goNext();
+    if (id === "prev" && state.idx > 0) { state.idx--; render(); }
+    if (id === "restart") {
+      state.list.forEach((q) => delete state.answers[q.id]);
+      newOrders(state.list);
+      setList(state.list);
+    }
+    if (id === "retry") {
+      const wrong = state.list.filter((q) => state.answers[q.id] !== q.a);
+      wrong.forEach((q) => delete state.answers[q.id]);
+      newOrders(wrong);
+      setList(wrong);
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (state.showResult || e.metaKey || e.ctrlKey || e.altKey) return;
+    const map = { a: 0, b: 1, c: 2, d: 3, "1": 0, "2": 1, "3": 2, "4": 3 };
+    const pos = map[e.key.toLowerCase()];
+    const q = state.list[state.idx];
+    if (pos !== undefined && state.answers[q.id] === undefined) {
+      answer(state.order[q.id][pos]);
+    } else if (e.key === "Enter" && state.answers[q.id] !== undefined && !e.target.closest("button")) {
+      goNext();
+    }
+  });
+
+  newOrders(QUESTIONS);
+  selectFilter("all");
+</script>
+
+</body></html>
