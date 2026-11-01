@@ -1,15 +1,15 @@
 import useComments from "../../hooks/useComments";
-import Spinner from "../loader/Spinner";
-import Error from "../error";
+import AsyncContent from "../async";
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { IoIosArrowDown } from "react-icons/io";
 
 const Comments = ({ count, videoId }) => {
-  const { isLoading, error, comments } = useComments(videoId);
+  const { isLoading, error, data } = useComments(videoId);
+  const comments = data?.data ?? [];
 
   return (
     <div className="my-6">
-      <h2 className="text-xl font-bold">{count.toLocaleString("en-us")} Yorum</h2>
+      <h2 className="text-xl font-bold">{count.toLocaleString("tr")} Yorum</h2>
 
       <input
         type="text"
@@ -17,12 +17,8 @@ const Comments = ({ count, videoId }) => {
         className="w-full bg-transparent border-b border-zinc-700 py-2 my-3 outline-none"
       />
 
-      {isLoading ? (
-        <Spinner />
-      ) : error ? (
-        <Error message={error} />
-      ) : (
-        comments.map((comment, key) => (
+      <AsyncContent isLoading={isLoading} error={error}>
+        {comments.map((comment, key) => (
           <div key={key} className="px-1 py-2 sm:py-4 flex gap-3 sm:gap-5 items-start">
             <img
               src={comment?.authorThumbnail?.[0]?.url}
@@ -56,8 +52,8 @@ const Comments = ({ count, videoId }) => {
               )}
             </div>
           </div>
-        ))
-      )}
+        ))}
+      </AsyncContent>
     </div>
   );
 };

@@ -34,8 +34,9 @@ const Sidebar = ({ isSidebarOpen }) => {
               {category.title && <h2 className="font-semibold mb-2">{category.title}</h2>}
 
               <div>
-                {category.items.map((item, key) => (
+                {category.items.map((item) => (
                   <NavLink
+                    key={item.name}
                     to={item.path}
                     className="flex gap-4 items-center p-2 rounded-lg hover:bg-[#363636]"
                   >

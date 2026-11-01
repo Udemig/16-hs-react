@@ -1,8 +1,8 @@
 import { CgSpinner } from "react-icons/cg";
 
-const Spinner = ({ designs }) => {
+const Spinner = () => {
   return (
-    <div className={`page grid place-items-center ${designs}`}>
+    <div className="page-center">
       <CgSpinner className="text-3xl text-red-500 animate-spin" />
     </div>
   );

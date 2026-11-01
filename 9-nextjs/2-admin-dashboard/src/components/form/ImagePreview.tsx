@@ -5,7 +5,7 @@ import Field from "./Field";
 import Image from "next/image";
 
 interface Props {
-  defaultUrl: string;
+  defaultUrl?: string;
 }
 
 // resim url inputu client formun geri kalanı server component

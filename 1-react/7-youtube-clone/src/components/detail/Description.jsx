@@ -1,7 +1,6 @@
 import formatNumber from "../../utils/formatNumber";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import "dayjs/locale/tr.js";
 import { useState } from "react";
 dayjs.extend(relativeTime);
 
@@ -15,7 +14,7 @@ const Description = ({ video }) => {
     >
       <div className="flex gap-4 mb-2 font-semibold text-sm">
         <span>{formatNumber(video?.viewCount)} görüntülenme</span>
-        <span>{dayjs(video?.publishedAt).locale("tr").fromNow()}</span>
+        <span>{dayjs(video?.publishedAt).fromNow()}</span>
       </div>
 
       <p className="whitespace-pre-wrap">

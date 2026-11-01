@@ -16,12 +16,8 @@ import { PiRadioButtonBold } from "react-icons/pi";
 import { BsLightningCharge } from "react-icons/bs";
 import { FaRegCircleUser } from "react-icons/fa6";
 
-export const collapsedSidebarItems = [
-  { icon: <AiFillHome />, name: "Ana Sayfa", path: "/" },
-  { icon: <BsLightningCharge />, name: "Shorts", path: "/" },
-  { icon: <BiSolidVideos />, name: "Abonelikler", path: "/" },
-  { icon: <FaRegCircleUser />, name: "Siz", path: "/" },
-];
+// video kartlarının ızgara düzeni
+export const videoGridClass = "grid gap-4 lg:gap-6 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4";
 
 export const expandedSidebarItems = [
   {
@@ -72,4 +68,10 @@ export const expandedSidebarItems = [
       { icon: <MdOutlineFeedback />, name: "Geri bildirim gönder", path: "/feedback" },
     ],
   },
+];
+
+// daraltılmış sidebar, genişletilmiş sidebar'ın ilk grubunu kullanır
+export const collapsedSidebarItems = [
+  ...expandedSidebarItems[0].items,
+  { icon: <FaRegCircleUser />, name: "Siz", path: "/" },
 ];

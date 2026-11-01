@@ -1,7 +1,7 @@
 {
   "products": [
     {
-      "name": "Samsung Galaxy S25+",
+      "name": "Samsung Galaxy S26+",
       "brand": "Samsung",
       "price": 49999.98,
       "stock": 50,
@@ -29,7 +29,7 @@
       "name": "Nike Air Max 270",
       "category": "Shoes",
       "price": 5499.99,
-      "stock": 53,
+      "stock": 57,
       "description": "Nefes alabilir file üst yüzey, büyük Max Air yastıklama birimi ve günlük kullanıma uygun sportif tasarımıyla konforlu sneaker modeli.",
       "image_url": "https://0990b9.a-cdn.akinoncloud.com/products/2025/08/13/7606520/cd098c99-3583-4ddb-939e-f135156fc33a.jpg",
       "rating": 4.5,
@@ -285,7 +285,6 @@
       "status": "Teslim Edildi",
       "total_price": 299.98,
       "shipping_address": {
-        "street": "Atatürk Cad. No: 15",
         "city": "Istanbul",
         "postal_code": "34000",
         "country": "Turkey"

@@ -2,7 +2,7 @@ import { BiError } from "react-icons/bi";
 
 const Error = ({ message }) => {
   return (
-    <div className="page h-full grid place-items-center">
+    <div className="page-center h-full">
       <div className="flex flex-col items-center gap-4">
         <BiError className="text-5xl text-yellow-500" />
 

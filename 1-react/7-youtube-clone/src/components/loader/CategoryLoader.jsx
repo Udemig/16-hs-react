@@ -1,10 +1,12 @@
+import { videoGridClass } from "../../utils/constants";
+
 const CategoryLoader = () => {
   // eleman sayısını belirli dizi oluşturma
   const array = new Array(20).fill("anything");
 
   return (
     <div className="page">
-      <div className="grid gap-4 lg:gap-6 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+      <div className={videoGridClass}>
         {array.map((_, key) => (
           <div key={key} className="animate-pulse">
             {/* thumbnail */}

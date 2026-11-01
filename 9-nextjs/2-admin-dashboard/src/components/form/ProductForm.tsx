@@ -8,7 +8,7 @@ import { handleProductForm } from "@/utils/action";
 import { Product } from "@/types";
 
 interface Props {
-  product: Product;
+  product?: Product;
 }
 
 const ProductForm: FC<Props> = ({ product }) => {

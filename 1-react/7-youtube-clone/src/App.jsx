@@ -9,8 +9,8 @@ import { useState } from "react";
 import NotFound from "./pages/NotFound";
 
 function App() {
-  const [isSidebarOpen, setIsSiderbarOpen] = useState(false);
-  const toggleSidebar = () => setIsSiderbarOpen(!isSidebarOpen);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
 
   return (
     <BrowserRouter>

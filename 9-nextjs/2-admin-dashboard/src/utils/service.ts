@@ -1,7 +1,7 @@
 import { Order, Product, User } from "@/types";
 
 // api url'i env'den al
-const BASE_URL = process.env.API_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // bütün api isteklerinin ortak kısmı:
 // cevap başarısız olursa hata fırlat veri gelirse döndür
@@ -24,6 +24,9 @@ export const getProducts = (q?: string) => request<Product[]>(`/products?q=${q |
 // bütün kullanıcıları getir
 export const getUsers = () => request<User[]>("/users");
 
+// bütün kullanıcıları getir
+export const getUser = (id: string) => request<User>(`/users/${id}`);
+
 // yeni ürün ürün oluştur
 export const createProduct = (productData: Omit<Product, "id">) =>
   request("/products", {
@@ -44,4 +47,10 @@ export const updateProduct = (id: string, productData: Omit<Product, "id">) =>
     method: "PATCH",
     body: JSON.stringify(productData),
     headers: { "Content-Type": "application/json" },
+  });
+
+// kullanıcıyı kaldır
+export const deleteUser = (id: string) =>
+  request(`/users/${id}`, {
+    method: "DELETE",
   });

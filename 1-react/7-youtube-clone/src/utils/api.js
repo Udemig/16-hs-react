@@ -1,12 +1,15 @@
 import axios from "axios";
 
+const HOST = "yt-api.p.rapidapi.com";
+
 const api = axios.create({
-  baseURL: "https://yt-api.p.rapidapi.com",
+  baseURL: `https://${HOST}`,
   headers: {
     "x-rapidapi-key": import.meta.env.VITE_API_KEY,
-    "x-rapidapi-host": "yt-api.p.rapidapi.com",
-    "Content-Type": "application/json",
+    "x-rapidapi-host": HOST,
   },
+  // her istekte gönderilecek ortak parametreler
+  params: { geo: "TR", lang: "tr" },
 });
 
 export default api;

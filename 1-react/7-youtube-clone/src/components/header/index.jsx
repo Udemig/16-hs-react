@@ -3,19 +3,23 @@ import { CiSearch } from "react-icons/ci";
 import { Link, useNavigate } from "react-router-dom";
 import { IoIosVideocam } from "react-icons/io";
 import { FaBell } from "react-icons/fa";
+import { useState } from "react";
 
 const Header = ({ toggleSidebar }) => {
   const navigate = useNavigate();
+
+  // inputun içindeki yazı
+  const [text, setText] = useState("");
 
   // form gönderilince kullanıcıyı arama sayfasına yönlendir
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // inputun içine yazılan yazıya eriş
-    const text = e.target[0].value;
+    const query = text.trim();
+    if (!query) return;
 
-    // results sayfasına yönlendir
-    navigate(`/results?search_query=${text}`);
+    // results sayfasına yönlendir (özel karakterler otomatik encode edilir)
+    navigate(`/results?${new URLSearchParams({ search_query: query })}`);
   };
 
   return (
@@ -38,6 +42,8 @@ const Header = ({ toggleSidebar }) => {
           <div className="flex flex-1">
             <input
               type="text"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
               placeholder="Ara"
               className="w-full bg-[#121212] border border-gray h-10 px-4 text-white focus:border-blue-500 outline-none rounded-l-full"
             />
