@@ -1,0 +1,20 @@
+{
+  "Header": {
+    "orders": "Orders",
+    "cart": "Cart",
+    "search": "Search products or categories...",
+    "search-button": "Search"
+  },
+  "Metadata": {
+    "title": "MANAV | Fresh Produce",
+    "description": "Organic and fresh fruits, vegetables and grocery products"
+  },
+  "Footer": {
+    "rights": "Manav Market © {year} All Rights Reserved"
+  },
+  "LocaleSwitcher": {
+    "tr": "Turkish",
+    "de": "German",
+    "en": "English"
+  }
+}

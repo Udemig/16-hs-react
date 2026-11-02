@@ -1,0 +1,20 @@
+{
+  "Header": {
+    "orders": "Bestellungen",
+    "cart": "Warenkorb",
+    "search": "Produkte oder Kategorien suchen...",
+    "search-button": "Suchen"
+  },
+  "Metadata": {
+    "title": "MANAV | Frisches Obst & Gemüse",
+    "description": "Bio- und frische Obst-, Gemüse- und Supermarktprodukte"
+  },
+  "Footer": {
+    "rights": "Manav Market © {year} Alle Rechte vorbehalten"
+  },
+  "LocaleSwitcher": {
+    "tr": "Türkisch",
+    "de": "Deutsch",
+    "en": "Englisch"
+  }
+}

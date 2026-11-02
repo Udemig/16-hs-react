@@ -1,0 +1,20 @@
+{
+  "Header": {
+    "orders": "Sipariş",
+    "cart": "Sepet",
+    "search": "Ürün veya kategori ara...",
+    "search-button": "Ara"
+  },
+  "Metadata": {
+    "title": "MANAV | Taze Manav Ürünleri",
+    "description": "Organik ve taze meyve, sebze ve market ürünleri"
+  },
+  "Footer": {
+    "rights": "Manav Market © {year} Tüm Hakları Saklıdır"
+  },
+  "LocaleSwitcher": {
+    "tr": "Türkçe",
+    "de": "Almanca",
+    "en": "İngilizce"
+  }
+}
